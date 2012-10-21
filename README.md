@@ -6,6 +6,8 @@ pythoner.net
 <http://pythoner.net>是TY在10年用django(1.3)开发,现正式开放源代码
 欢迎大家Fork
 
+### 代码整理中,稍后奉上...
+
 
 新特性
 ------
