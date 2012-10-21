@@ -3,7 +3,7 @@ pythoner.net
 
 简介
 ---
-[pythoner.net]<http://pythoner.net>是TY在10年用django(1.3)开发,现正式开放源代码
+<http://pythoner.net>是TY在10年用django(1.3)开发,现正式开放源代码
 欢迎大家Fork
 
 
