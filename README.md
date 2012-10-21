@@ -29,8 +29,8 @@ pythoner.net
 pass
 
 ### html文件命名
-被包含的文件通常以name.inc.html命名,如:``` paginator.inc.html ```
-标签模板文件通常以name.tag.html命名,如:``` wiki_click.tag.html ```
-用于现实列表的文件通常以name_list.html命名,如:``` wiki_list.html ```
++ 被包含的文件通常以name.inc.html命名,如:``` paginator.inc.html ```
++ 标签模板文件通常以name.tag.html命名,如:``` wiki_click.tag.html ```
++ 用于现实列表的文件通常以name_list.html命名,如:``` wiki_list.html ```
 
 
