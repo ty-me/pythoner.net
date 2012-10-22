@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+<head>
+<title>JQuery Corner Demo</title>
+<link rel="stylesheet" type="text/css" media="screen" href="../jq.css" />
+<style type="text/css">
+body, div, h1, .desc { font-family: 'trebuchet ms', verdana, arial; margin: 0; padding: 0 }
+body { margin: 0; padding: 0; font-size: small; }
+h1 { padding: 10px; margin: 0; font-size: large }
+h2 { padding: 10px; background-color: #ddd; color: black; margin: 0; font-size: small; font-weight: normal }
+#main { background: #fff; padding: 10px }
+
+div.section { clear: left; }
+div.section h1 { padding: 20px 20px 0 20px }
+div.section h2 { background: #fff; padding: 1px 20px;  }
+div.demo, div.inner { color: #000; text-align: center; font-family: verdana, arial, sans-serif;}
+div.demo  { float: left; width: 18em; padding: 20px; margin: 1em; background: #6af; }
+div.inner { margin: 0; background: #ffc; padding: 10px; border:0; zoom:1;}
+div.outer { float: left; margin: 15px; background: #c82; padding: 8px; width: 22em }
+div.fun   { margin: 2px; }
+div#readyTest { background-color: #6af; float: right; padding: 10px; height: 20px }
+
+#abs { position: absolute; width: 200px; background: #ffa;
+    padding: 5px; margin: 8px; top: 0; right: 0; text-align: center }
+
+/* fixed height/width testing */
+.box  { background-color: #6af; padding: 15px; text-align: center; margin: 25px }
+#box1 { zoom:1 }                                       /* fluid (zoom for layout) */
+#box2 { height: 150px;  }                              /* fixed height */
+#box3 { width:  300px; margin:auto }                   /* fixed width */
+#box4 { height: 150px; width: 300px; margin:auto }     /* fixed height and width */
+
+div.plain  { background-color: #6af; text-align: center; }
+b { color: #f44 }
+
+#twitter { float:right; right: 20px; }
+#twitter a { text-decoration: none; font-family: arial; vertical-align: top }
+#twitter img { border: none; float: left }
+
+div.desc { margin: 10px }
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.corner.js?v2.11"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.corner.js"></script>
+<script type="text/javascript">
+    // test auto-ready logic - call corner before DOM is ready
+    $('#readyTest').corner();
+    
+    $(function(){
+		$('#dynCorner').click(function() {
+			$('#dynamic').corner();
+		});
+		$('#dynUncorner').click(function() {
+			$('#dynamic').uncorner();
+		});
+	
+        $('div.inner').wrap('<div class="outer"></div>');
+        $('p').wrap("<code></code>");
+
+        $('div.demo, div.inner').each(function() {
+            var t = $('p', this).text();
+            eval(t);
+        });
+
+        // fixed/fluid tests
+        $("div.box, div.plain").corner();
+        $("#abs").corner("cc:#08e");
+		
+		$('.myCorner').corner();
+    });
+</script>
+</head>
+<body>
+
+<h1 id="banner"><a id="backnav" href="..">&lsaquo;&lsaquo; home</a>jQuery Corner Demo</h1>
+<h2>
+<div id="twitter">
+<a href="http://twitter.com/malsup">
+<img src="../images/twitter-gray.jpg" alt="Twitter.com"/>
+<em>Updates posted<br>on twitter</em>
+</a>
+</div>
+This plugin was originally written by <a href="http://methvin.com/jquery/jq-corner.html">Dave Methvin</a>.<br />
+
+    Dave and I collaborated on several improvements and the project is now
+    <a href="http://github.com/malsup/corner/tree/master">hosted on github</a>.<br />
+    The most recent version is also available here:  <a href="http://github.com/malsup/corner/raw/master/jquery.corner.js?v2.09">jquery.corner.js</a>.
+</h2>
+
+<div id="abs">Absolute Position</div>
+
+<div class="desc">
+It's important to understand that this corner plugin is pulling off its magic by adding more elements to the page.  Specifically, it adds div "strips" to the item to be cornered and sets a solid background color on these strips in order to hide the actual corners of the real item.  So if you step back and look at the cornered element, think of there being solid colored divs hiding the true squared off corners of the item you wish to be changed.  This helps you understand the inherent limitations of this small plugin.  It's best suited for rounding off block-level elements (divs, paragraphs, etc) and may present more challenges when trying to round off inline elements (spans, anchors, etc).  
+</div>
+
+<div class="desc">
+Recently I added support for native <em>border-radius</em> rounding in browsers that support it (Opera 10.5+, Firefox, Safari, and Chrome).  So in those browsers the plugin simply sets a css property on the element.  But in IE, we'll have to wait for version 9 before that is supported.  And for all browsers, choosing a pattern other than "round" requires the use of the "div stips" method.
+</div>
+
+<div id="main">
+    <div id="readyTest">
+        Auto-Ready!
+    </div>
+    <div class="section">
+        <h1>Available Patterns</h1>
+
+        <h2>The default pattern is <code>round</code></h2>
+    </div>
+    <div class="demo"><h1>Round</h1> <p>$(this).corner();</p></div>
+    <div class="demo"><h1>Bevel</h1> <p>$(this).corner("bevel");</p></div>
+    <div class="demo"><h1>Notch</h1> <p>$(this).corner("notch");</p></div>
+
+    <div class="demo"><h1>Bite</h1>  <p>$(this).corner("bite");</p></div>
+    <div class="demo"><h1>Cool</h1>  <p>$(this).corner("cool");</p></div>
+    <div class="demo"><h1>Sharp</h1> <p>$(this).corner("sharp");</p></div>
+    <div class="demo"><h1>Slide</h1> <p>$(this).corner("slide");</p></div>
+
+    <div class="demo"><h1>Jut</h1>   <p>$(this).corner("jut");</p></div>
+    <div class="demo"><h1>Curl</h1>  <p>$(this).corner("curl");</p></div>
+    <div class="demo"><h1>Tear</h1>  <p>$(this).corner("tear");</p></div>
+    <div class="demo"><h1>Fray</h1>  <p>$(this).corner("fray");</p></div>
+
+    <div class="demo"><h1>Wicked</h1><p>$(this).corner("wicked");</p></div>
+    <div class="demo"><h1>Sculpt</h1><p>$(this).corner("sculpt");</p></div>
+    <div class="demo"><h1>Long</h1>  <p>$(this).corner("long");</p></div>
+    <div class="demo"><h1>Dog Ear</h1><p>$(this).corner("dog");</p></div>
+
+    <div class="demo"><h1>Dog2</h1><p>$(this).corner("dog2");</p></div>
+    <div class="demo"><h1>Dog3</h1><p>$(this).corner("dog3");</p></div>
+    <div class="demo"><h1>Dogfold<sup>*</sup></h1><p>$(this).corner("dogfold");</p></div>
+    <div class="demo"><h1>Bevelfold<sup>*</sup></h1><p>$(this).corner("bevelfold");</p></div>
+
+    <div class="demo"><h1>Steep</h1><p>$(this).corner("steep");</p></div>
+    <div class="demo"><h1>InvSteep</h1><p>$(this).corner("invsteep");</p></div>
+	<div style="clear:left">* Fold lines are not supported in Internet Explorer for pages rendered in quirksmode.<br>
+	* Fold lines are only supported on top corners in Internet Explorer, unless running in IE8 standards-mode.</div>
+    <div class="section">
+        <h1>Choose Your Corner</h1>
+
+        <h2>Use <code>top, bottom, left, right, tl, tr, bl, br</code> to identify which corner to style</h2>
+    </div>
+    <div class="demo"><h1>Top Bevel</h1>        <p>$(this).corner("bevel top");</p></div>
+    <div class="demo"><h1>Top-Left Bite</h1>    <p>$(this).corner("bite tl");</p></div>
+
+    <div class="demo"><h1>Round Bottom</h1>     <p>$(this).corner("bottom");</p></div>
+    <div class="demo"><h1>Left Notch</h1><p>$(this).corner("notch left");</p></div>
+    <div class="demo"><h1>Top-Right Dog Ear</h1><p>$(this).corner("dog tr");</p></div>
+    <div class="demo"><h1>Top-Left, Bottom-Right Cool</h1><p>$(this).corner("cool tl br");</p></div>
+
+    <div class="demo"><h1>Right Bevelfold</h1><p>$(this).corner("bevelfold right");</p></div>
+
+    <div class="section">
+        <h1>Specify Size</h1>
+        <h2>Include a px value to specify the corner size</h2>
+    </div>
+    <div class="demo"><h1>Round 30px</h1> <p>$(this).corner("30px");</p></div>
+
+    <div class="demo"><h1>Round 5px</h1>  <p>$(this).corner("5px");</p></div>
+    <div class="demo"><h1>Cool 20px</h1>  <p>$(this).corner("cool 20px");</p></div>
+    <div class="demo"><h1>Sharp 20px</h1> <p>$(this).corner("sharp 20px");</p></div>
+    <div class="demo"><h1>Bite 30px</h1>  <p>$(this).corner("bite 30px");</p></div>
+
+    <div class="demo"><h1>Wicked 20px</h1><p>$(this).corner("wicked 20px");</p></div>
+    <div class="demo"><h1>Dog 20px</h1><p>$(this).corner("dog 20px");</p></div>
+    <div class="demo"><h1>Dog2 30px</h1><p>$(this).corner("dog2 30px");</p></div>
+    <div class="demo"><h1>Dog3 30px</h1><p>$(this).corner("dog3 30px");</p></div>
+
+    <div class="section">
+        <h1>Mix and Match</h1>
+        <h2>Chain corner calls to achieve combined effects</h2>
+    </div>
+    <div class="demo"><h1>Round and Bevel</h1><p>$(this).corner( "bottom").corner("top bevel");</p></div>
+    <div class="demo"><h1>Round and Notch</h1><p>$(this).corner( "br top").corner("notch bl 20px");</p></div>
+
+    <div class="demo"><h1>Crazy</h1>          <p>$(this).corner("jut tl 20px").corner("dog tr 20px").corner("bite bl 15px").corner("notch br");</p></div>
+
+    <div class="section">
+        <h1>Adornment</h1>
+        <h2>Effects Using Nested Cornered Elements (Thanks to Kevin Scholl for this idea)</h2>
+    </div>
+    <div class="inner"><h1>Round</h1><p>$(this).corner("round 8px").parent().css('padding', '4px').corner("round 10px")</p></div>
+
+    <div class="inner"><h1>Round</h1><p>$(this).corner("round 8px").parent().css('padding', '8px').corner("round 14px")</p></div>
+    <div class="inner"><h1>Round</h1><p>$(this).corner("round 14px").parent().css('padding', '15px').corner("round 14px")</p></div>
+    <div class="inner"><h1>Bevel</h1><p>$(this).corner("bevel 8px").parent().css('padding', '5px').corner("bevel 10px")</p></div>
+    <div class="inner"><h1>Bevel</h1><p>$(this).corner("bevel 8px").parent().css('padding', '10px').corner("bevel 14px")</p></div>
+    <div class="inner"><h1>Bite</h1><p>$(this).corner("bite 10px").parent().css('padding', '8px').corner("bite 10px")</p></div>
+
+    <div class="inner"><h1>Bite</h1><p>$(this).corner("bite 20px").parent().css('padding', '15px').corner("bite 20px")</p></div>
+    <div class="inner"><h1>Fray</h1><p>$(this).corner("fray 10px").parent().css('padding', '10px').corner("fray 10px")</p></div>
+    <div class="inner"><h1>Tear</h1><p>$(this).corner("tear 20px").parent().css('padding', '15px').corner("tear 20px")</p></div>
+    <div class="inner"><h1>Notch</h1><p>$(this).corner("notch 4px").parent().css('padding', '4px').corner("notch 4px")</p></div>
+    <div class="inner"><h1>Notch</h1><p>$(this).corner("notch 10px").parent().css('padding', '12px').corner("notch 10px")</p></div>
+
+    <div class="inner"><h1>Sharp</h1><p>$(this).corner("sharp 10px").parent().css('padding', '8px').corner("sharp 10px")</p></div>
+    <div class="inner"><h1>Cool</h1><p>$(this).corner("cool 20px").parent().css('padding', '10px').corner("cool 10px")</p></div>
+    <div class="inner"><h1>Bite/Round</h1><p>$(this).corner("round 20px").parent().css('padding', '8px').corner("bite 10px")</p></div>
+    <div class="inner"><h1>Round/Bite</h1><p>$(this).corner("bite 15px").parent().css('padding', '8px').corner("round 10px")</p></div>
+    <div class="inner"><h1>Fray/Tear</h1><p>$(this).corner("tear 20px").parent().css('padding', '8px').corner("fray 10px")</p></div>
+
+    <div class="inner"><h1>Jut/Sculpt</h1><p>$(this).corner("sculpt 20px").parent().css('padding', '8px').corner("jut 10px")</p></div>
+    <div class="inner"><h1>Bevel/Notch</h1><p>$(this).corner("notch 20px").parent().css('padding', '8px').corner("bevel 15px")</p></div>
+    <div class="inner"><h1>Notch/Bite</h1><p>$(this).corner("bite 15px").parent().css('padding', '10px').corner("notch 10px")</p></div>
+    <div class="inner"><h1>Bite/Notch</h1><p>$(this).corner("notch 15px").parent().css('padding', '15px').corner("bite 20px")</p></div>
+    <div class="inner"><h1>Curl/Long</h1><p>$(this).corner("long 15px").parent().css('padding', '15px').corner("curl 15px")</p></div>
+
+    <div class="section">
+        <h1>Pick Your Colors (or keep your borders)</h1>
+        <h2>By default, corners are created using transparency and the background color of the parent element. When this is
+        not what you want you can specify the colors that should be used.<br />
+        <pre>
+        corner color: cc:#xxx
+        strip color:  sc:#xxx
+        keep borders: keep
+        </pre>
+        </h2>
+    </div>
+
+    <div class="demo"><h1>normal corners</h1>  <p>$(this).corner();</p></div>
+    <div class="demo"><h1>colored corners</h1> <p>$(this).corner("cc:#009");</p></div>
+    <div class="demo"><h1>colored strips</h1>  <p>$(this).corner("sc:#009");</p></div>
+    <div class="demo" style="border: 1px solid #000"><h1>&quot;keep&quot; border</h1>  <p>$(this).corner("keep");</p></div>
+
+    <div class="demo" style="border: 1px solid #009"><h1>cc:#009 notch</h1> <p>$(this).corner("cc:#009 notch");</p></div>
+    <div class="demo" style="border: 8px solid #009"><h1>cc:#009 keep notch</h1> <p>$(this).corner("keep notch cc:#009");</p></div>
+    <div class="demo" style="border: 8px solid #009"><h1>cc:#009 keep bite</h1> <p>$(this).corner("bite keep 15px cc:#009");</p></div>
+    <div class="demo" style="border: 2px solid #009"><h1>cc:#009 cool keep</h1> <p>$(this).corner("cc:#009 cool keep 20px");</p></div>
+
+    <div class="section">
+        <h1>Fun Stuff</h1>
+        <h2>Interesting Side Effects</h2>
+    </div>
+    <div class="demo fun" style="margin-left: 15px"><h1>Left</h1> <p>$(this).corner("sharp tr br 20px");</p></div>
+    <div class="demo fun"><h1>Right</h1><p>$(this).corner("sharp tl bl 20px");</p></div>
+
+    <!--<div class="inner fun"><h1>TV Set</h1><p>$(this).corner("round 30px").parent().css('padding', '18px').corner("sharp 10px")</p></div>-->
+
+    <div class="section">
+        <h1>Fixed or Fluid? No problem!</h1>
+        <h2>The following divs have a combination of fixed and fluid widths and heights</h2>
+    </div>
+
+    <div id="box1" class="box">
+        <strong>Height: Fluid<br />Width:  Fluid<br /></strong>
+
+        lorem ipsum dolor sit amet consectetuer adipiscing elit sed lorem leo lorem leo consectetuer adipiscing elit
+    </div>
+    <p />
+    <div id="box2" class="box">
+        <strong>Height: Fixed<br />Width:  Fluid<br /></strong>
+        lorem ipsum dolor sit amet consectetuer adipiscing elit sed lorem leo lorem leo consectetuer adipiscing elit
+        sed lorem leo rhoncus sit amet elementum at bibendum at, eros cras at mi et tortor egestas vestibulum
+        sed cras at mi vestibulum phasellus sed felis sit amet orci dapibus semper.
+    </div>
+    <p />
+    <div id="box3" class="box">
+
+        <strong>Height: Fluid<br />Width:  Fixed<br /></strong>
+        lorem ipsum dolor sit amet consectetuer adipiscing elit sed lorem leo lorem leo consectetuer adipiscing elit
+    </div>
+    <p />
+    <div id="box4" class="box">
+        <strong>Height: Fixed<br />Width:  Fixed<br /></strong>
+        lorem ipsum dolor sit amet consectetuer adipiscing elit sed lorem leo lorem leo consectetuer adipiscing elit
+    </div>
+
+    <div class="section">
+        <h1>Plain Styling</h1>
+        <h2>The following divs test normal fluid content with only the styles shown</h2>
+    </div>
+
+    <div class="plain" style="padding: 30px">
+        <strong>Round<br /></strong>
+
+        This is a plain div with a 30px padding
+    </div>
+    <p />
+    <div class="plain" style="padding: 0">
+        <strong>Round<br /></strong>
+        This is a plain div with a 0px padding
+    </div>
+    <p />
+    <div class="plain" style="padding: 30px; margin: 30px">
+
+        <strong>Round<br /></strong>
+        This is a plain div with a 30px padding and 30px margin
+    </div>
+
+    <div class="section">
+        <h1>Uncornering</h1>
+        <h2>The following shows dynamic cornering/uncornering</h2>
+		<pre><code class="mix">// script used
+...
+$('#dynamic').corner();
+...
+$('#dynamic').uncorner();
+
+</code></pre>
+		<p><button id="dynCorner">Corner</button>  <button id="dynUncorner">Uncorner</button>
+    </div>
+
+    <div id="dynamic" style="width: 200px; padding: 30px; background-color: #6af">
+        <strong>Uncornering Demo<br /></strong>
+        This div has an id of #dynamic
+    </div>
+
+    <p />
+
+    <div class="section">
+        <h1>Using Markup Metadata Instead of Options</h1>
+        <h2>The following shows how to embed the corner options in your markup instead of passing them into the <code>corner</code> function</h2>
+		<pre><code class="mix">// markup
+&lt;div class="myCorner" <b>data-corner="left 20px"</b>&gt;Metadata Example&lt;/div&gt;
+
+// script - no options passed to corner function
+$('.myCorner').corner();
+</code></pre>
+		<p><div class="myCorner" data-corner="left 20px" style="width: 200px; padding: 30px; background-color: #6af">Metadata Example</div>
+    </div>
+
+	<br />
+	
+</div> <!-- main -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+_uacct = "UA-850242-2";
+urchinTracker();
+
+</script>
+</body>
+</html>
