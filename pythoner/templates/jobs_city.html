@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}发布招聘信息{% endblock %}
+{% load cache %}
+{% cache 7200 job_city %}
+{% block main %}
+    <h1>第一步，请选城市</h1>
+    {% for entry in citys %}
+        <p>
+            <h3>{{ entry.province }}</h3>
+        {% for city in entry.citys %}
+            <a href="/jobs/add/?city_name={{ city }}">{{ city }}</a> |
+         {% endfor %}
+        </p>
+    {% endfor %}
+{% endblock %}
+{% block sidebar %}
+    {% include 'jobs_ads.inc.html' %}
+{% endblock %}
+{% endcache %}

@@ -1,0 +1,9 @@
+<ul>
+    <h3>最受关注</h3>
+    {% for job in jobs %}
+        <li>
+            <a href="{{ job.get_absolute_url }}" title="{{ job.title }}">
+            {{ job.company|slice:"5" }}-{{ job.title|slice:"9" }}</a>({{ job.click_times }})
+        </li>
+    {% endfor %}
+</ul>
