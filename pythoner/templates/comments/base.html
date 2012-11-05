@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{% block title %}{% endblock %}</title>
+<style type="text/css">
+#content{
+    width:920px;
+    margin:0 auto;
+    border-bottom:4px solid #3975CE;
+    border-top:4px solid #3975CE;
+}
+</style>
+</head>
+<body>
+  <div id="content">
+  {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

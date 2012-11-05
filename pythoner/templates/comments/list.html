@@ -1,0 +1,29 @@
+<div id='response'>
+<h3>网友的回应({{ comment_count }})</h3>
+{% for comment in comment_list %}
+    <div class="item">
+        <div class="meta">
+            <div class="avatar">
+                {% if comment.user_id %}
+                    <a href="/home/{{ comment.user_id }}/">
+                {% else %}
+                    <a href="{{ comment.user_url }}" title="{{ comment.user_url }}" target="_blank">
+                {% endif %}
+                    <img src="/static/user/icon_{{ comment.user.get_profile.photo|default:"none.jpg" }}">
+                </a>
+            </div>
+            &nbsp; 来自：
+                {% if comment.user_id %}
+                    <a href="/home/{{ comment.user_id }}/">
+                {% else %}
+                    <a href="{{ comment.user_url }}" title="{{ comment.user_url }}" target="_blank">
+                {% endif %}
+            {{ comment.user.get_profile.screen_name|default:comment.user_name }}</a>
+            @ {{ comment.submit_date }}
+            <div class="content">{% autoescape off %}{{ comment.comment }}{% endautoescape %}</div>
+        </div>
+        <div class="clear"></div>
+    </div><!-- end item -->
+{% endfor %}
+</div><!-- end response -->
+

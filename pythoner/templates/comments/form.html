@@ -1,0 +1,61 @@
+<style>
+#id_name,#id_email,#id_url{width:250px;}
+div.please-login{border:1px solid #ccc;padding:2px 10px;text-align:right;background:#ffc;}
+form.comment #id_comment{width:640px;}
+form.comment label{font-weight:800;margin:0;padding:0}
+form.comment p{margin:0;padding:0;text-indent:100px;}
+form.comment p.submit{text-align:right;}
+form.comment .author img{height:25px;width:25px;border:1px solid #aaa;margin:1px;padding:1px;float:left;}
+form.comment div.text{width:600px;float:left;margin:0 0 0 10px;padding:0;}
+input{width:auto;}
+p.submit input{margin:8px;}
+</style>
+<link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css">
+<script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
+<script type="text/javascript" src="/static/js/kindeditor/lang/zh_CN.js"></script>
+<script>
+        var editor;
+        KindEditor.ready(function(K) {
+                editor = K.create('#id_comment', {
+                        resizeType : 2,
+                        allowImageUpload:false,
+                        height:'200px',
+                        width:'650px',
+                        fontSizeTable:'14px',
+                        filterMode :true,
+                        items:['source','code','fullscreen'],
+                        htmlTags:{
+                            'code,pre' : ['']
+                        }
+
+                });
+        });
+</script>
+    {% if request.user.is_authenticated %}
+    {% load comments %}
+    <form class="comment" action="{% comment_form_target %}" method="POST">{% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% for field in form %}
+            {% if field.is_hidden %}{{ field }}{% endif %}
+        {% endfor %}
+            {% if request.user.is_anonymous %}
+                <p><label>称呼</label>{{ form.name }}</p>
+                <p><label>Email</label>{{ form.email }}</p>
+                <p><label>站点</label>{{ form.url }}</p>
+                <p>{{ form.comment }}</p>
+            {% else %}
+                <div class="author">
+                    <a href="/home/{{ request.user.id }}/">
+                        <img src="/static/user/icon_{{ request.user.get_profile.photo|default:"none.jpg" }}"
+                             alt="{{ request.user.get_profile.screen_name }}">
+                    </a>
+                </div>
+                <div class="text">{{ form.comment }}</div>
+                <div class="clear"></div>
+            {% endif %}
+            <p class="submit"><input class="button" type="submit" value="写上去！" style="width:80px;"></p>
+    </form>
+    {% else %}
+        <div class="please-login">你尚未登录，请先<a href="/accounts/login/">登录</a>/<a href="/accounts/register/">注册</a>
+            后发表回复。</div>
+    {% endif %}
