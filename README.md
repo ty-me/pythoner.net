@@ -2,7 +2,7 @@
 
 简介
 ---
-<http://pythoner.net>是TY在10年用django(1.3)开发,现正式开放源代码.欢迎Fork
+<http://pythoner.net>是TY在11年用django(1.3)开发,现正式开放源代码.欢迎Fork
 
 ----
 ### 代码整理中,稍后奉上...
@@ -22,19 +22,13 @@ Version
 + PIL
 + DjangoVerifyCode  0.2.2
 
-编码规范
--------
-为便于更多人了解和使用源代码,请将可能依据以下规范编写代码.
-
-### 模块导入
-请遵循一下优先级导入模块：python内置模块>第三方模块>django内置模块>自定义模块
-想到一点写一点吧
-
-### 函数命名
-...
-
-### URL规则
-...
+开发环境配置
+------------
++ 运行scripts目录下的setupenv.sh文件，将会自动安装配置所需环境
++ 完成后设置本地环境变量:export site=local
++ 修改settings.py中数据库的相关配置信息
++ python manage.py syncdb 生成数据表结构
++ python manage.py runserver 8080
 
 ### html文件命名
 + 被包含的文件通常以name.inc.html命名,如:``` paginator.inc.html ```
