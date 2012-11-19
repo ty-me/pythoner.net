@@ -1,0 +1,48 @@
+{% extends "home_base.html" %}
+{% block title %}写新笔记{% endblock %}
+{% block h1 %}{{ title }}{% endblock %}
+{% block main %}
+<style>
+input,textarea{ width:100%;}
+</style>
+<link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css">
+<script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
+<script type="text/javascript" src="/static/js/kindeditor/lang/zh_CN.js"></script>
+<script>
+        var editor;
+        KindEditor.ready(function(K) {
+                editor = K.create('#id_content', {
+                        resizeType : 2,
+                        allowImageUpload:false,
+                        height:'500px',
+                        fontSizeTable:'14px',
+                        filterMode :true,
+                        items:[
+                            'source', '|', 'undo', 'redo', '|', 'template',
+                            'plainpaste', '|', 'insertorderedlist', 'insertunorderedlist', 'subscript',
+                            'superscript', 'clearhtml', 'quickformat', '|',
+                            'formatblock', '|', 'forecolor', 'hilitecolor', 'bold',
+                            'italic', 'underline', 'removeformat','|','image','map',
+                            'table', '|','fullscreen','/', 'code',
+                            'link', 'unlink', '|', 'about'
+                        ],
+                        htmlTags:{
+                            table: ['border', 'cellspacing', 'cellpadding', 'width', 'height', 'align'],
+                            'td,th': ['align', 'valign', 'width', 'height', 'colspan', 'rowspan', 'bgcolor'],
+                            a : ['href'],
+                            img : ['src', 'width', 'height'],
+                            'ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : ['align'],
+                            pre : ['class'],
+                            p: ['.color,align'],
+                            span: ['.color'],
+                            'hr,br,tbody,tr,strong,b,sub,sup,em,i,u,strike' : []
+                        }
+
+                });
+        });
+</script>
+        <form action="" method="POST">
+            {{ form.as_p }}
+        <p class="submit"><input type="submit" value="提交保存" class="button" style="width:80px"></p>
+        </form>
+{% endblock %}

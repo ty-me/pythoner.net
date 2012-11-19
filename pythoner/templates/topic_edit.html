@@ -1,0 +1,66 @@
+﻿{% extends 'base.html' %}
+{% block title %}编辑{% endblock %}
+{% block main %}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('form').validate({
+		rules:{
+			title:{required:true,minlength:3,maxlength:50},
+			content:{required:true,minlength:3}
+		},
+		messages:{
+			title:{required:'.',minlength:'.',maxlength:'.'},
+			content:{required:'.',minlength:'.'}
+		}
+		
+	});
+});
+</script>
+<style>
+#id_title{width:660px;}
+</style>
+<link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css">
+<script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
+<script type="text/javascript" src="/static/js/kindeditor/lang/zh_CN.js"></script>
+<script>
+        var editor;
+        KindEditor.ready(function(K) {
+                editor = K.create('#id_content', {
+                        resizeType : 2,
+                        allowImageUpload:false,
+                        height:'500px',
+                        width:'680px',
+                        fontSizeTable:'14px',
+                        filterMode :true,
+                        items:[
+                            'source', '|',
+                            '|', 'insertorderedlist', 'insertunorderedlist', 'subscript',
+                            'superscript', 'clearhtml','|',
+                            '|', 'forecolor', 'bold',
+                            'italic', 'underline', 'removeformat','|','map',
+                             '|','code',
+                            'link', 'unlink', '|', 'fullscreen'
+                        ],
+                        htmlTags:{
+                            a : ['href'],
+                            img : ['src', 'width', 'height'],
+                            pre : ['class'],
+                            span: ['.color'],
+                            'br,strong,b,sub,sup,em,i,u,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : []
+                        }
+
+                });
+        });
+</script>
+{% load topic_tags %}
+    <h1>{{ title }}</h1>
+     <form action="{{ form_action }}" method="POST">
+            {{ form.as_p }}
+            <div style="text-align:right;">
+                <input type="submit" name="submit" value="写好了！" class="button" style="width:90px;">
+            </div>
+    </form>
+{% endblock %}
+{% block sidebar %}
+    {% get_latest_topic %}
+{% endblock %}

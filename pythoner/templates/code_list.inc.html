@@ -1,0 +1,17 @@
+{% load home_tags %}
+<ul id="code-list" class="list">
+    {% for entry in entrys.object_list %}
+        <li>
+            <span>[{{ entry.category }}]</span>
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.description|slice:"50" }}" class="title"> {{ entry.title }} </a>
+            <span class="time">{{ entry.sub_time|how_long }}</span>
+            <span class="author">By {{ entry.author.get_profile.screen_name }}</span>
+            <span class="count">{{ entry.click_times }}阅</span>
+            <div class="clear"></div>
+        </li>
+    {% empty %}
+        <li class="none-entry">没有找到可显示的记录</li>
+    {% endfor %}
+    <div class="more">{% include 'paginator.inc.html' %}</div>
+    <div class="clear"></div>
+</ul>

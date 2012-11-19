@@ -1,0 +1,44 @@
+{% extends "home_base.html" %}
+{% block keyworld %},{{ user.get_profile.screen_name }}{% endblock %}
+{% block title %}{{ user.get_profile.screen_name }}发起的话题{% endblock %}
+{% block description %}{{ user.get_profile.screen_name }}在pythoner.net讨论栏目发起的话题{% endblock %}
+{% block h1 %}{{ user.get_profile.screen_name }}的话题{% endblock %}
+{% load topic_tags %}
+{% block main %}
+<div>
+    {% load comments %}
+    {% load home_tags %}
+    <ul id="topic-list" class="list">
+	{% if request.user == user %} <div class="action"><a href="/topic/add/">+ 发起讨论</a> </div>{% endif %}
+    {% for entry in entrys.object_list %}
+    {% get_comment_count for topic.topic entry.id as comment_count %}
+        <li class="{% if comment_count == 0 %}zero{% endif %}">
+            <a class="title" href="{{ entry.get_absolute_url }}">{{ entry.title|cut:" "|slice:"35" }}</a>
+            <span class="count">{{ comment_count }}评  {{ entry.click_times }}阅</span>
+            <span class="author">发表于{{ entry.sub_time|how_long }}</span>
+            <div class="clear"></div>
+        </li>
+    {% empty %}
+        <p style="text-align:center;">没有找到记录</p>
+    {% endfor %}
+    <div class="more">{% include 'paginator.inc.html' %}</div>
+    <div class="clear"></div>
+    </ul>
+</div>
+{% endblock %}
+{% block sidebar %}
+    <div class="blank"></div>
+    {% get_latest_topic %}
+    <h2>赞助商链接</h2>
+    <script type="text/javascript"><!--
+    google_ad_client = "ca-pub-8602112008660595";
+    /* pythoner250&#42;250文字广告 */
+    google_ad_slot = "8037771748";
+    google_ad_width = 250;
+    google_ad_height = 250;
+    //-->
+    </script>
+    <script type="text/javascript"
+    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
+{% endblock %}

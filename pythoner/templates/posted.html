@@ -1,0 +1,6 @@
+{% extends "comments/base.html" %}
+{% block title %}操作成功{% endblock %}
+{% block content%}
+  <h1>^_^  {{ msg|default:'数据提交成功' }}</h1>
+  <a href="javascript:history.go(-1);">点我返回</a>
+{% endblock %}

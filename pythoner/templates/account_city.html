@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load cache %}
+{% block main %}{% cache 7200 account_city %}
+    <h1>请选择你所在的城市</h1>
+    {% for entry in citys %}
+        <p>
+            <h3>{{ entry.province }}</h3>
+        {% for city in entry.citys %}
+            <a href="/home/city/?city_name={{ city }}">{{ city }}</a> |
+         {% endfor %}
+        </p>
+    {% endfor %}
+{% endcache %}{% endblock %}
+{% block sidebar %}
+    <ul>
+        <h2>海内存pythoner，天涯也比邻~~~</h2>
+        <li>选择你所在的城市，会有意外的惊喜等着你哦。</li>
+    </ul>
+    <ul><li><a href="/accounts/edit/">返回上页</a> </li></ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% load home_tags %}
+<ul class="user">
+    <h2>最近围观</h2>
+    {% for visitor in visitors %}
+        <li>
+            <a href="/home/{{ visitor.user.id }}/"
+               title="{{ visitor.user.get_profile.screen_name }} 在 {{ visitor.sub_time|how_long }}">
+                <img src="/static/user/icon_{{ visitor.user.get_profile.photo|default:"none.jpg" }}">
+                <em>{{ visitor.user.get_profile.screen_name }}</em>
+            </a>
+        </li>
+    {% empty %}
+        <span class="dark">暂时还没有访客</span>
+    {% endfor %}
+</ul>
+<div class="clear"></div>

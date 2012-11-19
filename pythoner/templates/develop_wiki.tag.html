@@ -1,0 +1,11 @@
+{% for wiki in wikis %}
+<div class="title">分享了笔记：<a href="{{ wiki.get_absolute_url }}">{{ wiki.title }}</a></div>
+<div class="remark"> 
+    {{ wiki|striptags|slice:"100" }}
+    {% if wiki.tag.count %}
+       -标签：{% for tag in wiki.tag.all %}{{ tag.name }} {% endfor %}
+    {% endif %}
+</div>
+    <div class="line"></div>
+{% endfor %}
+<div class="action"><a href="/wiki/add/">去分享我的笔记->></a> </div>

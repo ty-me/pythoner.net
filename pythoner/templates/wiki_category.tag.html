@@ -1,0 +1,13 @@
+<ul>
+<h2>板报分类</h2>
+    {% for category in category_list %}
+        <li>
+            <a href="{{ category.get_absolute_url }}" title="查看分类 {{ category }} 下的所有文章">
+                {{ category.name }}
+            </a>
+            <span class="dark"> ({{ category.entry_set.count }})</span>
+        </li>
+    {% empty %}
+        <li><center>无分类</center></li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<country>
+	<province name="直辖市">
+		<city name="北京"></city>
+		<city name="上海"></city>
+		<city name="天津"></city>
+		<city name="重庆"></city>
+	</province>
+
+	<province name="黑龙江省">
+		<city name="哈尔滨"></city>
+		<city name="齐齐哈尔"></city>
+		<city name="鸡西"></city>
+		<city name="鹤岗"></city>
+		<city name="双鸭山"></city>
+		<city name="大庆"></city>
+		<city name="伊春"></city>
+		<city name="佳木斯"></city>
+		<city name="七台河"></city>
+		<city name="牡丹江"></city>
+		<city name="黑河"></city>
+		<city name="绥化"></city>
+		<city name="大兴安岭地区"></city>
+	</province>
+
+	<province name="吉林省">
+		<city name="长春"></city>
+		<city name="吉林"></city>
+		<city name="四平"></city>
+		<city name="辽源"></city>
+		<city name="通化"></city>
+		<city name="白山"></city>
+		<city name="松原"></city>
+		<city name="白城"></city>
+		<city name="延边朝鲜族自治州"></city>
+	</province>
+
+	<province name="辽宁省">
+		<city name="沈阳"></city>
+		<city name="大连"></city>
+		<city name="鞍山"></city>
+		<city name="抚顺"></city>
+		<city name="本溪"></city>
+		<city name="丹东"></city>
+		<city name="锦州"></city>
+		<city name="营口"></city>
+		<city name="阜新"></city>
+		<city name="辽阳"></city>
+		<city name="盘锦"></city>
+		<city name="铁岭"></city>
+		<city name="朝阳"></city>
+		<city name="葫芦岛"></city>
+	</province>
+
+	<province name="山东省">
+		<city name="济南"></city>
+		<city name="青岛"></city>
+		<city name="淄博"></city>
+		<city name="枣庄"></city>
+		<city name="东营"></city>
+		<city name="烟台"></city>
+		<city name="潍坊"></city>
+		<city name="济宁"></city>
+		<city name="泰安"></city>
+		<city name="威海"></city>
+		<city name="日照"></city>
+		<city name="莱芜"></city>
+		<city name="临沂"></city>
+		<city name="德州"></city>
+		<city name="聊城"></city>
+		<city name="滨州"></city>
+		<city name="菏泽"></city>
+	</province>
+
+	<province name="山西省">
+		<city name="太原"></city>
+		<city name="大同"></city>
+		<city name="阳泉"></city>
+		<city name="长治"></city>
+		<city name="晋城"></city>
+		<city name="朔州"></city>
+		<city name="晋中"></city>
+		<city name="运城"></city>
+		<city name="忻州"></city>
+		<city name="临汾"></city>
+		<city name="吕梁"></city>
+	</province>
+
+	<province name="陕西省">
+		<city name="西安"></city>
+		<city name="铜川"></city>
+		<city name="宝鸡"></city>
+		<city name="咸阳"></city>
+		<city name="渭南"></city>
+		<city name="延安"></city>
+		<city name="汉中"></city>
+		<city name="榆林"></city>
+		<city name="安康"></city>
+		<city name="商洛"></city>
+	</province>
+
+	<province name="河北省">
+		<city name="石家庄"></city>
+		<city name="唐山"></city>
+		<city name="秦皇岛"></city>
+		<city name="邯郸"></city>
+		<city name="邢台"></city>
+		<city name="保定"></city>
+		<city name="张家口"></city>
+		<city name="承德"></city>
+		<city name="沧州"></city>
+		<city name="廊坊"></city>
+		<city name="衡水"></city>
+	</province>
+
+	<province name="河南省">
+		<city name="郑州"></city>
+		<city name="开封"></city>
+		<city name="洛阳"></city>
+		<city name="平顶山"></city>
+		<city name="安阳"></city>
+		<city name="鹤壁"></city>
+		<city name="新乡"></city>
+		<city name="焦作"></city>
+		<city name="济源"></city>
+		<city name="濮阳"></city>
+		<city name="许昌"></city>
+		<city name="漯河"></city>
+		<city name="三门峡"></city>
+		<city name="南阳"></city>
+		<city name="商丘"></city>
+		<city name="信阳"></city>
+		<city name="周口"></city>
+		<city name="驻马店"></city>
+	</province>
+
+	<province name="湖北省">
+		<city name="武汉"></city>
+		<city name="黄石"></city>
+		<city name="十堰"></city>
+		<city name="宜昌"></city>
+		<city name="襄樊"></city>
+		<city name="鄂州"></city>
+		<city name="荆门"></city>
+		<city name="孝感"></city>
+		<city name="荆州"></city>
+		<city name="黄冈"></city>
+		<city name="咸宁"></city>
+		<city name="随州"></city>
+		<city name="恩施土家族苗族自治州"></city>
+		<city name="仙桃"></city>
+		<city name="潜江"></city>
+		<city name="天门"></city>
+		<city name="神农架林区"></city>
+	</province>
+
+	<province name="湖南省">
+		<city name="长沙"></city>
+		<city name="株洲"></city>
+		<city name="湘潭"></city>
+		<city name="衡阳"></city>
+		<city name="邵阳"></city>
+		<city name="岳阳"></city>
+		<city name="常德"></city>
+		<city name="张家界"></city>
+		<city name="益阳"></city>
+		<city name="郴州"></city>
+		<city name="永州"></city>
+		<city name="怀化"></city>
+		<city name="娄底"></city>
+		<city name="湘西土家族苗族自治州"></city>
+	</province>
+
+	<province name="海南省">
+		<city name="海口"></city>
+		<city name="三亚"></city>
+		<city name="五指山"></city>
+		<city name="琼海"></city>
+		<city name="儋州"></city>
+		<city name="文昌"></city>
+		<city name="万宁"></city>
+		<city name="东方"></city>
+		<city name="定安县"></city>
+		<city name="屯昌县"></city>
+		<city name="澄迈县"></city>
+		<city name="临高县"></city>
+		<city name="白沙黎族自治县"></city>
+		<city name="昌江黎族自治县"></city>
+		<city name="乐东黎族自治县"></city>
+		<city name="陵水黎族自治县"></city>
+		<city name="保亭黎族苗族自治县"></city>
+		<city name="琼中黎族苗族自治县"></city>
+	</province>
+
+	<province name="江苏省">
+		<city name="南京"></city>
+		<city name="无锡"></city>
+		<city name="徐州"></city>
+		<city name="常州"></city>
+		<city name="苏州"></city>
+		<city name="南通"></city>
+		<city name="连云港"></city>
+		<city name="淮安"></city>
+		<city name="盐城"></city>
+		<city name="扬州"></city>
+		<city name="镇江"></city>
+		<city name="泰州"></city>
+		<city name="宿迁"></city>
+	</province>
+
+
+	<province name="江西省">
+		<city name="南昌"></city>
+		<city name="景德镇"></city>
+		<city name="萍乡"></city>
+		<city name="九江"></city>
+		<city name="新余"></city>
+		<city name="鹰潭"></city>
+		<city name="赣州"></city>
+		<city name="吉安"></city>
+		<city name="宜春"></city>
+		<city name="抚州"></city>
+		<city name="上饶"></city>
+	</province>
+
+	<province name="广东省">
+		<city name="广州"></city>
+		<city name="韶关"></city>
+		<city name="深圳"></city>
+		<city name="珠海"></city>
+		<city name="汕头"></city>
+		<city name="佛山"></city>
+		<city name="江门"></city>
+		<city name="湛江"></city>
+		<city name="茂名"></city>
+		<city name="肇庆"></city>
+		<city name="惠州"></city>
+		<city name="梅州"></city>
+		<city name="汕尾"></city>
+		<city name="河源"></city>
+		<city name="阳江"></city>
+		<city name="清远"></city>
+		<city name="东莞"></city>
+		<city name="中山"></city>
+		<city name="潮州"></city>
+		<city name="揭阳"></city>
+		<city name="云浮"></city>
+	</province>
+
+	<province name="广西省">
+		<city name="南宁"></city>
+		<city name="柳州"></city>
+		<city name="桂林"></city>
+		<city name="梧州"></city>
+		<city name="北海"></city>
+		<city name="防城港"></city>
+		<city name="钦州"></city>
+		<city name="贵港"></city>
+		<city name="玉林"></city>
+		<city name="百色"></city>
+		<city name="贺州"></city>
+		<city name="河池"></city>
+		<city name="来宾"></city>
+		<city name="崇左"></city>
+	</province>
+
+	<province name="云南省">
+		<city name="昆明"></city>
+		<city name="曲靖"></city>
+		<city name="玉溪"></city>
+		<city name="保山"></city>
+		<city name="昭通"></city>
+		<city name="丽江"></city>
+		<city name="思茅"></city>
+		<city name="临沧"></city>
+		<city name="楚雄彝族自治州"></city>
+		<city name="红河哈尼族彝族自治州"></city>
+		<city name="文山壮族苗族自治州"></city>
+		<city name="西双版纳傣族自治州"></city>
+		<city name="大理白族自治州"></city>
+		<city name="德宏傣族景颇族自治州"></city>
+		<city name="怒江傈僳族自治州"></city>
+		<city name="迪庆藏族自治州"></city>
+	</province>
+
+	<province name="贵州省">
+		<city name="贵阳"></city>
+		<city name="六盘水"></city>
+		<city name="遵义"></city>
+		<city name="安顺"></city>
+		<city name="铜仁地区"></city>
+		<city name="黔西南布依族苗族自治州"></city>
+		<city name="毕节地区"></city>
+		<city name="黔东南苗族侗族自治州"></city>
+		<city name="黔南布依族苗族自治州"></city>
+	</province>
+
+	<province name="四川省">
+		<city name="成都"></city>
+		<city name="自贡"></city>
+		<city name="攀枝花"></city>
+		<city name="泸州"></city>
+		<city name="德阳"></city>
+		<city name="绵阳"></city>
+		<city name="广元"></city>
+		<city name="遂宁"></city>
+		<city name="内江"></city>
+		<city name="乐山"></city>
+		<city name="南充"></city>
+		<city name="眉山"></city>
+		<city name="宜宾"></city>
+		<city name="广安"></city>
+		<city name="达州"></city>
+		<city name="雅安"></city>
+		<city name="巴中"></city>
+		<city name="资阳"></city>
+		<city name="阿坝藏族羌族自治州"></city>
+		<city name="甘孜藏族自治州"></city>
+		<city name="凉山彝族自治州"></city>
+	</province>
+
+	<province name="内蒙古自治区">
+		<city name="呼和浩特"></city>
+		<city name="包头"></city>
+		<city name="乌海"></city>
+		<city name="赤峰"></city>
+		<city name="通辽"></city>
+		<city name="鄂尔多斯"></city>
+		<city name="呼伦贝尔"></city>
+		<city name="巴彦淖尔"></city>
+		<city name="乌兰察布"></city>
+		<city name="兴安盟"></city>
+		<city name="锡林郭勒盟"></city>
+		<city name="阿拉善盟"></city>
+	</province>
+
+	<province name="宁夏回族自治区">
+		<city name="银川"></city>
+		<city name="石嘴山"></city>
+		<city name="吴忠"></city>
+		<city name="固原"></city>
+		<city name="中卫"></city>
+	</province>
+
+	<province name="甘肃省">
+		<city name="兰州"></city>
+		<city name="嘉峪关"></city>
+		<city name="金昌"></city>
+		<city name="白银"></city>
+		<city name="天水"></city>
+		<city name="武威"></city>
+		<city name="张掖"></city>
+		<city name="平凉"></city>
+		<city name="酒泉"></city>
+		<city name="庆阳"></city>
+		<city name="定西"></city>
+		<city name="陇南"></city>
+		<city name="临夏回族自治州"></city>
+		<city name="甘南藏族自治州"></city>
+	</province>
+
+	<province name="青海省">
+		<city name="西宁"></city>
+		<city name="海东地区"></city>
+		<city name="海北藏族自治州"></city>
+		<city name="黄南藏族自治州"></city>
+		<city name="海南藏族自治州"></city>
+		<city name="果洛藏族自治州"></city>
+		<city name="玉树藏族自治州"></city>
+		<city name="海西蒙古族藏族自治州"></city>
+	</province>
+
+	<province name="西藏自治区">
+		<city name="拉萨"></city>
+		<city name="昌都地区"></city>
+		<city name="山南地区"></city>
+		<city name="日喀则地区"></city>
+		<city name="那曲地区"></city>
+		<city name="阿里地区"></city>
+		<city name="林芝地区"></city>
+	</province>
+
+	<province name="新疆自治区">
+		<city name="乌鲁木齐"></city>
+		<city name="克拉玛依"></city>
+		<city name="吐鲁番地区"></city>
+		<city name="哈密地区"></city>
+		<city name="昌吉回族自治州"></city>
+		<city name="博尔塔拉蒙古自治州"></city>
+		<city name="巴音郭楞蒙古自治州"></city>
+		<city name="阿克苏地区"></city>
+		<city name="克孜勒苏柯尔克孜自治州"></city>
+		<city name="喀什地区"></city>
+		<city name="和田地区"></city>
+		<city name="伊犁哈萨克自治州"></city>
+		<city name="塔城地区"></city>
+		<city name="阿勒泰地区"></city>
+		<city name="石河子"></city>
+		<city name="阿拉尔"></city>
+		<city name="图木舒克"></city>
+		<city name="五家渠"></city>
+	</province>
+
+	<province name="安徽省">
+		<city name="合肥"></city>
+		<city name="芜湖"></city>
+		<city name="蚌埠"></city>
+		<city name="淮南"></city>
+		<city name="马鞍山"></city>
+		<city name="淮北"></city>
+		<city name="铜陵"></city>
+		<city name="安庆"></city>
+		<city name="黄山"></city>
+		<city name="滁州"></city>
+		<city name="阜阳"></city>
+		<city name="宿州"></city>
+		<city name="巢湖"></city>
+		<city name="六安"></city>
+		<city name="亳州"></city>
+		<city name="池州"></city>
+		<city name="宣城"></city>
+	</province>
+
+	<province name="浙江省">
+		<city name="杭州"></city>
+		<city name="宁波"></city>
+		<city name="温州"></city>
+		<city name="嘉兴"></city>
+		<city name="湖州"></city>
+		<city name="绍兴"></city>
+		<city name="金华"></city>
+		<city name="衢州"></city>
+		<city name="舟山"></city>
+		<city name="台州"></city>
+		<city name="丽水"></city>
+	</province>
+
+	<province name="福建省">
+		<city name="福州"></city>
+		<city name="厦门"></city>
+		<city name="莆田"></city>
+		<city name="三明"></city>
+		<city name="泉州"></city>
+		<city name="漳州"></city>
+		<city name="南平"></city>
+		<city name="龙岩"></city>
+		<city name="宁德"></city>
+	</province>
+
+	<province name="台湾省">
+		<city name="台北"></city>
+		<city name="高雄"></city>
+		<city name="基隆"></city>
+		<city name="台中"></city>
+		<city name="台南"></city>
+		<city name="新竹"></city>
+		<city name="嘉义"></city>
+	</province>
+
+	<province name="香港">
+		<city name="中西区"></city>
+		<city name="湾仔区"></city>
+		<city name="东区"></city>
+		<city name="南区"></city>
+		<city name="油尖旺区"></city>
+		<city name="深水埗区"></city>
+		<city name="九龙城区"></city>
+		<city name="黄大仙区"></city>
+		<city name="观塘区"></city>
+		<city name="荃湾区"></city>
+		<city name="葵青区"></city>
+		<city name="沙田区"></city>
+		<city name="西贡区"></city>
+		<city name="大埔区"></city>
+		<city name="北区"></city>
+		<city name="元朗区"></city>
+		<city name="屯门区"></city>
+		<city name="离岛区"></city>
+	</province>
+
+	<province name="澳门">
+		<city name="澳门"></city>
+	</province>
+
+
+</country>

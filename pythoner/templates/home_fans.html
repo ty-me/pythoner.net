@@ -1,0 +1,30 @@
+{% extends "home_base.html" %}
+{% block title %}{{ user.get_profile.screen_name }}的FANS{% endblock %}
+{% block description %}正在pythoner.net上关注{{ user.get_profile.screen_name }}动态的pythoner们{% endblock %}
+{% block h1 %}{{ user.get_profile.screen_name }}的FANS{% endblock %}
+{% block home_tabs %}
+    <div class="tabs">
+        <span class="tab">
+            <a href="/home/{{ user.id }}/follows/">关注</a></span>
+        <span class="tab selected">
+            <a href="/home/{{ user.id }}/fans/">Fans</a></span>
+    </div>
+{% endblock %}
+{% block main %}
+    {% load accounts_tags %}
+    <ul class="friend">
+    {% for fan in fans %}
+        <li>
+            <a href="/home/{{ fan.source_user.id }}/"
+               title="{{ fan.source_user.get_profile.screen_name }}({{ fan.source_user.get_profile.city }})" target="_blank">
+                <img src="/static/user/icon_{{ fan.source_user.get_profile.photo|default:"none.jpg" }}">
+                <em>{{ fan.source_user.get_profile.screen_name }}</em>
+            </a>
+        </li>
+
+    {% endfor %}
+    </ul>
+{% endblock %}
+{% block sidebar %}
+    {% include 'sidebar.ads.html' %}
+{% endblock %}

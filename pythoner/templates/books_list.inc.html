@@ -1,0 +1,28 @@
+<style>
+    div#book-list div.book{border-bottom:1px dashed #cecece;}
+    div.pic{width:150px;float:left;margin:10px 0 5px 0;}
+    div.pic img{height:100px;margin:0 0 0 15px;}
+    div.info{float:left;margin:10px 0 0 0;width:520px;}
+    div.price{float:right;}
+</style>
+
+{% load home_tags %}
+    <div id="book-list">
+	{% for entry in entrys.object_list %}	
+        <div class="book">
+            <div class="pic">
+                <a href="{{ entry.get_absolute_url }}"><img src="/static/books/{{ entry.isbn }}_120.jpeg"></a>
+            </div>
+            <div class="info">
+                <a class="name" href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="title">{{ entry.name }}</a>
+                <div class="publish">{{ entry.author }} / {{ entry.publish }} / {{ entry.pub_date }} </div>
+                <div class="isbn">ISBN:{{ entry.isbn }}</div>
+                <div class="price"><a  href="#">价格 ￥{{ entry.price }}</a></div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+    {% endfor %}
+        <div class="more">{% include 'paginator.inc.html' %}</div>
+    </div>

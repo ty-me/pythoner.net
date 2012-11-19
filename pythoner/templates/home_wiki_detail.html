@@ -1,0 +1,40 @@
+{% extends "home_base.html" %}
+{% block keyworld %},{{ user.get_profile.screen_name }}的笔记,python笔记,{% for tag in entry.tag.all %},{{ tag.name }}{% endfor %}{% endblock %}
+{% block description %}{{ entry.content|slice:"150" }} -作者：{{ entry.author.get_profile.screen_name }}{% endblock %}
+{% block title %}{{ entry.title }}{% endblock %}
+{% block h1 %}{{ user.get_profile.screen_name }}的笔记{% endblock %}
+{% block home_tabs %}{% endblock %}
+{% block main %}
+{% load home_tags %}
+{% load comments %}
+{% get_comment_count for entry as comment_count %}
+<style>
+#blog div.title{background:#F2F2F2;padding:0 10px;margin:0 0 8px 0;border-bottom:1px solid #DDD;
+    border-top:1px solid #DDD;}
+#blog div.meta{float:left;width:500px;}
+#blog div.action{float:left;width:160px;text-align:right;}
+</style>
+<script type="text/javascript" src="/static/js/kindeditor/kindeditor-min.js"></script>
+    <div id="blog">
+        <div class="title">
+            <h1>{{ entry.title }}</h1>
+            <div class="meta">发表于{{ entry.sub_time|how_long }} ,
+                已有<span class="red">{{ entry.click_time }}</span>次阅读
+                共<span class="red">{{ comment_count }}</span>个评论
+            </div>
+            <div class="action">
+                {% if entry.author == request.user %}
+                    <a href="/home/wiki/{{ entry.id }}/edit/">编辑</a>
+                    <span>|</span>
+                    <a href="/home/wiki/{{ entry.id }}/del/" onclick="return del();">删除</a>
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="content">{% autoescape off %}{{ entry.content }}{% endautoescape %}
+        <div class="source"><strong>转载来源：</strong>{{ entry.source }}</div>
+        </div>
+    </div><!-- end blog -->
+    {% render_comment_list for entry %}
+    {% render_comment_form for entry %}
+{% endblock %}

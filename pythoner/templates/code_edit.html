@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}修改代码{% endblock %}
+{% block main %}
+<style>
+form textarea{width:100%;height:400px;line-height:18px;}
+</style>
+    <h1>修改代码</h1>
+    <form action="" method="POST">
+        {{ form.as_p }}
+    <p class="submit"><input type="submit" name="submit" value="保存代码" class="button" style="width:100px;"></p>
+    </form>
+{% endblock %}

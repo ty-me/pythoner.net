@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}代码分享{% endblock %}
+{% block main %}
+<script type="text/javascript" src="/static/js/ajaxfileupload.js"></script>
+<script>
+function del(code_id,type){
+    if(confirm('你真的要删除这条代码片段么？') == false ){
+        return false;
+    }
+    var url = '/code/{{ base.id }}/del/'+code_id+'/?type='+type;
+
+    $.ajax({
+        type:'GET',
+        dataType:'json',
+        url:url,
+        timeout:1000,
+        success:function(data){
+           msg=eval("("+data+")");
+           $('#'+type+'_'+code_id).hide();
+           alert(msg.info);
+        },
+
+        error:function(){
+            $('#'+type+'_'+code_id).hide();
+        }
+    });
+}
+</script>
+<style>
+ol{margin:0 10px; padding:10px;}
+ol li{border-bottom:1px solid #f4f4f4;margin:0 10px;}
+ol li .action{float:right;}
+ol li .action a{margin-left:10px;}
+ol li .action a:hover{background:none;color:#000;}
+legend a{display:block;width:100px;float:left;color:#fff;background:#aaa;margin:0 0 0 0px;padding:2px 4px;text-align:center;}
+legend a.current{background:#3975CE;}
+
+
+#tabs1{text-align:left;width:400px;}
+.menu1box{position:relative;overflow:hidden;height:22px;width:400px;text-align:left;}
+#menu1{position:absolute;top:0;left:0;z-index:1;list-style:none;}
+#menu1 a{font-size:13px;font-weight:900;color:#000;}
+#menu1 a:hover{background:none;color:#000;}
+#menu1 li{float:left;display:block;cursor:pointer;width:72px;text-align:center;line-height:21px;height:21px;margin:0;padding:0;
+}
+#menu1 li.hover{background:#fff;border-left:1px solid #333;border-top:1px solid #333;border-right:1px solid #333;}
+.main1box{clear:both;margin-top:-1px;border:1px solid #333;height:400px;width:700px;}
+#main1 ul{display: none;list-style:none;margin:0;padding:10px;}
+#main1 ul.block{display: block;}
+
+#id_content{width:655px;height:220px;font-size:12px;line-height:16px;}
+form#upload{padding:20px;margin:60px 0 0 0;text-align:center;}
+form#upload .remark{text-align:center;}
+form input{height:24px;font:12px;line-height:12px;margin:6px;padding:3px;}
+#file_upload{width:300px;}
+#upload_button{width:100px;}
+#publish_button{width:200px;}
+p.submit{margin:0;padding:0;}
+</style>
+    <h1>{{ page_title }} </h1>
+    <fieldset>
+    <legend>已粘贴/上传代码:</legend>
+    <ol>
+        {% for code in codes %}
+            <li id="code_{{ code.id }}">
+                [{{ code.language.name }}] <strong>{{ code.name }}</strong>
+                <span class="action">
+                    <a href="/code/{{ base.id }}/edit/{{ code.id }}/" target="_blank">修改</a>
+                    <a href="javascript:del({{ code.id }},'code')" class="delete">删除</a>
+                </span>
+            </li>
+        {% endfor %}
+    
+        {% for zip in zips %}
+            <li id="zip_{{ zip.id }}">
+                [附件]<strong>{{ zip.name }}</strong>
+                <span class="action">
+                    <a href="javascript:del({{ zip.id }},'zip')" class="delete">删除</a>
+                </span>
+            </li>
+        {% endfor %}
+        {% if codes.count == 0 and zips.count == 0 %}<div class="dark">没有代码</div> {% endif %}
+    </ol>
+    </fieldset>
+<script>
+function setTab(m,n){
+var tli=document.getElementById("menu"+m).getElementsByTagName("li"); /*获取选项卡的LI对象*/
+var mli=document.getElementById("main"+m).getElementsByTagName("ul"); /*获取主显示区域对象*/
+for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":""; /*更改选项卡的LI对象的样式，如果是选定的项则使用.hover样式*/
+  mli[i].style.display=i==n?"block":"none"; /*确定主区域显示哪一个对象*/
+}
+}
+</script>
+    <div id="tabs1">
+    <div class="menu1box">
+      <ul id="menu1">
+       <li class="hover" onmouseover="setTab(1,0)"><a href="#">粘贴代码</a></li>
+       <li onmouseover="setTab(1,1)"><a href="#">上传文件</a></li>
+      </ul>
+    </div>
+    <div class="main1box">
+      <div class="main" id="main1">
+       <ul class="block"><li>
+            <form action="" method="POST">
+                {{ form.as_p }}
+                <input type="submit" value="+插入代码" class="paste button" style="width:120px;"><br/>
+            </form>                      
+       </li></ul>
+       <ul><li>
+            <form action="/code/add/{{ base.id }}/file/" method="POST" enctype="multipart/form-data" id="upload">
+                <input id="file_upload" name="file_upload" type="file" />
+                <input type="submit" name="submit" id="upload_button" class="button" value="上传文件">
+                <div class="remark">允许上传的文件类型：c,css,html,js,php,py,sh,sql,xml</div>
+            </form>
+       </li></ul>
+      </div>
+    </div>
+    </div>
+    <div class="clear"></div>
+    <form action="/code/add/{{ base.id }}/publish/" method="POST">
+        <p class="submit">
+            <input type="submit" value="{{ button }}" class="button" id="publish_button">
+        </p>
+    </form>
+{% endblock %}

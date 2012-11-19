@@ -1,0 +1,8 @@
+{% for code in codes %}
+    <div class="title">评论了代码：<a href="{{ code.get_absolute_url }}">[{{ code.category }}]-{{ code.title }}</a></div>
+    {% if code.description %}
+        <div class="remark" title="{{ code.description }}">{{ code.description|slice:"100" }}</div>
+    {% endif %}
+    <div class="line"></div>
+{% endfor %}
+<div class="action"><a href="/code/add/">去分享我的代码->></a> </div>

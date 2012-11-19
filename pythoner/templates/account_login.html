@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}用户登录{% endblock %}
+{% block description %}想体验更多，请用你在pythoner.net注册的账号登录{% endblock %}
+{% block main  %}
+<style>
+#login h1{font-size:36px;font-weight:normal;}
+#login form{margin:0;padding:0 0 0 0px;}
+#id_username,#id_password{width:300px;}
+label.error {float: none;color: red;font-size:12px;padding-left: .5em;}
+#login p.submit{margin-left:40px;}
+</style>
+    <div id="login">
+        <h1>用户登录</h1>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('#loginform').validate({
+                rules:{
+                    username:{required:true,email:true},
+                    password:{required:true,minlength:6,maxlength:20}
+                },
+
+                messages:{
+                    username:{required:'×',email:'×'},
+                    password:{required:'×',minlength:'×',maxlength:'×'}
+                }
+            });
+        });
+        </script>
+        <form action="" method="POST" id="login">
+                {{ form.as_p}}
+                <p class="submit"><input class="button" type="submit" name="submit" value="马上登录！" style="width:100px;"></p>
+                <input type="hidden" name="next" value="/">
+        </form>
+    </div><!-- endlogi -->
+{% endblock %}
+{% block sidebar %}
+<style>
+ul.login_method a:hover{
+    background:none;
+}
+</style>
+<ul class="login_method">
+    <h2>其它方式登录?</h2>
+    <li><a href="/accounts/login/sina/"><img src="http://www.sinaimg.cn/blog/developer/wiki/240.png"></a></li>
+    <li><a href="/accounts/login/douban/"><img src="http://img3.douban.com/pics/douban-icons/login_with_douban_24.png"></a></li>
+    <li>&nbsp;</li>
+</ul>
+<ul>
+    <h2>还没有账号？</h2>
+    <li><a href="/accounts/register/">果断注册</a>一个</li>
+</ul>
+{% endblock %}

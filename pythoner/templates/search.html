@@ -1,0 +1,36 @@
+﻿{% extends "base.html" %}
+{% block title %}关键字“{{ q }}”在“{{ index.module_name }}”中的搜索结果,{% endblock %}
+{% block keyworld %}{{ q }} {% endblock %}
+{% load wiki_tags %}
+{% block main %}
+    <h2>关键字“{{ q }}”在“{{ index.module_name }}”中的搜索结果,共{{ entrys.count }}条</h2>
+    <style>
+        #search-list{list-style:none;margin:0;padding:0;}
+        #search-list li{margin:10px 0;}
+    </style>
+    {% load home_tags %}
+
+    <ul  id="search-list">
+	{% for entry in entrys.object_list %}	
+        <li>
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="title">{{ entry.title|title }}</a>
+            <div class="time"> {{ entry.sub_time }} </div>
+        </li>
+    {% endfor %}
+    <div class="more">
+        
+    共{{ entrys.paginator.count }}条记录 第{{ entrys.number }}/{{ entrys.paginator.num_pages }}页
+    {% if entrys.has_previous %}
+        <a href="/search/{{ name }}/p{{ entrys.previous_page_number }}/?q={{ q }}">上一页</a>
+    {% endif %}
+
+     {% if entrys.has_next %}
+        <a href="/search/{{ name }}/p{{ entrys.next_page_number }}/?q={{ q }}">下一页</a>
+    {% endif %}
+        
+        <div class="clear"></div>
+    </ul>
+
+{% endblock %}
+{% block sidebar %}
+{% endblock %}

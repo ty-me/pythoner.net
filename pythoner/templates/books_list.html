@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}图书{% endblock %}
+{% block description %}值得pythoner一读的图书{% endblock %}
+{% block canonical %}<link rel="canonical" href="http://pythoner.net/wiki/" />{% endblock %}
+{% load books_tags %}
+{% block main %}
+    <div id="category-list">
+        <h1>python图书推荐</h1>    
+    </div>
+<div class="box">
+    {% include 'books_list.inc.html' %}
+</div>
+{% endblock %}
+{% block sidebar %}
+{% get_book_by_clicktime %}
+
+<script type="text/javascript"><!--
+    google_ad_client = "ca-pub-8602112008660595";
+    /* 侧边栏广告 */
+    google_ad_slot = "3175833983";
+    google_ad_width = 160;
+    google_ad_height = 600;
+    //-->
+</script>
+<script type="text/javascript"
+    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+{% endblock %}
+

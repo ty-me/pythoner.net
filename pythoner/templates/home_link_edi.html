@@ -1,0 +1,48 @@
+{% extends 'home_base.html' %}
+{% block title %}个人设置{% endblock %}
+{% block h1 %}个人设置{% endblock %}
+{% block home_tabs %}{% include 'home_edit_tabs.inc.html' %}{% endblock %}
+{% block main %}
+<style>
+form{width:100%;margin:0;padding:0;}
+input{padding:2px 8px; width:515px;margin:0;}
+label{width:100px; float:left; line-height:35px; height:35px;margin:0 20px 0 0;}
+label input{width:80px;margin:0 ;}
+#profile-link form{width:670px;}
+#profile-link h1{font-size:32px;font-weight:400;}
+</style>
+<div id="profile-link">
+	<form action="" method="POST">
+		<p><label>豆瓣</label><input type="text" name="douban_url" value="{{ douban.url }}" /></p>
+		<p><label>微博</label><input type="text" name="weibo_url" value="{{ weibo.url }}" /></p>
+		<p><label>Twitter</label><input type="text" name="twitter_url" value="{{ twitter.url }}" /></p>
+		<p><label>Facebook</label><input type="text" name="facebook_url" value="{{ facebook.url }}" /></p>
+        <p><label>
+            <input type="text" name="name1" value="{{ other1.name }}" maxlength="15" /></label>
+            <input type="text" name="name1_url" value="{{ other1.url }}" />
+        </p>
+        <p><label>
+            <input type="text" name="name2" value="{{ other2.name }}" maxlength="15" /></label>
+            <input type="text" name="name2_url" value="{{ other2.url }}" />
+        </p>
+		<p class="submit"><input type="submit" value="提交保存" class="button" style="width:100px;" /></p>
+		<div class="clear"></div>
+	</form>
+</div>
+{% endblock %}
+{% block sidebar %}
+        <div class="blank"></div>
+        <h3>赞助商链接</h3>
+        <script type="text/javascript"><!--
+google_ad_client = "ca-pub-8602112008660595";
+/* 侧边栏广告 */
+google_ad_slot = "3175833983";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+{% endblock %}

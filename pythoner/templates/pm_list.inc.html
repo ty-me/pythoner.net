@@ -1,0 +1,32 @@
+{% for entry in entrys.object_list %}
+<tr class="item">
+    <td width="88" align="center">
+    {% if entry.from_user.id == request.user.id %}
+        <!-- 寄出的PM -->
+        {% if entry.system %}
+            [系统提示]
+        {% else %}
+            <a href="/home/{{ entry.to_user.id }}/">
+                {{ entry.to_user.get_profile.screen_name}}
+           </a>
+       {% endif %}
+    {% else %}
+        <!-- 收到的PM -->
+        {% if entry.system %}
+            [系统提示]
+        {% else %}
+            <a href="/home/{{ entry.from_user.id }}/">
+               {{ entry.from_user.get_profile.screen_name }}
+            </a>
+        {% endif %}
+    {% endif %}
+    </td>
+    <td width="273" align="left">
+        {% if entry.to_user == request.user %}
+			{% if not entry.readed %}<span class="red">[新]</span>{% endif %}
+		{% endif %}
+		<a href="/pm/{{ entry.id }}/">{{ entry.title }}</a></td>
+    <td width="150" align="right">{{ entry.sub_time }}</td>
+    <td width="57" align="right"><input class="checkbox" type="checkbox" name="pm_id[]" value="{{ entry.id }}"></td>
+  </tr>
+{% endfor %}

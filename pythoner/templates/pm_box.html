@@ -1,0 +1,63 @@
+{% extends 'home_base.html' %}
+{% load pm_tags %}
+{% block title %}PM{% endblock %}
+{% block main %}
+{% block home_title %}{% endblock %}
+<style>
+form{
+	margin:0;
+	padding:0;}
+#pm_box{
+	width:680px;}
+#pm_box .title{
+	font-weight:700;}
+#pm_box tr.item td{
+	border-bottom:1px solid #f4f4f4;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('input#all').click(function(){
+        $('[name=pm_id[]]:checkbox').attr('checked',true);
+    });
+
+    $('input#other').click(function(){
+        $('[name=pm_id[]]:checkbox').each(function(){
+            $(this).attr("checked",!$(this).attr('checked'));
+        });
+    });
+});
+</script>
+    <h1>Personal Message</h1>
+    <div class="tabs">
+        <span class="tab {% if current == 'inbox' %}selected{% endif %}"><a href="/pm/inbox/">收件箱</a></span>
+        <span class="tab {% if current == 'outbox' %}selected{% endif %}"><a href="/pm/outbox/">发件箱</a></span>
+    </div>
+    {% if entrys.paginator.count != 0 %}
+        <form method="POST" action="/pm/delete/">
+            <table border="0" cellpadding="0" cellspacing="0" id="pm_box">
+                <tr class="title">
+                    <td width="88" align="center">{{ td1 }}</td>
+                    <td width="273" align="left">标题</td>
+                    <td width="150" align="right">时间</td>
+                    <td width="57" align="right">选择</td>
+                </tr>
+                {% include 'pm_list.inc.html' %}
+            </table>
+			<table width="670px;">
+				<tr>
+					<td align="left">{% include 'paginator.inc.html' %}<td>
+					<td align="right">
+					<input type="button" value="全" id="all" style="width:40px;" class="button">
+					<input type="button" value="反" id="other" style="width:40px;" class="button">
+					<input type="submit" value="删" style="width:40px;" class="button">
+					</td></tr>
+			</table>
+
+        </form>
+    {% else %}
+        <p style="text-align:center;">{% block box_empty %}{{ empty_msg }}{% endblock %}</p>
+    {% endif %}
+{% endblock %}
+{% block sidebar %}
+    {% include 'sidebar.ads.html' %}
+{% endblock %}

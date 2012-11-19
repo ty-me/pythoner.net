@@ -1,0 +1,11 @@
+<ul>
+{% if topics %}
+    <h2>更多{{ user.get_profile.screen_name }}的话题</h2>
+    {% for topic in topics %}
+        <li>
+        <a href="{{ topic.get_absolute_url }}">{{ topic.title|slice:"45" }}</a>
+        <span class="dark">@ {{ topic.sub_time}}</span>
+        </li>
+    {% endfor %}
+{% endif %}
+</ul>

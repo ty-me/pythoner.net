@@ -1,0 +1,5 @@
+{% for topic in topics %}
+    <div class="title">发表了话题：<a href="{{ topic.get_absolute_url }}">《{{ topic.title }}》</a></div>
+    <div class="remark">{{ topic.content|slice:"100" }}</div>
+    <div class="line"></div>
+{% endfor %}

@@ -1,0 +1,13 @@
+{% if request.user.id %}
+    <div class="shortcut">
+        <a href="/accounts/">个人首页</a>
+        <span>|</span>
+        <a href="/accounts/password/">修改密码</a>
+        <span>|</span>
+        <a href="/accounts/photo/">设置头像</a>
+        <span>|</span>
+        <a href="/accounts/edit/">更改资料</a>
+        <span>|</span>
+        <a href="/accounts/logout/">安全退出</a>
+    </div>
+{% endif %}

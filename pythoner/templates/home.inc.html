@@ -1,0 +1,23 @@
+{% load home_tags %}
+<div id="profile">
+    <div class="photo"><img src="/static/user/{{ profile.photo|default:"none.jpg" }}"></div>
+
+{% if request.user != profile.user %}
+    <ul class="action">
+        <li><a href="/home/{{ profile.user.id }}/follow/" id="follow">{{ request.user|get_relation:profile.user }}</a></li>
+        <li><span>|</span></li>
+        <li><a href="/pm/write/?to={{ profile.user.id }}">发送PM</a> </li>
+        <div class="clear">&nbsp;</div>
+    </ul>
+    {% if profile.introduction %}
+        &nbsp;
+        <div class="introduction"><strong>自我介绍</strong><br/>{{ profile.introduction }}</div>
+    {% endif %}
+    {% if profile.web_site %}
+        <div class="website"><strong>个人网站</strong><br/>
+            <a href="{{ profile.web_site }}" target="_blank">{{ profile.web_site }}</a></div>
+    {% endif %}
+{% endif %}
+</div>
+&nbsp;
+

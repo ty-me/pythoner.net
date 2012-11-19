@@ -1,0 +1,17 @@
+{% load home_tags %}
+    <ul class="list" id="wiki-list">
+	{% for entry in entrys.object_list %}	
+        <li>
+            <span class="category">[{{ entry.category }}]</span>
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="title">{{ entry.title|title }}</a>
+            <span class="time">
+                由 {{ entry.author.get_profile.screen_name }} 投递于{{ entry.sub_time|how_long }}
+            </span>
+            <span class="count">{{ entry.click_time }}阅</span>
+        </li>
+    {% empty %}
+        <p>该分类下没有可显示的条目</p>
+    {% endfor %}
+        <div class="more">{% include 'paginator.inc.html' %}</div>
+        <div class="clear"></div>
+    </ul>

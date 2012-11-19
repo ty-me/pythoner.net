@@ -1,0 +1,53 @@
+<style>
+/* develop */
+#develop{padding:0px 0 0 18px;}
+#develop .item{margin:0 0 20px 0;}
+#develop .item .line{display:block;height:10px;margin:0 0 10px 0; padding:0 0 10px 0; border-bottom:1px solid #e9e9e9;}
+#develop .item .photo{display:block;float:left;width:50px;height:30px;padding-top:6px;}
+#develop .item .photo img{width:30px;height:30px;padding:1px;margin:1px;border:1px solid #aaa;}
+#develop .item .content{float:left;}
+#develop .item .content{float:left;width:610px;padding:0 0 0 50px;}
+#develop .item .content .remark{color:#aaa;}
+#develop .item img.user-photo{width:35px;height:35px;border:1px solid #aaa;margin:1px;padding:1px;}
+#develop .item .action{text-align:right;}
+#develop .item .action a{color:#aaa;}
+</style>
+{% load topic_tags %}
+{% load accounts_tags %}
+{% load code_tags %}
+{% load home_tags %}
+<div id="develop">
+{% for develop in develops.object_list %}
+    <div class="item">
+        <div class="photo">
+            <a href="/home/{{ develop.user.id }}/" title="{{ develop.user.get_profile.screen_name }}">
+            <img src="/static/user/icon_{{ develop.user.get_profile.photo|default:"none.jpg" }}">
+            </a></div>
+        <div class="author"><a href="/home/{{ develop.user.id }}/">{{ develop.user.get_profile.screen_name }}</a> 在{{ develop.sub_time|how_long }}</div>
+        <div class="content">
+            {% if develop.type.name == 'code' %}{% get_code_develop develop %}{% endif %}
+            {% if develop.type.name == 'relation' %}{% get_relation_develop develop %}{% endif %}
+            {% if develop.type.name == 'photo' %}{% get_photo_develop develop %}{% endif %}
+            {% if develop.type.name == 'topic' %}{% get_topic_develop develop %}{% endif %}
+            {% if develop.type.name == 'wiki'%}{% get_wiki_develop develop %} {% endif %}
+           
+            {% if develop.type.name == 'code_comment' %}{% get_code_comment_develop develop %}{% endif %}
+            {% if develop.type.name == 'topic_comment' %}{% get_topic_comment_develop develop %}{% endif %}
+            {% if develop.type.name == 'wiki_comment' %}{% get_wiki_comment_develop develop %}{% endif %}
+        </div><!-- end content -->
+        <div class="clear">&nbsp;</div>
+    </div><!-- end item -->
+{% empty %}
+    <h3>该用户当前没有任何动态</h3>
+{% endfor %}
+<div class="paginator">
+共{{ develops.paginator.count }}条记录 第{{ develops.number }}/{{ develops.paginator.num_pages }}页
+{% if develops.has_previous %}
+    <a href="/{{ url }}/p{{ develops.previous_page_number }}/">上一页</a>
+{% endif %}
+
+ {% if develops.has_next %}
+    <a href="/{{ url }}/p{{ develops.next_page_number }}/">下一页</a>
+{% endif %}
+</div>
+</div><!-- end develop -->

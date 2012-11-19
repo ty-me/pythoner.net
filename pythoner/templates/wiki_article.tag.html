@@ -1,0 +1,6 @@
+{% for wiki in wikis %}
+    <ul>
+        <h3><a href="{{ wiki.get_absolute_url }}" title="{{ wiki.title }}">{{ wiki.title|slice:"22" }}</a></h3>
+        <li>{{ wiki.content|striptags|cut:"&nbsp;"|cut:"-"|cut:" " }}</li>
+    </ul>
+{% endfor %}

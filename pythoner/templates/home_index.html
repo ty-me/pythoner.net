@@ -1,0 +1,44 @@
+{% extends 'home_base.html' %}
+{% load home_tags %}
+{% block title %}
+    {{ profile.screen_name }}的{% if request.user.is_anonymous %}主页{% else %}个人中心{% endif %}
+{% endblock %}
+{% block description %}{{ profile.screen_name }}在pythoner.net上的动态{% endblock %}
+{% block h1 %}
+    {% if request.user == profile.user %}欢迎，{{ profile.screen_name }}{% else %}{{ profile.screen_name }}的动态{% endif %}
+{% endblock %}
+{% block main %}
+<style>
+ul#user-action{border:1px solid #ccc;margin:0 0 10px 0;padding:4px;}
+ul#user-action li{float:left;width:100px;display:block;padding-left:20px;}
+ul#user-action li a{color:#888;}
+ul#user-action li a:hover{color:#000;font-weight:800;background:none;text-decoration:none;}
+ul#user-action li.code{background:url("/static/images/add_code.gif") no-repeat;}
+ul#user-action li.wiki{background:url("/static/images/add_wiki.gif") no-repeat;}
+ul#user-action li.topic{background:url("/static/images/add_topic.gif") no-repeat;}
+</style>
+    {% include 'home_develop.inc.html' %}
+{% endblock %}
+{% block sidebar %}
+    <div class="blank"></div>
+    {% if request.user.is_authenticated %}
+    <ul id="user-action">
+    <h2>我的操作</h2>
+    {% if request.user = profile.user %}
+        <li class="code"><a href="/code/add/">分享代码</a> </li>
+        <li class="wiki"><a href="/wiki/add/">发表笔记</a> </li>
+        <li class="topic"><a href="/topic/add/">提问/讨论</a> </li>
+    {% else %}
+        <li class="follow"><a href="/home/{{ profile.user.id }}/follow/">{{ request.user|get_relation:profile.user }}</a></li>
+        <li class="pm"><a href="/pm/write/?to={{ user.id }}">发送PM</a></li>
+    {% endif %}
+    <div class="clear"></div>
+    </ul>
+    {% endif %}
+    <h3>关于Ta</h3>
+    {% if profile.introduction %}{{ profile.introduction }}
+    {% else %}<div class="dark">Ta还没有留下任何信息</div>
+    {% endif %}
+    {% get_user_friends profile.user %}
+    {% get_home_visitor profile.user %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}投递稿件{% endblock %}
+{% block head %}<script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script> {% endblock %}
+{% block sub_nav %}{% endblock %}
+{% block main %}
+<style>
+#id_source{
+    width:300px;
+}
+</style>
+    <h1>向我们投递稿件</h1>
+    <form action="" method="POST">
+        {{ form.as_p }}
+        <P><input type="submit" value="提交稿件" class="button" style="width:80px"></P>
+    </form>
+{% endblock %}
+{% block sidebar %}
+    <ul>
+    <h3>欢迎投递稿件</h3>
+    <li>Pythoner.Net提倡分享的精神，我们欢迎你提交有关于服务器、互联网、python的稿件。</li>
+    <li>请放心，一旦采用你的投稿，我们会附上文章出处</li>
+    </ul>
+{% endblock %}

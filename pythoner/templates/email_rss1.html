@@ -1,0 +1,33 @@
+{% extends 'email_base.html' %}
+{% block title %}由pythoner.net为您推荐的新鲜内容({% now "Y-m-d" %}){% endblock %}
+{% block content %}
+    <strong>最新文章</strong>
+    <ul>
+        {% for wiki in wikis %}
+            <li><a href="http://pythoner.net/{{ wiki.get_absolute_url }}">{{ wiki.title }}</a> </li>
+        {% endfor %}
+    </ul>
+	<Br />
+    <strong>分享的代码</strong>
+    <ul>
+        {% for code in codes %}
+            <li><a href="http://pythoner.net/{{ code.get_absolute_url }}">{{ code.title }}</a> </li>
+        {% endfor %}
+    </ul>
+    <Br />
+    <strong>正在讨论</strong>
+    <ul>
+        {% for topic in topics %}
+            <li><a href="http://pythoner.net/{{ topic.get_absolute_url }}">{{ topic.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <strong>招聘信息</strong>
+    <ul>
+        {% for job in jobs %}
+            <li><a href="http://pythoner.net/{{ job.get_absolute_url }}">
+             [{{ job.city }}] {{ job.company }} {{ job.title }}
+            </a> </li>
+        {% endfor %}
+    </ul>
+{% endblock %}s

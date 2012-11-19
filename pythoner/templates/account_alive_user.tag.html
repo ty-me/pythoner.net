@@ -1,0 +1,12 @@
+<h2>活跃用户</h2>
+<ul class="user only-photo">
+    {% for user in users %}
+        {% if user.get_profile.photo %}
+        <li>
+            <a href="/home/{{ user.id }}" title="{{ user.get_profile.screen_name }}({{ user.get_profile.city }})">
+                <img src="/static/user/icon_{{ user.get_profile.photo|default:"none.jpg" }}">
+            </a>
+        </li>
+        {% endif %}
+    {% endfor %}
+</ul>

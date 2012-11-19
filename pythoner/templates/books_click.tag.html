@@ -1,0 +1,13 @@
+{% load cache %}{% cache 3600 books_click %}
+<ul>
+    <h2>点击排行</h2>
+    {% for entry in entry_list %}
+        <li>
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.name }}">
+                {{ entry.name|slice:"20"|cut:" " }}</a>
+            <span class="dark">({{ entry.click_time }})</span></li>
+    {% empty %}
+        <li><center>无记录</center></li>
+    {% endfor %}
+</ul>
+{% endcache %}

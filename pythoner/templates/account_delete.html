@@ -1,0 +1,25 @@
+{% extends 'home_base.html' %}
+{% block title %}删除账号{% endblock %}
+{% block h1 %}删除这个账号{% endblock %}
+{% block home_tabs %}{% include 'home_edit_tabs.inc.html' %}{% endblock %}
+{% block main %}
+    <h1>账号删除后将...</h1>
+    <ul>
+    <li>不会在本站显示你的账户信息</li>
+    <li>无法通过站内搜索找到你的账号</li>
+    <li>如果你想回来，只需要重新登录一次即可</li>
+    </ul>
+    {% if messages %}
+        {% for message in messages %}
+            <p class="{{ message.tags }}"><b>{{ message.tags }}:</b>message</p>
+        {% endfor %}
+    {% else %}
+        <form method="POST" action="">
+            <input type="submit" name="submit" value="删除" class="button" style="width:80px;"><span><a href="/home/">我后悔了</a> </span>
+        </form>
+    {% endif %}
+
+{% endblock %}
+{% block sidebar %}
+    <div class="blank"></div>
+{% endblock %}

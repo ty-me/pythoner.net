@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}成员{% endblock %}
+{% block description %}浏览查看所有在pythoner.net注册的账号{% endblock %}
+{% block main %}
+{% load accounts_tags %}
+    <h1>所有pythoner...</h1>
+    <ul class="friend">
+    {% for entry in entrys.object_list %}
+        <li>
+            <a href="/home/{{ entry.id }}/"
+               title="{{ entry.get_profile.screen_name }}{% if entry.email == 'user@weibo.com' %}(新浪用户){% endif %}">
+                <img src="/static/user/icon_{{ entry.get_profile.photo|default:"none.jpg" }}">
+                <em>{{ entry.get_profile.screen_name|slice:"5" }}</em>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+    <div class='clear'></div>
+    <p>{% include 'paginator.inc.html' %}</p>
+{% endblock %}
+{% block sidebar %}
+<ul>
+    <h2>海内存pythoner，天涯也比邻</h2>
+    <li>共有<span class="red">{{ entrys.paginator.count }}</span>个pythoner。你也想要成为我们的一员么？</li>
+    <li>3秒钟，<a href="/accounts/register/"><span class="red">注册一个账号</span></a></li>
+</ul>
+
+{% endblock %}

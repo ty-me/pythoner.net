@@ -1,0 +1,6 @@
+{% for wiki in wikis %}
+    <div class="title">评论了文章：<a href="{{ wiki.get_absolute_url }}">
+        [{{ wiki.category }}]-{{ wiki.title }}</a></div>
+        <div class="remark">{{ wiki.content|striptags|cut:"&nbsp;"|slice:"100" }}</div>
+    <div class="line"></div>
+{% endfor %}

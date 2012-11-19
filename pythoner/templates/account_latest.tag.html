@@ -1,0 +1,12 @@
+{% load accounts_tags %}
+{% autoescape off %}
+{% for user in users %}
+    <dl class="members">
+      <dd><a href="/accounts/{{ user.id }}/">{{ user.id|photo:"icon:True" }}</a><dd>
+      <dt><a href="/accounts/{{ user.id }}/">{{ user.id|screen_name|slice:"8" }}</a>
+      {% if user.email == 'user@weibo.com' %}<img class="sina_icon" title="来自新浪微博的用户" src="http://weibo.com/favicon.ico">{% endif %}
+    </dt>
+    </dl>
+{% endfor %}
+    <div class="clear">&nbsp;</div>
+{% endautoescape %}

@@ -1,0 +1,41 @@
+{% extends 'home_base.html' %}
+{% load accounts_tags %}
+{% block title %}新的PM{% endblock %}
+{% block main %}
+<style>
+#id_content{width:670px;height:300px;}
+</style>
+    {% block home_title %}{% endblock %}
+    <h1>新的PM</h1>
+    <form action="" method="POST" id="pm_write">
+    <!--
+        <input type="text" name="title" value="{{ entry.title }}">
+        <textarea rows="" cols="10">{{ entry.content }}</textarea>
+     -->
+	 	<p><label>寄给:</label> <a href="/home/{{ to_user.id }}/">{{ to_user.get_profile.screen_name }}</a></p>
+		{{ form.as_p }}
+		<p class="submit"><input type="submit" value="好了，寄给TA" class="button" style="width:120px;"></p>
+
+    </form>
+{% endblock %}
+
+{% block sidebar %}
+<style>
+.sidebar li{
+    display:block;
+    overflow:hidden;
+}
+.sidebar a img{
+    padding:1px;
+    margin:1px;
+    border:1px solid #ccc;
+}
+</style>
+    <ul>
+        <li>
+            <a href="/home/{{ to_user.id }}/">
+                <img src="/static/user/icon_{{ to_user.get_profile.photo|default:"none.jpg" }}">
+                <br/>去 {{ to_user.get_profile.screen_name }} 的主页
+            </a>
+    </ul>
+{% endblock %}

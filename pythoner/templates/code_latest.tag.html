@@ -1,0 +1,6 @@
+<ul>
+    <h3>最新代码</h3>
+    {% for code in codes %}
+    <li><a href="{{ code.get_absolute_url }}">{{ code.title }}</a> </li>
+    {% endfor %}
+</ul>

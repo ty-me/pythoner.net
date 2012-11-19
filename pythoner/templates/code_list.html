@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block description %}在这里发布、分享你的代码，与更多人交流，你将获得更多{% endblock %}
+{% block canonical %}<link rel="canonical" href="http://pythoner.net/code/" />{% endblock %}
+{% block keyworld %},python代码{% endblock %}
+{% block title %}代码分享{% endblock %}
+{% block main %}
+{% load code_tags %}
+    <div id="category-list">{% get_code_category %}</div>
+    <div class="clear"></div>
+    <div class="box">{% include 'code_list.inc.html' %}</div>
+{% endblock %}
+{% block sidebar %}
+    <a href="/code/add/" id="add">分享代码</a>
+    {% get_code_by_clicktime %}
+{% endblock %}

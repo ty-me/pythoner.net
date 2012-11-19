@@ -1,0 +1,242 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="zh-CN">
+<head>
+    <title>{% block title %}python开发者社区-首页{% endblock %}</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="PYTHON爱好者，中国pythoner聚集地" />
+    <meta name="keywords" content="{% include 'keyworld.html' %}" />
+	<meta name="alexaVerifyID" content="vwKqxr4ZSj7lbf5kf_zK-ljoD9g" />
+	<meta name="wumiiVerification" content="583081ce-ec1c-4d48-aa99-a2dc81a842df" />
+    <meta name="google-site-verification" content="Kx1frs5sT4uDjF_vtA7VAdx0xgSK5G0VIbcPYkdtubY" />
+    <meta property="wb:webmaster" content="9614bd471b3a2170" />
+	<meta name="chinaz-site-verification" content="1b75ad15-b0a7-4b93-82f3-64d5adcba804" />
+    <meta name="baidu_union_verify" content="446ec05678afc183ecebcd47a5217b6b">
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="/static/css/style.css" title="pythoner.net" />
+	<script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+<style>
+ul.login_method a:hover{background:none;}
+ul.login_method{border:1px solid #f4f4f4;background:#f4f4f4;}
+ul.login_method h2{margin:5px 10px;}
+ul.login_method img{margin:0 0 0 80px;}
+
+ul.show{list-style:none;margin:0;padding:0 0 10px;}
+ul.show li{display:block;width:330px;height:20px;overflow:hidden;float:left;margin:0 0 1px;padding:0;}
+ul.show span{color:#666;}
+ul.show li.blank{display:block;width:20px;}
+ul.show .time{float:right;text-align:right;}
+
+ul.topic{padding:0 0 0 10px;}
+ul.topic li{width:310px;}
+ul li.zero{background:url(/static/images/li5.gif) 6px 5px no-repeat;}
+div.top-show{height:60px;width:330px;overflow:hidden;float:left;margin:0;}
+div.top-show a{color:#000;font-size:14px;}
+div.top-show div.content{color:#777;line-height:16px;}
+div.right{margin:0 0 0 20px;}
+#container .topic a,#container .wiki{text-decoration:underline;}
+div#thx{text-align:center;margin:0;padding:0;}
+div#thx ul{margin:0;padding:0}
+div#thx ul li{display:inline; margin:0}
+div#thx ul li img{line-height:20px;height:20px; width:60px;border:1px solid #cecece; padding:1px;margin:1px;}
+#list-box{width:188px;background:#f3f3f3;position:absolute;padding:0 6px;font-size:8px;}
+.key-hover{background:#33CCFF;color:#333333;}
+</style>
+</head>
+<body>
+{% load main_tags %}
+{% load cache %}
+{% load home_tags %}
+{% load comments %}
+{% load accounts_tags %}
+{% load wiki_tags %}
+<script>
+    $(document).ready(function(){
+        $('.welcome').load('/main/usernav/');
+        
+        $('#list-box').hide();
+        $('.keyworld').keyup(function(){
+            var keyword = $('.keyworld').val();
+            var data =  keyword;
+            $.ajax({
+                type:"POST",
+                url:"/search/autocomplete/",
+                data:{'data':data},
+                success:function(html) {
+                    $('#list-box').show();
+                    $('#list-box').html(html);
+                    $('#list-box div').hover(function(){
+                        $(this).addClass('key-hover');
+                    },function(){
+                        $(this).removeClass('key-hover');
+                    });
+                    $('#list-box div').click(function(){
+                        var x = $(this).text();
+                        $('.keyworld').val(x);
+                        $('#list-box').hide();
+                    });
+                }
+            });
+            return false;
+        });    
+
+
+    });
+
+
+</script>
+<div id="wrapper">
+    <div id="header">
+		<h1 class="logo"></h1>
+        <div class="welcome">
+        </div>
+		<div class="clear"></div>
+    </div><!-- #header -->
+    <div id="nav">
+        <ul>
+            <li class="{% if current_page == 'index' %}curent{% endif %}"><a href="/">首页</a></li>
+            <li class="{% if current_page == 'code' %}curent{% endif %}"><a href="/code/">代码</a></li>
+            <li class="{% if current_page == 'wiki' %}curent{% endif %}"><a href="/wiki/">板报</a></li>
+            <li class="{% if current_page == 'topic' %}curent{% endif %}"><a href="/topic/">讨论</a></li>
+            <li class="{% if current_page == 'jobs' %}curent{% endif %} "><a href="/jobs/">招聘</a></li>
+            <li class="{% if current_page == 'books' %}curent{% endif %} "><a href="/books/">图书</a></li>
+        </ul>
+        <div class="search">
+        <form method="get" action="/search/wiki/p1/" id="searchform" name="searchform" target="_blank">
+              <input type="text" class="keyworld" name="q" id="q">
+              <div id="list-box">
+              </div>
+              <input type="submit" value="搜索" class="button" name="submit" id="submit">
+          </form>
+
+        </div>
+        <div class="clear">&nbsp;</div>
+    </div>
+    <div id="sub-nav">
+        <ul>
+            <li><a href="/wiki/">python 教程</a> </li>
+            <li><a href="/search/wiki/p1/?q=goagent">goagent翻墙</a></li>
+            <li><a href="/wiki/tag/Django/p1/">Django</a></li>
+            <li><a href="/search/wiki/?q=python%20%E5%BC%80%E5%8F%91/p1/">python 开发</a></li>
+            <li><a href="/wiki/tag/Linux/p1/">Linux</a></li>
+            <li><a href="/wiki/tag/Apache/p1/">Apache</a></li>
+            <li><a href="/wiki/tag/Ubuntu/p1/">Ubuntu</a></li>
+            <li><a href="/wiki/tag/Socket/p1/">Socket</a></li>
+            <li><a href="/wiki/tag/Web.py/p1/">Web.py</a></li>
+            <li><a href="/wiki/tag/Nginx/p1/">Nginx</a></li>
+            <li><a href="/code/p1/?category=python语言基础">源代码</a></li>
+            <li><a href="/topic/">话题讨论</a></li>
+            <li><a href="/jobs/">python 招聘</a> </li>
+        </ul>
+		<div class="clear"></div>
+    </div>
+	<div id="container">
+        <div class="top-show left">
+            <h2 style="font-size:16px;margin:0;padding:0;">
+                <a href="{{ wiki_first.get_absolute_url }}"> {{ wiki_first.title|slice:"15" }}</a></h2>
+            <div class="content">{{ wiki_first.content|striptags|cut:"&nbsp;"|slice:"40" }}</div>
+        </div>
+        <div class="top-show right">
+            <h2 style="font-size:16px;margin:0;padding:0;">
+                <a href="{{ wiki_second.get_absolute_url }}">{{ wiki_second.title }}</a></h2>
+            <div class="content">{{ wiki_second.content|striptags|cut:"&nbsp;"|slice:"40" }}</div>
+        </div>
+        <div class="clear"></div>
+        <ul class="show wiki">
+            {% for wiki in wikis %}
+                {% get_comment_count for wiki  as comment_count %}
+                <li>
+                    <a href="{{ wiki.get_absolute_url }}" class="title">{{ wiki.title|slice:"25" }}</a>
+                    <span class="time">{{ wiki.sub_time|date:"m/d" }}</span>
+                </li>
+                    <li class="blank"></li>
+            {% endfor %}
+        </ul>
+        <div class="clear"></div>
+
+        <!-- 板报 -->
+        <div class="box">
+            <h2>
+                <a class="title" href="/code/">代码分享</a>
+                
+            </h2>
+            <ul class="show topic">
+                {% for code in codes %}
+                    {% get_comment_count for code  as comment_count %}
+                    <li>
+                        <a href="{{ code.get_absolute_url }}" class="title">{{ code.title|slice:"20" }}</a>
+                        <span class="time">{{ code.sub_time|date:"m/d" }}</span>
+                    </li>
+                    <li class="blank"></li>
+                {% endfor %}
+            </ul>
+            <div class="clear"></div>
+        </div>
+
+        <!-- 正在讨论 -->
+        <div class="box">
+            <h2>
+                <a href="/topic/" class="title">正在讨论</a>
+                <a class="action" href="/topic/add/">发起讨论>></a>
+            </h2>
+            <ul id="code-list" class="list index">
+                {% for topic in topics %}
+                    {% get_comment_count for topic.topic topic.id as comment_count %}
+                    <li class="{% if comment_count == 0 %}zero{% endif %}">
+                        <a class="title" href="{{ topic.get_absolute_url }}" title="{{ topic.content|slice:"45" }}">{{ topic.title|slice:"30" }}</a>
+                        <span class="time">{{ topic.sub_time|how_long }}</span>
+                        <span class="author">By {{ topic.author.get_profile.screen_name }}</span>
+                        <span class="count">{{ comment_count }}评/{{ topic.click_times }}阅</span>
+                        <div class="clear"></div>
+                    </li>
+                    <div class="clear"></div>
+                {% endfor %}
+                <a href="/code/" class="more">查看更多>></a>
+                <div class="clear"></div>
+            </ul>
+        </div><!-- end box -->
+    
+        <!-- 招聘 -->
+        <div class="box">
+            <h2>
+                <a href="/jobs/" class="title">招聘信息</a>
+                <a href="/jobs/add/" class="action">发布信息>></a>
+            </h2>
+            <ul class="list index" id="job-list">
+                {% for job in jobs %}
+                    <li>
+                        <span>[{{ job.city }}]</span>
+                        <a href="{{ job.get_absolute_url }}" class="title">{{ job.company }}-{{ job.title }}</a>
+                        <span class="date">发表于{{ job.sub_time|how_long }}</span>
+                        <span class="right">{{ job.click_times }}阅</span>
+                        <div class="clear"></div>
+                    </li>
+                {% endfor %}
+                <a href="/jobs/" class="more">查看更多>></a>
+                <div class="clear"></div>
+            </ul>
+        </div>
+	</div><!-- #container -->
+    <div id="sidebar">
+<!-- 广告位：首页边侧 -->
+<script type="text/javascript" >BAIDU_CLB_SLOT_ID = "316465";</script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
+    {% get_alive_user %}
+    <div class="clear"></div>
+    {% get_latest_comment 25 %}
+    <div class="clear"></div>
+    <script type="text/javascript">/*234*60，创建于2012-3-8*/ var cpro_id = 'u798056';</script><script src="http://cpro.baidu.com/cpro/ui/c.js" type="text/javascript"></script>
+</div><!-- #primary .sidebar -->
+
+<div class="clear"></div>
+<div id="thx">
+    <ul>
+        <li>由以下产品强力驱动：</li>
+        <li><img src="/static/images/python.gif" title="python"></li>
+        <li><img src="/static/images/django.gif" title="django"></li>
+        <li><img src="/static/images/nginx.gif" title="nginx"></li>
+        <li><img src="/static/images/sphinx.jpg" title="sphinx"></li>
+        <li><img src="/static/images/ubuntu.png" title="ubuntu"></li>
+        <li><img src="http://nginx.org/nginx.gif" title="nginx"></li>
+        <li><img src="/static/images/mysql.png" title="mysql"></li>
+    </ul>
+</div>
+{% include 'foot.html' %}

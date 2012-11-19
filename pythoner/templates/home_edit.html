@@ -1,0 +1,35 @@
+{% extends 'home_base.html' %}
+{% block title %}个人设置{% endblock %}
+{% block h1 %}个人设置{% endblock %}
+{% block home_tabs %}{% include 'home_edit_tabs.inc.html' %}{% endblock %}
+{% block main %}
+<style>
+#id_status,#id_web_site,#id_screen_name{width:250px;}
+#id_introduction{width:670px;height:200px;}
+p.submit{text-align:right;}
+</style>
+<form action="" method="POST" enctype="multipart/form-data">
+    <table>
+        <p><label>账号:</label>{{ request.user }} (不可更改)</p>
+        <p><label>位置:</label>{{ profile.city }}  <a href="/home/city/">搬家</a></p>
+        {{ form.as_p }}
+        <p class="submit"><input class="button" type="submit" value="更新我的设置" style="width:120px;"></p>
+    </table>
+</form>
+{% endblock %}
+{% block sidebar %}
+        <div class="blank"></div>
+        <h3>赞助商链接</h3>
+        <script type="text/javascript"><!--
+google_ad_client = "ca-pub-8602112008660595";
+/* 侧边栏广告 */
+google_ad_slot = "3175833983";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+{% endblock %}

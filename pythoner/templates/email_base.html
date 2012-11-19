@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>来自pythoner.net的邮件</title>
+<style>
+body{background:#f4f4f4;font-size:14px;}
+#wrapper{width:800px; margin:0 auto; background:#3975CE;padding:10px;}
+#wrapper div.title{font-size:16px;color:#fff;}
+#wrapper div.content{background:#f4f4f4;padding:10px;line-height:22px;margin:10px 0 5px 0;}
+#wrapper div.foot{color:#999;font-size:12px; text-align:right;}
+</style>
+</head>
+<body>
+<div id="wrapper">
+    <div class="title">{% block title %}{% endblock %}</div>
+    <div class="content">
+        {% block content %}{% endblock %}
+	    <div class="foot">此邮件由系统自动发出，请勿回复！</div>
+    </div>
+</div>
+</body>
+</html>

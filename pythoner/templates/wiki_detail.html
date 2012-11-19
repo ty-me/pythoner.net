@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% include template_name %}
+{% block keyworld %}{% for tag in entry.tag.all %},{{ tag.name }}{% endfor %}{% endblock %}
+{% block title %}{{ entry.title}}({{ entry.category }}){% endblock %}
+{% block description %}{{ entry.title }}-{{ entry.content|slice:"120" }}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ entry.get_absolute_url }}" />
+<style>
+#post {margin:5px 0px 0px 0; padding:0px 0;font-size:13px; }
+#post .title{ margin:10px 0;padding:10px 0;text-align:center;}
+#post .source{border-left:10px solid #cfc; padding:4px;background:#EFE;line-height:25px;}
+#post .meta{border-bottom:1px solid #ddd;margin:0 0 10px 0;padding:0 0 10px 0;}
+#post .meta{color:#aaa;text-align:center;font-size:12px;}
+#post .action{text-align:right;}
+#post ul,#post ol{padding:0 0 0 20px;list-style:none;}
+#adsense {text-align:center;margin:0 auto;}
+</style>
+{% endblock %}
+{% block sub_nav %}{% endblock %}
+{% block main %}
+{% load comments %}
+{% load wiki_tags %}
+{% load cache %}
+{% get_comment_form for entry as form %}
+{% get_comment_count for entry as comment_count %}
+<div id="post">
+    {% if request.user.id == entry.author.id %}
+        <div class="action">
+            <a href="/wiki/{{ entry.id }}/edit/">修改</a>
+            <span>|</span>
+            <a href="/wiki/{{ entry.id }}/del/" onclick="return del('你真的要删除这篇文章么？');">删除</a>
+        </div>
+    {% endif %}
+
+	<h1 class="title">{{ entry.title }}</h1>
+    <div class="meta">
+        本文由 <a href="/home/{{ entry.author.id  }}" target="{{ author.target }}">{{ entry.author.get_profile.screen_name }}</a> 投递于
+        {{ entry.sub_time }}，{{ comment_count }}评/{{ entry.click_time }}阅
+        <span class="add"><a href="/wiki/post/" title="向我们投递稿件"></a></span>
+    </div>
+    <div class="content">
+        <div id="adsense"><script type="text/javascript">/*640*60，创建于2012-3-16*/ var cpro_id = 'u809819';</script><script src="http://cpro.baidu.com/cpro/ui/c.js" type="text/javascript"></script></div>
+        {% autoescape off %}{{ entry.content }}{% endautoescape %}</div>
+    <div class="wumi">
+		<script type="text/javascript" id="wumiiRelatedItems"></script>	
+		<script type="text/javascript">
+		var wumiiPermaLink = "http://pythoner.net{{ entry.get_absolute_url}}"; //请用代码生成文章永久的链接
+		var wumiiTitle = "{{ entry.title }}"; //请用代码生成文章标题
+		var wumiiTags = "{% for tag in entry.tag.all %},{{ tag.name }}{% endfor %}"; //请用代码生成文章标签，以英文逗号分隔，如："标签1,标签2"
+		var wumiiSitePrefix = "http://pythoner.net/";
+		var wumiiParams = "&num=5&mode=1&pf=JAVASCRIPT";
+		</script>
+		<script type="text/javascript" src="http://widget.wumii.com/ext/relatedItemsWidget.htm"></script>
+		<a href="http://www.wumii.com/widget/relatedItems.htm" style="border:0;">
+			<img src="http://static.wumii.com/images/pixel.png" alt="无觅相关文章插件，快速提升流量" style="border:0;padding:0;margin:0;" />
+		</a>
+	</div><!-- end wumi -->
+    <div class="source">
+        本站文章除注明转载外，均为本站原创或编译<br/>
+        欢迎任何形式的转载，但请务必注明转载出处，尊重他人劳动成果<br/>
+        文章来源：<a href="{{ entry.source }}" target="_blank" title="从新窗口传送到此链接">{{ entry.source|slice:"50" }}</a>  转载请注明出处
+    </div>
+    <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shCore.js"></script>
+    <script class="javascript">
+        SyntaxHighlighter.defaults['toolbar'] = true;
+        SyntaxHighlighter.all() </script>
+    <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shBrushPython.js"></script>
+    <div class="clear">&nbsp;</div>
+</div><!-- .post -->
+<script type="text/javascript"><!--
+    google_ad_client = "ca-pub-8602112008660595";
+    /* 正文顶部横幅官高 */
+    google_ad_slot = "3645907010";
+    google_ad_width = 700;
+    google_ad_height = 80;
+    google_language = 'zh-CN';
+    //-->
+</script>
+<script type="text/javascript"
+    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+<div class="comments">
+	{% render_comment_list for entry %}
+	{% if entry.allow_comment %}{% render_comment_form for wiki.entry entry.id %}{% endif %}
+</div><!-- .comments -->
+{% endblock %}
+{% block sidebar %}
+    {% get_latest_wiki 10 %}
+    {% get_wiki_by_clicktime 10 %}
+    {% get_wiki_tag %}
+{% endblock %}

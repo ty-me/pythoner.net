@@ -1,0 +1,68 @@
+{% extends 'home_base.html' %}
+{% block title %}PM{% endblock %}
+{% block main %}
+    {% block home_title %}{% endblock %}
+    <h1>PM</h1>
+    <table width="700px">
+        <tr><th width="60px"></th><td></td></tr>
+        {% if entry.from_user.id == request.user.id %}
+            <tr><th>寄给：</th><td>
+            <a href="/home/{{ entry.to_user.id }}/">{{ entry.to_user.get_profile.screen_name }}</a>
+            </td></tr>
+        {% else %}
+            <tr><th>来自：
+            </th><td>
+                {% if entry.system %}
+                    [系统提示]
+                {% else %}
+                    <a href="/home/{{ entry.from_user.id }}/">{{ entry.from_user.get_profile.screen_name }}</a>
+                {% endif %}
+            </td></tr>
+        {% endif %}
+        <tr><th>时间：</th><td>{{ entry.sub_time }}</td></tr>
+        <tr><th>标题：</th><td>{{ entry.title }}</td></tr>
+        <tr><th valign="top">内容：</th><td>{{ entry.content|urlizetrunc:50|linebreaksbr }}</td></tr>
+        <tr><th></th><td align="right">
+            <form action="" method="POST">
+                {% if entry.to_user == request.user %}
+                    <input type="submit" name="replay" value="回复" class="button" style="width:40px;">
+                {% endif %}
+                <input type="submit" name="delete" value="删除" class="button" style="width:40px;">
+            </form>
+        </td></tr>
+    </table>
+{% endblock %}
+{% block sidebar %}
+<style>
+.sidebar li{
+    display:block;
+    overflow:hidden;
+}
+.sidebar a img{
+    padding:1px;
+    margin:1px;
+    border:1px solid #ccc;
+}
+</style>
+    {% if entry.from_user.id == request.user.id %}
+        <ul>
+            <li>
+                <a href="/home/{{ entry.to_user.id }}/">
+                    <img src="/static/user/icon_{{ entry.to_user.get_profile.photo|default:"none.jpg" }}">
+                </a>
+            </li>
+            <li><a href="/home/{{ entry.to_user.id }}">去 {{ entry.to_user.get_profile.screen_name }} 的主页</a> </li>
+        </ul>
+    {% else %}
+        <ul>
+            <li>
+                <a href="/home/{{ entry.from_user.id }}/">
+                    <img src="/static/user/icon_{{ entry.from_user.get_profile.photo|default:"none.jpg" }}">
+                </a>
+            </li>
+            <li>
+                <a href="/home/{{ entry.from_user.id }}/">去 {{ entry.from_user.get_profile.screen_name }} 的主页</a>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}

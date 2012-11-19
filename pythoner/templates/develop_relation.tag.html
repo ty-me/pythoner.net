@@ -1,0 +1,17 @@
+<div class="title">关注了{{ users.count }}个用户:{{ id_list }}
+    {% for user in users %}
+        <a href="/home/{{ user.id }}/" title="({{ user.get_profile.city }})">
+            {{ user.get_profile.screen_name }}
+        </a>({{ user.get_profile.city  }}) 
+    {% endfor %}
+</div>
+<div class="remark">
+{% for user in users %}
+    <a href="/home/{{ user.id }}/" title="{{ user.get_profile.screen_name }}({{ user.get_profile.city }})">
+        <img class="user-photo" src="/static/user/icon_{{ user.get_profile.photo|default:"none.jpg" }}">
+    </a>
+{% endfor %}
+<div class="clear">&nbsp;</div>
+</div>
+<div class="action"><a href="/home/members/">找到感兴趣的人->></a> </div>
+<div class="line"></div>

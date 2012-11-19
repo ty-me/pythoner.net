@@ -1,0 +1,25 @@
+<ul class="user">
+<h2>Ta关注的(<a href="/home/{{ user.id }}/follows">全部{{ follows.count }}</a>)</h2>
+{% for follow in follows %}
+    <li>
+        <a href="/home/{{ follow.target_user.id }}/" title="{{ follow.target_user.get_profile.screen_name }}" target="_blank">
+        <img src="/static/user/icon_{{ follow.target_user.get_profile.photo|default:"none.jpg" }}">
+        <em>{{ follow.target_user.get_profile.screen_name }}</em></a>
+    </li>
+{% empty %}
+    <span class="dark">暂时还没有关注任何用户</span>
+{% endfor %}
+</ul>
+<div class="clear"></div>
+<ul class="user">
+<h2>Ta的FANS(<a href="/home/{{ user.id }}/fans/">全部{{ fans.count }})</a></h2>
+{% for fan in fans %}
+    <li>
+        <a href="/home/{{ fan.source_user.id }}/" title="{{ fan.source_user.get_profile.screen_name }}" target="_blank">
+        <img src="/static/user/icon_{{ fan.source_user.get_profile.photo|default:"none.jpg" }}">
+        <em>{{ fan.source_user.get_profile.screen_name }}</em></a> </li>
+{% empty %}
+    <span class="dark">还没有Fans</span>
+{% endfor %}
+</ul>
+<div class="clear"></div>

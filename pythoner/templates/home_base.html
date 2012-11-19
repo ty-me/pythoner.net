@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load home_tags %}
+{% block home_title %}
+        <div id="head-title" class="home">
+            <div class="author">
+                <a href="/home/{{ user.id }}/">
+                    <img src="/static/user/icon_{{ user.get_profile.photo|default:"none.jpg" }}">
+                </a>
+            </div>
+            <h1>{% block h1 %}{% endblock %}</h1>
+            <div class="meta">
+                <strong>永久链接:</strong><a href="/home/{{ user.id }}">http://pythoner.net/home/{{ user.id }}/</a>
+                {% if request.user.id %}
+                    <span>|</span>
+                    <a href="/home/{{ user.id }}/follow/" id="follow">
+                        {{ request.user|get_relation:user }}
+                    </a>
+                    <span>|</span>
+                    <a href="/pm/write/?to={{ user.id }}">发送PM</a>
+                {% endif %}
+            </div>
+            <div class="clear">&nbsp;</div>
+        </div><!-- end title -->
+    {% block home_tabs %}
+    <div class="tabs">
+        <span class="tab {% if current_page == 'develop' %}selected{% endif %}">
+            <a href="/home/{{ user.id }}/">动态</a></span>
+        <span class="tab {% if current_page == 'user_code' %}selected{% endif %}">
+            <a href="/home/{{ user.id }}/code/">代码</a></span>
+        <span class="tab {% if current_page == 'user_wiki' %}selected{% endif %}">
+            <a href="/home/{{ user.id }}/wiki/">笔记</a></span>
+        <span class="tab {% if current_page == 'user_topic' %}selected{% endif %}">
+            <a href="/home/{{ user.id }}/topic/">讨论</a></span>
+    </div>
+    {% endblock %}
+{% endblock %}

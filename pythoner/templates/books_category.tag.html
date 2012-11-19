@@ -1,0 +1,16 @@
+{% load cache %}
+{% cache 3600 book_category %}
+<ul>
+<h2>图书分类</h2>
+    {% for category in category_list %}
+        <li>
+            <a href="{{ category.get_absolute_url }}" title="查看分类 {{ category }} 下的所有图书">
+                {{ category.name }}
+            </a>
+            <span class="dark"> ({{ category.entry_set.count }})</span>
+        </li>
+    {% empty %}
+        <li><center>无分类</center></li>
+    {% endfor %}
+</ul>
+{% endcache %}

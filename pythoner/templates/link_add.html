@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}添加链接{% endblock %}
+{% block description %}欢迎与pythoner.net建立友情链接{% endblock %}
+{% block main %}
+<style>
+#id_title,#id_email,#id_url,#id_remark{width:500px;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#id_remark').val('介绍你的网站');
+	$('form').validate({
+		rules:{
+			category:{required:true},
+			title:{required:true,minlength:3,maxlength:10},
+			url:{required:true,url:true},
+			email:{required:true,email:true},
+			remark:{required:true,minlength:10,maxlength:100},
+		},
+		
+		messages:{
+			category:{required:'请选择一个分类'},
+			title:{required:'标题不能为空',minlength:'标题不能少于3个字符',maxlength:'标题不能多于10个字符'},
+			url:{required:'网站地址不能为空',url:'请注意url格式'},
+			email:{required:'电子邮件不能为空',email:'请注意email格式'},
+			remark:{required:' 说明不能为空',minlength:' 不能少于10个字符',maxlength:' 不能多于100个字符'},
+		}	
+	});
+});
+</script>
+    <h1>添加一个链接</h1>
+    <form action="/link/add/" method="POST">
+        {{ form.as_p }}
+        <p class="submit"><label></label><input type="submit" value="写好了！" style="width:80px;"></p>
+    </form>
+{% endblock %}
+{% block sidebar %}
+    <ul><li><a href="/link/">返回链接列表</a> </li></ul>
+{% endblock %}

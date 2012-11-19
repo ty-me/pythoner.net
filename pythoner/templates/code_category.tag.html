@@ -1,0 +1,14 @@
+{% load cache %}
+
+<ul>
+    <h2>代码分类：</h2>
+    {% for category in categorys %}
+        <li>
+            <a href="{{ category.get_absolute_url }}" title="分类 {{ category.name }} 下有{{ category.base_set.count }}条分享">
+                {{ category.name }}
+            </a>
+            <span class="dark">({{ category.base_set.count }})</span>
+        </li>
+    {% endfor %}
+</ul>
+<div class="clear"></div>

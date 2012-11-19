@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block keyworld %},python代码{% endblock %}
+{% block description %}由{{ code_base.author.get_profile.screen_name }}分享的代码片段：{{ code_base.title }}
+    {{ code_base.description|slice:"100" }}{% endblock %}
+{% block title %}代码分享-{{ code_base.title }}({{ code_base.category.name }}) -by {{ code_base.author.get_profile }}{% endblock %}
+{% load comments %}
+{% load code_tags %}
+{% block main %}
+{% get_comment_count for code.base code_base.id as comment_count %}
+<link type="text/css" rel="stylesheet" href="/static/syntaxhighlighter/styles/shCoreDefault.css" />
+<style>
+h2 span.title{background:#3975CE;display:block;width:120px;height:20px;line-height:20px;color:#fff;text-align:center;}
+div.action{text-align:right;}
+div.action span.blank{color:#aaa;margin:0 5px;}
+div.description{margin:10px 0 20px 0;padding-left:70px;}
+ol li{border-bottom:1px solid #f4f4f4;}
+ol li .action{float:right;}
+ol li .action a{margin-left:10px;}
+ol li .action a:hover{background:none;color:#000;s}
+</style>
+    <script type="text/javascript">
+    function del(){
+        if(confirm('你真的要删除这条代码片段么？') == false ){
+            return false;
+        }
+    }
+    </script>
+    <div id="code">
+        <div class="action">
+        {% if request.user == code_base.author %}
+            <a href="/code/add/?id={{ code_base.id }}">修改信息</a>
+            <span>|</span>
+            <a href="/code/add/{{ code_base.id }}/">修改代码</a>
+            <span>|</span>
+            <a href="/code/del/{{ code_base.id }}/" onclick="return del()">删除</a>
+        {% endif %}
+        </div><!-- end action -->
+        <div id="head-title">
+            <div class="author">
+                <a href="/home/{{ code_base.author.id }}/">
+                    <img src="/static/user/icon_{{ code_base.author.get_profile.photo|default:"none.jpg" }}">
+                </a>
+            </div>
+            <h1>{{ code_base.title|slice:"30" }} </h1>
+            <div class="meta">
+                <a href="/home/{{ code_base.author.id }}">{{ code_base.author.get_profile.screen_name }}</a>
+                发布于 {{ code_base.sub_time }}，分类:{{ code_base.category.name }}，{{ comment_count }}评/{{ code_base.click_times }}阅
+            </div>
+        <div class="clear">&nbsp;</div>
+        </div><!-- end title -->
+
+        {% if code_base.description %}
+            <div class="description">{{ code_base.description|urlizetrunc:50|linebreaksbr }}</div>
+        {% endif %}
+
+        {% for code in codes %}
+            <h2 style="border-bottom:1px solid #3975CE;">
+                <span class="title">[{{ code.language.name }}]代码片段</span>
+            </h2>
+            <pre class="brush: {{ code.language.brush }}">{{ code.content }}</pre><br/>
+        {% endfor %}
+
+        {% if zips.count > 0 %}
+            <h2 style="border-bottom:1px solid #3975CE;">
+                <span class="title">附件</span></h2>
+            <ol class="zip-list">
+            {% for zip in zips %}
+                <li>
+                    <a href="/code/download/zip/{{ zip.id }}/">{{ zip.name }}</a>
+                    <span class="size">{{ zip.size|filesizeformat }}</span>
+                    <span class="action">
+                        <a href="/code/download/zip/{{ zip.id }}/" title="下载这个附件" target="_blank">下载</a>
+                        <span>({{ zip.download_times }})</span>
+                    </span>
+                </li>
+            {% endfor %}
+            </ol>
+        {% endif %}
+        <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shCore.js"></script>
+        <script class="javascript">
+            SyntaxHighlighter.defaults['toolbar'] = true;
+            SyntaxHighlighter.all() </script>
+
+        {% render_comment_list for code.base code_base.id %}
+        {% render_comment_form for code.base code_base.id %}
+        {% for code in codes  %}
+            <script type="text/javascript" src="/static/syntaxhighlighter/scripts/{{ code.language.js }}"></script>
+        {% endfor %}
+    </div><!-- end code -->
+{% endblock %}
+{% block sidebar %}
+    <a href="/code/add/" id="add">+ 分享我的代码</a>
+    {% get_code_list_by_user code_base.author %}
+    {% get_code_visitor code_base %}
+    {% get_latest_code %}
+{% endblock %}

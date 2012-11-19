@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block keyworld %},{{ book.name }}{% endblock %}
+{% block description %}{{ book.name }} -作者：{{ book.author }}{% endblock %}
+{% block title %}{{ book.name }}{% endblock %}
+{% block main %}
+{% load comments %}
+{% get_comment_count for book as comment_count %}
+<style>
+    #book{}
+    #book div.info{border:1px solid #f4f4f4;padding:10px ;background:#fff;}
+    #book div.pic{float:left;width:200px;margin:0 10px 10px 0;}
+    #book div.pic img{width:160px;}
+    #book div.meta{float:left;padding:0 0 0 100px;width:350px;}
+    #book div.inst{margin:10px 0;}
+    #book div.taobao{text-align:right;}
+</style>
+
+<h1>{{ book.name }}</h1>
+<div id="book">
+    <div class="info">
+        <div class="pic"><img src="/static/books/{{ book.isbn }}.jpeg" ></div>
+        <div class="meta">
+            <div>作者：{{ book.author }}</div>
+            {% if book.translator %}<div>翻译：{{ book.translator }}</div>{% endif %}
+            <div>出版社：{{ book.publish }}</div>
+            <div>出版时间：{{ book.pub_date }}</div>
+            <div>页数：{{ book.pages }}</div>
+            <div>定价：{{ book.price }}</div>
+            <div>ISBN：{{ book.isbn }}</div>
+            <div>点击次数：{{ book.click_time }}</div>
+            {% if book.taobao_url %}<div class="taobao"><a href="{{ book.taobao_url }}" target="_blank">去淘宝购买</a></div>{% endif %}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="inst">
+        <h2>内容简介</h2>
+        {% autoescape off %}{{ book.instrution }}{% endautoescape %}</div>
+
+
+
+</div>
+
+{% render_comment_list for book %}
+{% render_comment_form for book %}
+{% endblock %}
+{% block sidebar %}
+{% endblock %}

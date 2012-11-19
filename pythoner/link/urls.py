@@ -7,5 +7,4 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('link',
     (r'^$','views.index'),
     (r'^add/$','views.add'),
-    (r'posted/$','views.posted'),
 )

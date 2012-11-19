@@ -1,0 +1,16 @@
+<ul>
+{% load comments %}
+    <h3><span class="red">{{ user.get_profile.screen_name }}</span>的其它代码</h3>
+{% for code in codes %}
+    {% get_comment_count for code.base code.id as comment_count %}
+     <li>
+         <a href="{{ code.get_absolute_url }}">{{ code.title|slice:"24" }}</a>
+         <span class="count">({{ code.click_times }}阅)</span>
+         </li> 
+{% empty %}
+    <span class="dark">TA还没有分享任何代码</span>
+{% endfor %}
+{% if codes.count %}
+    <li class="more"><a href="/home/{{ user.id }}/code/">所有Ta的代码</a></li>
+{% endif %}
+</ul>

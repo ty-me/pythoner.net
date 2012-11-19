@@ -1,0 +1,9 @@
+{% load accounts_tags %}
+{% autoescape off %}
+<ul>
+    <h2>最新话题</h2>
+{% for entry in entrys %}
+    <li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}">{{ entry.title|slice:":24" }}</a></li>
+{% endfor %}
+</ul>
+{% endautoescape %}

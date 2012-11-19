@@ -1,0 +1,18 @@
+{% load cache %}
+{% cache 3600 topic_tags %}
+<div id="tags">
+    <ul>
+        <h2>热门标签：</h2>
+        {% for tag in tags %}
+            {% if tag.topic_set.count > 0 %}
+            <li>
+                <a href="{{ tag.get_absolute_url }}" title="标签 {{ tag.name }} 下有 {{ tag.topic_set.count }} 篇文章">
+                    {{ tag.name|title }}
+                </a>
+            </li>
+            {% endif %}
+        {% endfor %}
+    <div class="clear">&nbsp;</div>
+    </ul>
+</div>
+{% endcache %}

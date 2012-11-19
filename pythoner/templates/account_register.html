@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}欢迎加入python.net{% endblock %}
+{% block description %}欢迎加入pythoner.net，请先注册一个账号，以便使用更多我们提供的服务{% endblock %}
+{% block main %}
+<style>
+#register{padding:0;margin:10px 0 0 0;}
+#register tr label{font-size:16px;color:#333333;font-weight:100;}
+#id_username,#id_password,#id_screen_name{width:300px;}
+label.error,.error {color: red;padding-left: .5em;font-size:12px;}
+</style>    
+    <h1 style="font-size:36px;font-weight:normal;">欢迎加入pythoner.net</h1>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        // 按钮
+        $('input.button').click(function(){
+            $(this).attr('value','正在注册');
+        });
+
+        // 验证表单
+        $('.register').validate({
+            rules:{
+                username:{required:true,email:true},
+                screen_name:{required:true,minlength:3,maxlength:20},
+                password:{required:true,minlength:6,maxlength:20}
+            },
+
+            messages:{
+                username:{required:'请填写email',email:'格式错误'},
+                screen_name:{required:'起个昵称吧',minlength:'不能少于3个字符',maxlength:'不能多于20个字符'},
+                password:{required:'设置一个密码吧',minlength:'不能少于6个字符',maxlength:'不能多于20个字符'}
+            }
+
+        });
+    });
+
+    </script>
+    <form action="" class="register" method="POST">
+        csrf token {% csrf_token %}
+        <table id="register">
+            {{ form.as_table }}
+            <tr><th></th><td><input class="button" type="submit" value="我填好了！" name="submit" style="width:100px;"></td></tr>
+        </table>
+    </form>
+{% endblock %}
+{% block sidebar %}
+<style>
+ul.login_method a:hover{
+    background:none;
+}
+</style>
+<ul class="login_method">
+    <h2>其它方式登录?</h2>
+    <li><a href="/accounts/login/sina/"><img src="http://www.sinaimg.cn/blog/developer/wiki/240.png"></a></li>
+    <li><a href="/accounts/login/douban/"><img src="http://img3.douban.com/pics/douban-icons/login_with_douban_24.png"></a></li>
+    <li>&nbsp;</li>
+</ul>
+<ul>
+    <h3>关于账号注册</h3>
+    <li>你的注册信息仅用于本站，我们会妥善保管你的个人信息，请放心注册</li>
+    <li>已经有一个账号了？<a href="/accounts/login/"><span class="red">马上登陆</span></a> </li>
+    <li>看看<a href="/members/"><span class="red">最近注册的用户</span></a></li>
+</ul>
+
+{% endblock %}

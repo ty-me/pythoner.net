@@ -1,0 +1,100 @@
+{% extends 'home_base.html' %}
+{% block head %}
+<script type="text/javascript" src="/static/js/jquery.jcrop.min.js"></script>
+<link type="text/css" href="/static/css/jsrop.css">
+<script type="text/javascript">
+    jQuery(function($){
+
+      // Create variables (in this scope) to hold the API and image size
+      var jcrop_api, boundx, boundy;
+
+      $('#target').Jcrop({
+        onChange: updatePreview,
+        onSelect: updatePreview,
+        aspectRatio: 1
+      },function(){
+        // Use the API to get the real image size
+        var bounds = this.getBounds();
+        boundx = bounds[0];
+        boundy = bounds[1];
+        // Store the API in the jcrop_api variable
+        jcrop_api = this;
+      });
+
+      function updatePreview(c)
+      {
+        if (parseInt(c.w) > 0)
+        {
+          var rx = 48 / c.w;
+          var ry = 48 / c.h;
+
+          $('#preview').css({
+            width: Math.round(rx * boundx) + 'px',
+            height: Math.round(ry * boundy) + 'px',
+            marginLeft: '-' + Math.round(rx * c.x) + 'px',
+            marginTop: '-' + Math.round(ry * c.y) + 'px'
+          });
+        }
+
+        $('#x1').val(c.x);
+        $('#y1').val(c.y);
+        $('#x2').val(c.x2);
+        $('#y2').val(c.y2);
+
+      };
+
+    });
+
+</script>
+<style>
+ul{list-style:none;}
+#file{width:400px;margin:0;padding:10px 0 0 3px;}
+</style>
+{% endblock %}
+{% block title %}头像{% endblock %}
+{% block h1 %}上传真实头像{% endblock %}
+{% block home_tabs %}{% include 'home_edit_tabs.inc.html' %}{% endblock %}
+{% block main %}
+    <h2>上传头像</h2>
+	<ul>
+		<li>选择上传一张像素较高的照片作为头像</li>
+		<li>系统自动将其压缩成最大高度/宽度低于125像素的缩略图(该头像将显示在你的个人信息页面)<br />
+		以及一样45*45的小头像</li>
+		<li>你也可以按你自己的喜好剪裁出一张小头像</li>
+		<li class="orange">提示：你可以上传JPG、JPEG、GIF、PNG或BMP文件</li>
+		
+		<form method="POST" action="/home/photo/" enctype="multipart/form-data">
+             <input type="file" value="photo" name="photo" id="file" />
+            <input type="submit" value="上传头像" class="button" style="width:160px;" />
+        </form>
+	</ul>
+    <h2>剪裁头像</h2>
+	<ul>
+		<h2>大图</h2>
+		<li><img id="target" src='/static/user/{{ profile.photo|default:"none.jpg" }}'></li>
+    </ul>
+    <ul>
+		<h2>剪裁后</h2>
+		<li style="width:48px;height:48px;overflow:hidden;">
+            <img id="preview" src='/static/user/{{ profile.photo|default:"none.jpg" }}'>
+        </li>
+		<li>
+            <form method="POST" action="/home/photo/">
+            <div style="display:none;">
+                <label>X1 <input type="text" size="4" id="x1" name="x1" /></label>
+                <label>Y1 <input type="text" size="4" id="y1" name="y1" /></label>
+                <label>X2 <input type="text" size="4" id="x2" name="x2" /></label>
+                <label>Y2 <input type="text" size="4" id="y2" name="y2" /></label>
+            </div>
+            <input type="submit" name="icon" value="剪裁头像" class="button" style="width:100px;">
+            </form>
+		</li>
+        <li>&nbsp;</li>
+        <li><a href="/home/edit/">返回个人设置</a></li>
+	</ul>    
+{% endblock %}
+{% block sidebar %}
+    <div class="blank"></div>
+    {% include 'sidebar.ads.html' %}
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}账号激活{% endblock %}
+{% block main %}
+    <form action="" method="POST">
+    <h1>账号激活</h1>
+    <p>账号激活邮件已经发送到你的邮箱<i><b>{{ email }}</b></i>中<br>
+        请登录邮箱<strong class="red"><a target="_blank" href="http://{{ email_domain }}">{{ email_domain }}</a></strong>完成账号激活操作</p>
+    <p>如果长时间没有收到激活邮件,请先检查是否被扔进了<i><b>垃圾箱</b></i><br>
+        或者<input type="submit" name="submit" value="重新发送" class="button" style="width:80px;">一封激活邮件</p>
+    </form>
+{% endblock %}
+{% block sidebar %}
+    
+{% endblock %}

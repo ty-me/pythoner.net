@@ -1,0 +1,5 @@
+<h1>自动添加标签</h1>
+{% for entry in entrys %}
+    <h3>《{{ entry.title }}》</h3>
+    <div>tags:{% for tag in entry.tag.all %}{{ tag.name }} {% endfor %}</div>
+{% endfor %}

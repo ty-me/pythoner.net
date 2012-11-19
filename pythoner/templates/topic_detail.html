@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block keyworld %},{{ user.get_profile.screen_name }}的话题{% endblock %}
+{% block description %}{{ topic.title|slice:"150" }} -作者：{{ topic.author.get_profile.screen_name }}{% endblock %}
+{% block title %}{{ topic.title }}{% endblock %}
+{% block home_tabs %}{% endblock %}
+{% block main %}
+{% load home_tags %}
+ {% load topic_tags %}
+{% load comments %}
+{% get_comment_count for topic as comment_count %}
+<script type="text/javascript">
+function mark(){
+    //收藏
+}
+</script>
+<script type="text/javascript" src="/static/js/kindeditor/kindeditor-min.js"></script>
+        <div id="head-title" class="home">
+            <div class="author">
+                <a href="/home/{{ topic.author.id }}/">
+                    <img src="/static/user/icon_{{ topic.author.get_profile.photo|default:"none.jpg" }}">
+                </a>
+            </div>
+            <h1>由 {{  topic.author.get_profile.screen_name }} 发起的话题</h1>
+            <div class="meta">
+                {% if request.user.id %}
+                    <strong>本页链接</strong>http://pythoner.net/topic/{{ topic.id }}/
+                    <span>|</span>
+                    <a href="/home/{{ topic.author.id }}/follow/" id="follow">
+                        {{ request.user|get_relation:user }}
+                    </a>
+                    <span>|</span>
+                    <a href="/pm/write/?to={{ topic.author.id }}">向他请教</a>
+                {% endif %}
+            </div>
+            <div class="clear">&nbsp;</div>
+        </div><!-- end title -->
+    <div id="topic">
+        <div class="title">
+            <h1>{{ topic.title }}</h1>
+            <div class="meta">发表于{{ topic.sub_time|how_long }} ,
+                已有<span class="red">{{ topic.click_times }}</span>次阅读
+                共<span class="red">{{ comment_count }}</span>个回应
+            </div>
+            <div class="action">
+                {% if request.user.is_anonymous %}
+                    <a href="/wiki/post" title="向pythoner.net板报栏目投递稿件">投递稿件(?)</a>
+                {% endif  %}
+                {% if topic.author.id == request.user.id %}
+                    <a href="/topic/{{ topic.id }}/edit/">编辑</a>
+                    <span>|</span>
+                    <a href="/topic/{{ topic.id }}/del/" onclick="return del();">删除</a>
+                {% else %}
+                    {% if request.user.id %}<a href="javascript:mark();" id="mark">收藏此帖</a>{% endif %}
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="content">{% autoescape off %}{{ topic.content }}{% endautoescape %}
+        </div>
+    </div><!-- end blog -->
+<script type="text/javascript"><!--
+    google_ad_client = "ca-pub-8602112008660595";
+    /* 正文顶部横幅官高 */
+    google_ad_slot = "3645907010";
+    google_ad_width = 700;
+    google_ad_height = 80;
+    //-->
+</script>
+<script type="text/javascript"
+    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+    {% render_comment_list for topic %}
+    {% render_comment_form for topic %}
+{% endblock %}
+{% block sidebar %}
+    {% get_topic_list_by_user topic.author %}
+    {% get_latest_topic %}
+{% endblock %}
