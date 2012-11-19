@@ -22,7 +22,6 @@ Version
 + PIL
 + DjangoVerifyCode  0.2.2
 
-<<<<<<< HEAD
 开发环境配置
 ------------
 + 运行scripts目录下的setupenv.sh文件，将会自动安装配置所需环境
@@ -37,5 +36,4 @@ Version
 + 用于现实列表的文件通常以name_list.html命名,如:``` wiki_list.html ```
 
 =======
->>>>>>> 0e4f04e4de468443f85368489b5f1ae15cb39e43
 
