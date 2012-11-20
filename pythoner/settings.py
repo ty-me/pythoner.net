@@ -11,8 +11,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# 服务器环境
 if os.getenv('site') == 'pythoner':
-    # 服务器环境
     SESSION_ENGINE	= 'django.contrib.sessions.backends.cache'
     DEBUG = False
     DOMAIN = 'http://pythoner.net'
@@ -31,6 +31,7 @@ if os.getenv('site') == 'pythoner':
 
 # 本地环境
 else:
+    print 'localhost '
     SESSION_ENGINE = 'django.contrib.sessions.backends.db'
     DEBUG = True
     DOMAIN = 'localhost:8009'
@@ -124,7 +125,6 @@ PHOTO_SIZE = (128,128)
 ICON_PHOTO_SIZE = (48,48)
 
 DEFAULT_PASSWORD = '122126382'
-
 DOUBAN_API_KEY = '09762ab58aac6baa1c628020a00542fe' 
 DOUBAN_API_SECRET = '57d35048a51dfb5d' 
 DOUBAN_SCOPE = 'shuo_basic_r,shuo_basic_w,douban_basic_common' 
