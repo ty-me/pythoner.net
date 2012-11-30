@@ -36,7 +36,7 @@ label.error,.error {color: red;padding-left: .5em;font-size:12px;}
 
     </script>
     <form action="" class="register" method="POST">
-        csrf token {% csrf_token %}
+        {% csrf_token %}
         <table id="register">
             {{ form.as_table }}
             <tr><th></th><td><input class="button" type="submit" value="我填好了！" name="submit" style="width:100px;"></td></tr>

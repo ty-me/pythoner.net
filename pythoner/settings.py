@@ -11,43 +11,23 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# 服务器环境
-if os.getenv('site') == 'pythoner':
-    SESSION_ENGINE	= 'django.contrib.sessions.backends.cache'
-    DEBUG = False
-    DOMAIN = 'http://pythoner.net'
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': 'pythoner_db',     
-            'USER': 'pythoner',            
-            'PASSWORD': 'XWb6VmRRhuUqT8nc', 
-            'HOST': 'localhost',                      
-            'PORT': '',                      
-            'REDIS': redis.Redis(host='127.0.0.1')
-        }
-    }
-    STATIC_ROOT = '/var/pythoner.net/static/'
-
 # 本地环境
-else:
-    print 'localhost '
-    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-    DEBUG = True
-    DOMAIN = 'localhost:8009'
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': 'pythoner_db',      
-            'USER': 'root',               
-            'PASSWORD': '',                
-            'HOST': 'localhost',            
-            'PORT': '',                      
-            'REDIS': redis.Redis(host='127.0.0.1')
-        }
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+DEBUG = True
+DOMAIN = 'localhost:8009'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'pythoner_db',      
+        'USER': 'root',               
+        'PASSWORD': '',                
+        'HOST': 'localhost',            
+        'PORT': '',                      
+        'REDIS': redis.Redis(host='127.0.0.1')
     }
+}
 
-    STATIC_ROOT = os.path.join(ROOT_PATH,'static')
+STATIC_ROOT = os.path.join(ROOT_PATH,'static')
 
 TEMPLATE_DEBUG = DEBUG
 TIME_ZONE = 'Asia/Shanghai'

@@ -40,7 +40,7 @@ def welcome(sender,**kwargs):
     """
     用户注册后发送PM
     """
-    title = u'欢迎你,亲!',
+    title = '欢迎您!',
     content = "欢迎来到pythoner.net，网站代码已经开源,欢迎Fork,http://github.com/tianyu0915/pythoner.net"
     to_user = kwargs['profile'].user
     Pm(
@@ -55,7 +55,7 @@ def welcome(sender,**kwargs):
     Pm(
         from_user = User.objects.get(id=1),
         to_user = User.objects.get(id=1),
-        title = 'new user',
+        title = 'new user register',
         content = 'naem:%s' %kwargs['profile'].screen_name,
         system = True
     ).save()

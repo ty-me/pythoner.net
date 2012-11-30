@@ -1,6 +1,7 @@
 ###############
 # Project
 ##############
+*.pyc
 settings.py
 tests.py
 others
@@ -9,7 +10,6 @@ cache
 #################
 ## Eclipse
 #################
-
 
 *.pydevproject
 .project
