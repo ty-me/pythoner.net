@@ -2,6 +2,7 @@
 # Project
 ##############
 *.pyc
+*.log
 settings.py
 tests.py
 others
