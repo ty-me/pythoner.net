@@ -1,12 +1,23 @@
 #encoding:utf-8
-from fabric.api import *
 import datetime
 import sys
 import os
+from fabric.api import *
+from cuisine import *
+from fabric.contrib.project import rsync_project, upload_project
+
+ROOT  = '/opt/pythoner.net'
+
+BASIC_PACKAGES = ['gcc','python2.7','python2.7-dev','python-setuptools',
+                  'python-pip','git','git-core','libxml2','libxml2-dev',
+                  'libxslt-dev','build-essential']
 
 site = os.getenv('site')
 if site == 'pythoner':
     env.hosts = ['t-y.me']
+    env.user = 'root'
+elif site == 'test':
+    env.hosts = ['robot.t-y.me']
     env.user = 'root'
 else:
     env.hosts = ['192.168.100.100']
@@ -20,7 +31,7 @@ def mysqldump():
         cmd = "mysqldump -hlocalhost -uroot -p122126382 %s> /tmp/%s.sql" %(db,file_name)
         run(cmd)
         
-        cmd = 'scp -C root@t-y.me:/tmp/%s.sql ~/Backup/sqls/' %file_name
+        cmd = 'scp -C root@t-y.me:/tmp/%s.sql ~/Sqls/' %file_name
         local(cmd)
 
 def mysqlrestore():
@@ -31,10 +42,6 @@ def mysqlrestore():
 
     #with run('mysql'):
     #    run('source ~/s.sql;')
-
-def install_base():
-    run('apt-get update')
-    run('apt-get  install redis-server mysql-server libxml2 git git-core automake autoconfig build-essential ')
 
 def install_python():
     """ 
@@ -72,20 +79,34 @@ def restart():
         run('. uwsgi')
 
 def setup():
-    install_base()
-    install_python()
-    install_nginx()
+
+    packages = BASIC_PACKAGES 
+    #run('apt-get install -y %s' %' '.join(packages))
+    package_install(packages)
+    package_ensure(packages)
+    # start elasticsearch
+
+    with cd(ROOT):
+        run('find . -name *.pyc |xargs rm -rf ')
+
+    with settings(warn_only=True):
+        run("rm -rf {0}".format(ROOT))
+        run("mkdir -p {0}".format(ROOT))
+        upload_project(ROOT,'/opt/')
+
+    with cd(os.path.join(ROOT,'scripts')):
+            run('. setupenv.sh')
 
 def deploy():
-    with cd('/home/pythoner.net'):
+    with cd(ROOT):
         run('git pull origin master:master')
-        run('pip install -r ~/pythoner.net/scripts/requirements.txt')
+        run('. pythoner/env.sh')
+        run('pip install -r %s/scripts/requirements.txt' %ROOT)
         #run('. bin/uwsgi.sh')
 
 def run_spider():
     with cd('/www/pythoner/others/spider'):
         run('ls')
         run('. run.sh')
-
 
 

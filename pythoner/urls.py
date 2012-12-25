@@ -23,7 +23,6 @@ urlpatterns = patterns('',
     (r'^code/',include('code.urls')),
     (r'^books/',include('books.urls')),
     (r'^accounts/',include('accounts.urls')),
-    (r'^search/',include('search.urls')),
     (r'^members/$','home.views.members'),
 
     (r'^main/',include('main.urls')),

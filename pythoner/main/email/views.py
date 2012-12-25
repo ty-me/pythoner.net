@@ -36,7 +36,6 @@ def send_email(subject='', body='', from_email=None, to=[]):
     email.start()
     email.join()
 
-
 def send_email_test():
     """
     测试发送邮件

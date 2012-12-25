@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt-get -y install mysql-server,python,python-dev,nginx,redis-server,python-setuptools
+sudo apt-get install -y libmysqld-dev ibmysqlclient-dev
 sudo easy_install pip
 sudo pip install virtualenvwrapper
 

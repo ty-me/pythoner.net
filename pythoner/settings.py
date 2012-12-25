@@ -1,5 +1,6 @@
 #encoding:utf-8
 import os
+import sys
 import redis
 
 ROOT_PATH = os.path.normpath(os.path.dirname(__file__)).replace('\\','/')
@@ -10,6 +11,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
 
 # 本地环境
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
@@ -26,6 +28,15 @@ DATABASES = {
         'REDIS': redis.Redis(host='127.0.0.1')
     }
 }
+
+ENV = os.getenv('ENV')
+
+if ENV in ['DEV','TY']:
+    DEBUG = True
+    pass
+else:
+    pass
+
 
 STATIC_ROOT = os.path.join(ROOT_PATH,'static')
 
@@ -84,7 +95,6 @@ INSTALLED_APPS = (
     'home',
     'books',
     'accounts',
-    'search',
     'main',
     'pm',
     'topic',
