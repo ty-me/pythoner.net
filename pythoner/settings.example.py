@@ -1,6 +1,5 @@
 #encoding:utf-8
 import os
-import redis
 
 ROOT_PATH = os.path.normpath(os.path.dirname(__file__)).replace('\\','/')
 DEFAULT_CHARSET = 'utf8'
@@ -24,7 +23,6 @@ if os.getenv('site') == 'pythoner':
             'PASSWORD': '',
             'HOST': 'localhost',
             'PORT': '',
-            'REDIS': redis.Redis(host='127.0.0.1')
     }
     }
     STATIC_ROOT = '/var/pythoner.net/static/'
@@ -42,7 +40,6 @@ else:
             'PASSWORD': '',
             'HOST': 'localhost',
             'PORT': '',
-            'REDIS': redis.Redis(host='127.0.0.1')
     }
     }
     
