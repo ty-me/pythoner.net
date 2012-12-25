@@ -60,7 +60,7 @@ MEDIA_ROOT = os.path.join(ROOT_PATH,'media')
 MEDIA_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/media/'
 
-SECRET_KEY = '#x99xvn(!d-ic@b*@0sbdc$jpb+u!%bfj3q-1c0hi@$%moz+y@'
+SECRET_KEY = '#x99xvn(!d-ic@b*@0sbdc$jvi+n!%bjj2q-1u0ip@$%nob+z@'
 
 TEMPLATE_LOADERS = (
                     'django.template.loaders.filesystem.Loader',
