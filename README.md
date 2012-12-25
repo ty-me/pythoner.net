@@ -2,8 +2,7 @@
 
 简介
 ---
-<http://pythoner.net>是TY在11年初刚开始完全使用python时用django(1.3)开发,现正式开源，以便各位去其糟粕
-
+<http://pythoner.net>是TY在11年初用django(1.3)开发,现正式开源，以便各位去其糟粕
 
 Version
 -------
@@ -22,8 +21,8 @@ Version
 开发环境配置
 ------------
 + 运行scripts目录下的setupenv.sh文件，将会自动安装配置所需环境
-+ 完成后设置本地环境变量:export site=local
-+ 修改settings.py中数据库的相关配置信息
++ 设置本地环境变量:export site=local
++ mv settings.example.py settings.py 并修改数据库的相关配置信息
 + python manage.py syncdb 生成数据表结构
 + python manage.py runserver 8080
 
