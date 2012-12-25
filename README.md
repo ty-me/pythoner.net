@@ -2,11 +2,8 @@
 
 简介
 ---
-<http://pythoner.net>是TY在11年用django(1.3)开发,现正式开放源代码.欢迎Fork
+<http://pythoner.net>是TY在11年初刚开始完全使用python时用django(1.3)开发,现正式开源，以便各位去其糟粕
 
-----
-### 代码整理中,稍后奉上...
-----
 
 Version
 -------
