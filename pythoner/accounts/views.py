@@ -23,30 +23,6 @@ def register(request):
     新用户注册
     """
 
-    #########################################################################################
-    # 用户操作行为安全保护
-
-    # 计时器
-    timer = time.time() - request.session.get('time_stamp',0)
-
-    # 危险操作次数
-    action_times = request.session.get('action_times',0)
-
-    # 错误次数是否大于最大
-    if action_times >= 1:
-        if not check_verify(request):
-            return render('verify.html',locals(),context_instance=RequestContext(request))
-        else:
-
-            # 重置标志位
-            reset(request)
-
-    elif timer > 60:
-        # 重置标志位
-        reset(request)
-    #########################################################################################
-
-    # 处理GET请求
     if request.method == 'GET':
         if TURN_OFF:
             return render('account_register_off.html',locals())
@@ -54,14 +30,13 @@ def register(request):
             form = RegisterForm()
             return render('account_register.html',locals(),context_instance=RequestContext(request))
 
-    # 处理POST数据
     return _register(request)
 
 def _register(request):
     """
     用户注册
     """
-    # 数据有效性验证
+
     form = RegisterForm(request.POST)
     if form.is_valid():
         data = form.clean()
@@ -84,10 +59,8 @@ def _register(request):
     new_user.save()
     new_profile = UserProfile(user=new_user,screen_name=data['screen_name'])
 
-    # 写入数据库
-    new_profile.save()
     try:
-        set(request)
+        new_profile.save()
         return HttpResponseRedirect('/accounts/active/%d/not_active/' %new_user.id)
     except Exception,e:
         messages.error(request,'服务器出现错误：%s' %e)
@@ -98,34 +71,9 @@ def _register(request):
 def login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
-    #########################################################################################
-    # 用户操作行为安全保护
 
-    # 计时器
-    timer = time.time() - request.session.get('time_stamp',0)
-
-    # 危险操作次数
-    action_times = request.session.get('action_times',0)
-
-    # 错误次数是否大于最大
-    if action_times >= 3:
-        if not check_verify(request):
-            messages.error(request,'你的输入不正确')
-            return render('verify.html',locals(),context_instance=RequestContext(request))
-        else:
-
-            # 重置标志位
-            reset(request)
-
-    elif timer > 60:
-        # 重置标志位
-        reset(request)
-    #########################################################################################
-
-    # 处理GET请求
     if request.method == 'GET':
 
-        # 计算来路
         referer  = request.META.get('HTTP_REFERER','/')
         if not 'accounts' in str(referer) :
             request.session['referer'] = referer
@@ -133,8 +81,9 @@ def login(request):
             request.session['referer'] = '/'
         form = LoginForm()
         return render('account_login.html',locals(),context_instance=RequestContext(request))
+    
 
-    # 处理POST请求
+    print 'post data',request.POST
     form = LoginForm(request.POST)
     if form.is_valid():
         data = form.clean()
@@ -155,7 +104,6 @@ def login(request):
             else:
                 return HttpResponseRedirect('/accounts/active/%d/%s/' %(user.id,'not_active'))
         else:
-            set(request)
             messages.error(request,'密码错误！')
 
     return render('account_login.html',locals(),context_instance=RequestContext(request))
@@ -173,36 +121,15 @@ def active(request,u_id,active_code):
     """
     用户账号激活处理
     """
-    #########################################################################################
-    # 用户操作行为安全保护
-
-    # 计时器
-    timer = time.time() - request.session.get('time_stamp',0)
-
-    # 危险操作次数
-    action_times = request.session.get('action_times',0)
-
-    # 错误次数是否大于最大
-    if action_times > 4:
-        if not check_verify(request):
-            return render('verify.html',locals(),context_instance=RequestContext(request))
-        else:
-
-            # 重置标志位
-            reset(request)
-
-    elif timer > 60:
-        # 重置标志位
-        reset(request)
-    #########################################################################################
+    # XXX
 
     try:
         u_id = int(u_id)
         user = User.objects.get(id=u_id)
-    except User.DoesNotExist,ValueError:
+    except (User.DoesNotExist,ValueError):
         return HttpResponseRedirect('/')
 
-    # 已经激活过，则跳过
+    # 已经激活过
     if user.is_active:
         messages.success(request,'账号已经激活，请直接登录')
         return HttpResponseRedirect('/accounts/login/')
@@ -221,7 +148,6 @@ def active(request,u_id,active_code):
         return HttpResponseRedirect('/accounts/login/')
     elif active_code == 'not_active':
 
-        set(request)
         active_url = '%s/accounts/active/%d/%s/' %(DOMAIN,user.id,_get_active_code(user.username))
         subject = 'pythoner.net账号激活邮件'
         body = loader.render_to_string('account_active.email.html',{'user':user,'active_url':active_url})

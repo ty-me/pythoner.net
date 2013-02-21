@@ -11,6 +11,7 @@ from code.models import Base
 from jobs.models import Job
 from django.views.decorators.cache import cache_page
 from main.models import Gfw
+from DjangoVerifyCode import Code
 
 @cache_page(60*15)
 def index(request):
@@ -20,9 +21,10 @@ def index(request):
     jobs = Job.objects.order_by('-sub_time').filter(display=True).order_by('-id')[0:15]
     wikis = Entry.objects.filter(public=True).order_by('-id')[0:20]
     wiki_first = Entry.objects.filter(public=True).order_by('-sub_time')[0]
-    
     wiki_second = Entry.objects.filter(public=True).order_by('-sub_time')[1]
-    return render('index.html',locals(),context_instance=RequestContext(request))
+
+    response = render('index.html',locals(),context_instance=RequestContext(request))
+    return response
 
 def usernav(request):
     """
@@ -65,6 +67,10 @@ def plink(request,link):
         raise Http404()
     return render('custom.html',locals(),context_instance=RequestContext(request))
 
+def verify_code(request):
+    code =  Code(request)
+    code.type = 'number'
+    return code.display()
 
 def email_rss(request):
     """
@@ -78,7 +84,6 @@ def email_rss(request):
     codes = Base.objects.filter(display=True)[:10]
     jobs = Job.objects.filter(display=True).order_by('-id')[:10]
     return render('email_rss%s.html' %style,locals(),context_instance=RequestContext(request))
-
 
 def fuck(request):
     """ Fuck Gfw """

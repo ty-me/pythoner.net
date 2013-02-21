@@ -34,24 +34,6 @@ def detail(request,job_id):
 
 @csrf_protect
 def add(request):
-    #########################################################################################
-    # 用户操作行为安全保护
-
-    # 计时器
-    timer = time.time() - request.session.get('time_stamp',0)
-
-    # 危险操作次数
-    action_times = request.session.get('action_times',0)
-
-    # 错误次数是否大于最大
-    if action_times >= 1:
-        if not check_verify(request):
-            return render('verify.html',locals(),context_instance=RequestContext(request))
-        else:
-
-            # 重置标志位
-            reset(request)
-    #########################################################################################
     current_page = 'jobs'
 
     # 检查用户选择的城市是否存在
@@ -81,7 +63,6 @@ def add(request):
         except Exception,e:
             return HttpResponse('保存招聘信息时出现错误：'+str(e))
         else:
-            set(request)
             msg = '提交成功，正在等待管理员审核...'
             # 发送信号
             new_job_was_post.send(

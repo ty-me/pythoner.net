@@ -30,6 +30,7 @@ label.error {float: none;color: red;font-size:12px;padding-left: .5em;}
                 {{ form.as_p}}
                 <p class="submit"><input class="button" type="submit" name="submit" value="马上登录！" style="width:100px;"></p>
                 <input type="hidden" name="next" value="/">
+                {% csrf_token %}
         </form>
     </div><!-- endlogi -->
 {% endblock %}

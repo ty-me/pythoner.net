@@ -65,38 +65,12 @@ def add(request):
     """
     写新的话题
     """
-   #########################################################################################
-    # 用户操作行为安全保护
-
-    # 计时器
-    timer = time.time() - request.session.get('time_stamp',0)
-
-    # 危险操作次数
-    action_times = request.session.get('action_times',0)
-
-    # 错误次数是否大于最大
-    if action_times >= 2:
-        if not check_verify(request):
-            messages.error(request,'你的输入不正确')
-            return render('verify.html',locals(),context_instance=RequestContext(request))
-        else:
-
-            # 重置标志位
-            reset(request)
-
-    elif timer > 60:
-        # 重置标志位
-        reset(request)
-    #########################################################################################
 
     form_action = '/topic/add/'
-    # 处理GET请求
     if request.method == 'GET':
         form = TopicForm()
         return render('topic_edit.html',locals(),context_instance=RequestContext(request))
 
-    # 处理POST请求
-    set(request) # 记录用户操作次数
     form = TopicForm(request.POST)
     if form.is_valid():
         data = form.clean()
@@ -164,29 +138,6 @@ def delete(request,topic_id):
     """
     删除话题
     """
-   #########################################################################################
-    # 用户操作行为安全保护
-
-    # 计时器
-    timer = time.time() - request.session.get('time_stamp',0)
-
-    # 危险操作次数
-    action_times = request.session.get('action_times',0)
-
-    # 错误次数是否大于最大
-    if action_times >= 2:
-        if not check_verify(request):
-            messages.error(request,'你的输入不正确')
-            return render('verify.html',locals(),context_instance=RequestContext(request))
-        else:
-
-            # 重置标志位
-            reset(request)
-
-    elif timer > 60:
-        # 重置标志位
-        reset(request)
-    #########################################################################################
 
     try:
         topic_id = int(topic_id)

@@ -29,6 +29,7 @@
     <h1>第二步，填写招聘信息</h1>
     <form method="POST" action="">
         {{ form.as_p }}
+        {% csrf_token %}
     <p class="submit"><input type="submit" value="提交保存" class="button" style="width:120px;"></p>
     </form>
 {% endblock %}
