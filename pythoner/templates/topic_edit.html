@@ -59,6 +59,7 @@ $(document).ready(function(){
             <div style="text-align:right;">
                 <input type="submit" name="submit" value="写好了！" class="button" style="width:90px;">
             </div>
+    {% csrf_token %}
     </form>
 {% endblock %}
 {% block sidebar %}

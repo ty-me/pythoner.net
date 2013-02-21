@@ -27,6 +27,7 @@ label input{width:80px;margin:0 ;}
         </p>
 		<p class="submit"><input type="submit" value="提交保存" class="button" style="width:100px;" /></p>
 		<div class="clear"></div>
+        {% csrf_token %}
 	</form>
 </div>
 {% endblock %}

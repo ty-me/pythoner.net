@@ -13,6 +13,7 @@ p.submit{text-align:right;}
         <p><label>账号:</label>{{ request.user }} (不可更改)</p>
         <p><label>位置:</label>{{ profile.city }}  <a href="/home/city/">搬家</a></p>
         {{ form.as_p }}
+        {% csrf_token %}
         <p class="submit"><input class="button" type="submit" value="更新我的设置" style="width:120px;"></p>
     </table>
 </form>

@@ -30,6 +30,7 @@ $(document).ready(function(){
     <h1>添加一个链接</h1>
     <form action="/link/add/" method="POST">
         {{ form.as_p }}
+        {% csrf_token %}
         <p class="submit"><label></label><input type="submit" value="写好了！" style="width:80px;"></p>
     </form>
 {% endblock %}

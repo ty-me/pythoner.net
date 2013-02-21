@@ -104,6 +104,7 @@ for(i=0;i<tli.length;i++){
        <ul class="block"><li>
             <form action="" method="POST">
                 {{ form.as_p }}
+                {% csrf_token %}
                 <input type="submit" value="+插入代码" class="paste button" style="width:120px;"><br/>
             </form>                      
        </li></ul>

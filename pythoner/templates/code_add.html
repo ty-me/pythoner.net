@@ -7,6 +7,7 @@ input,textarea{width:100%;}
     <h1>{{ title }}</h1>
     <form action="" method="POST" id='add-by-file'>
         {{ form.as_p }}
+        {% csrf_token %}
         <p class="submit"><input type="submit" value="下一步" class="button" style="width:100px;"></p>
     </form>
 {% endblock %}

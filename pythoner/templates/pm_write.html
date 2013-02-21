@@ -16,6 +16,7 @@
 		{{ form.as_p }}
 		<p class="submit"><input type="submit" value="好了，寄给TA" class="button" style="width:120px;"></p>
 
+    {% csrf_token %}
     </form>
 {% endblock %}
 

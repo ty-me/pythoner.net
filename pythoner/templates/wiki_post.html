@@ -11,6 +11,7 @@
     <h1>向我们投递稿件</h1>
     <form action="" method="POST">
         {{ form.as_p }}
+        {% csrf_token %}
         <P><input type="submit" value="提交稿件" class="button" style="width:80px"></P>
     </form>
 {% endblock %}

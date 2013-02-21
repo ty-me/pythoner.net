@@ -28,6 +28,7 @@
                     <input type="submit" name="replay" value="回复" class="button" style="width:40px;">
                 {% endif %}
                 <input type="submit" name="delete" value="删除" class="button" style="width:40px;">
+            {% csrf_token %}
             </form>
         </td></tr>
     </table>
