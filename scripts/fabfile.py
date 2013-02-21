@@ -14,7 +14,7 @@ BASIC_PACKAGES = ['gcc','python2.7','python2.7-dev','python-setuptools',
 
 site = os.getenv('site')
 if site == 'pythoner':
-    env.hosts = ['t-y.me']
+    env.hosts = ['pythoner.net']
     env.user = 'root'
 elif site == 'test':
     env.hosts = ['robot.t-y.me']
