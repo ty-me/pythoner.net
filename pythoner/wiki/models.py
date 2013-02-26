@@ -62,7 +62,7 @@ class Entry(models.Model):
     title = models.CharField('标题',max_length=50)
     category = models.ForeignKey(Category,verbose_name='分类',default=1)
     plink = models.CharField('永久链接',max_length=15,blank=True,null=True)
-    public = models.BooleanField('是公开到板报栏目',default=False)
+    public = models.BooleanField('公开',default=False)
     content = models.TextField('内容')
     author = models.ForeignKey(User,verbose_name='作者',default=1)
     sub_time = models.DateTimeField(default=datetime.datetime.now)

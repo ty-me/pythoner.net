@@ -103,8 +103,12 @@ def detail(request,id):
         entry = Entry.objects.get(id = id)
     except Entry.DoesNotExist:
         raise Http404()
+
+    if not entry.public and entry.author.id <> request.user.id:
+        raise Http404()
     
-    Entry.objects.filter(id = id).update(click_time = int(entry.click_time)+1) # 浏览次数加1
+    if entry.public:
+        Entry.objects.filter(id=id).update(click_time=entry.click_time+1)
     return render(DETAIL_PAGE,locals(),context_instance=RequestContext(request))
 
 @csrf_protect
@@ -135,15 +139,14 @@ def post(request):
 @csrf_protect
 def add(request):
     """ 用户写新的文章 """
-    current_page = 'user_wiki'
-    title = '写新笔记'
 
-    # 处理GET请求
+    current_page = 'user_wiki'
+    title = '投稿'
+
     if request.method == 'GET':
         form = WikiForm()
         return render('wiki_add.html',locals(),context_instance=RequestContext(request))
 
-    # 处理POST请求
     form = WikiForm(request.POST)
     if form.is_valid():
         data = form.cleaned_data
@@ -151,7 +154,7 @@ def add(request):
         new_wiki.author = request.user
         new_wiki.title = data['title']
         new_wiki.content = data['content']
-        new_wiki.source = data['source'] and data['source'] or 'http://pythoner.net/home/%d/' %request.user.id
+        new_wiki.source = data['source']
         
         try:
             new_wiki.save()
