@@ -31,7 +31,20 @@ if ENV in ['DEV']:
         }
     }
 else:
-    pass
+    DEBUG = False
+    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+    DEBUG = True
+    DOMAIN = 'localhost:8009'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', 
+            'NAME': 'pythoner_db',      
+            'USER': 'root',               
+            'PASSWORD': '',                
+            'HOST': 'localhost',            
+            'PORT': '',                      
+        }
+    }
 
 
 STATIC_ROOT = os.path.join(ROOT_PATH,'static')

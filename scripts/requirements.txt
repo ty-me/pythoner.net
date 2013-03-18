@@ -12,3 +12,4 @@ bpython
 readline
 fabric
 DjangoVerifyCode
+south
