@@ -21,7 +21,7 @@ Version
 开发环境配置
 ------------
 + 运行scripts目录下的setupenv.sh文件，将会自动安装配置所需环境
-+ 设置本地环境变量:export site=local
++ 设置本地环境变量:export env=DEV
 + mv settings.example.py settings.py 并修改数据库的相关配置信息
 + python manage.py syncdb 生成数据表结构
 + python manage.py runserver 8080
