@@ -3,8 +3,8 @@
 ##############
 *.pyc
 *.log
+
 settings.py
-tests.py
 others
 cache
 scripts/fabfile.py

@@ -1,6 +1,7 @@
 #encoding:utf-8
 import os
 import sys
+import redis
 
 ROOT_PATH = os.path.normpath(os.path.dirname(__file__)).replace('\\','/')
 DEFAULT_CHARSET = 'utf8'
@@ -12,39 +13,29 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
+# 本地环境
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+DEBUG = True
+DOMAIN = 'localhost:8009'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'pythoner_db',      
+        'USER': 'root',               
+        'PASSWORD': '',                
+        'HOST': 'localhost',            
+        'PORT': '',                      
+        'REDIS': redis.Redis(host='127.0.0.1')
+    }
+}
+
 ENV = os.getenv('ENV')
 
-if ENV in ['DEV']:
-    # 本地环境
+if ENV in ['DEV','TY']:
     DEBUG = True
-    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-    DEBUG = True
-    DOMAIN = 'localhost:8009'
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': 'pythoner_db',      
-            'USER': 'root',               
-            'PASSWORD': '',                
-            'HOST': 'localhost',            
-            'PORT': '',                      
-        }
-    }
+    pass
 else:
-    DEBUG = False
-    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-    DEBUG = True
-    DOMAIN = 'localhost:8009'
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': 'pythoner_db',      
-            'USER': 'root',               
-            'PASSWORD': '',                
-            'HOST': 'localhost',            
-            'PORT': '',                      
-        }
-    }
+    pass
 
 
 STATIC_ROOT = os.path.join(ROOT_PATH,'static')
@@ -61,7 +52,7 @@ MEDIA_ROOT = os.path.join(ROOT_PATH,'media')
 MEDIA_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/media/'
 
-SECRET_KEY = 'xxxxxx'
+SECRET_KEY = 'fuck-gfw'
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -75,8 +66,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'pythoner.utils.middlewares.PreventWatering',
-)
 
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
@@ -109,11 +100,13 @@ INSTALLED_APPS = (
     'link',
     'jobs',
     'utils',
+    'south',
 )
 
-EMAIL_HOST = 'smtp.xx.com'
-EMAIL_HOST_USER = 'xxx'
-EMAIL_HOST_PASSWORD = 'xxxxx'
+USE_TZ = False
+EMAIL_HOST = '******'
+EMAIL_HOST_USER = '******'
+EMAIL_HOST_PASSWORD = '******'
 
 CACHE_BACKEND = 'file://'+os.path.join(ROOT_PATH,'cache')
 
@@ -122,18 +115,16 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 PHOTO_SIZE = (128,128)
 ICON_PHOTO_SIZE = (48,48)
 
-DEFAULT_PASSWORD = 'xxxxxx'
-DOUBAN_API_KEY = 'xxxxx' 
-DOUBAN_API_SECRET = 'xxxxxx' 
+DEFAULT_PASSWORD = '******'
+DOUBAN_API_KEY = '******' 
+DOUBAN_API_SECRET = '******' 
 DOUBAN_SCOPE = 'shuo_basic_r,shuo_basic_w,douban_basic_common' 
-DOUBAN_CALLBACK_URL = u'http://pythoner.net/accounts/login/douban/callback/'
+DOUBAN_CALLBACK_URL = u'******'
 
-WEIBO_APP_KEY = u'xxxxxx'
-WEIBO_APP_SECRET = u'xxxxxx'
-WEIBO_CALLBACK_URL = u'http://pythoner.net/accounts/login/sina/callback/'
+WEIBO_APP_KEY = u'******'
+WEIBO_APP_SECRET = u'******'
+WEIBO_CALLBACK_URL = u'******'
 
-TWITTER_APP_KEY = u'xxxxxx'
-TWITTER_APP_SECRET = u'xxxxxx'
-TWITTER_CALLBACK_URL = u'http://pythoner.net/accounts/login/sina/callback/'
-
-
+TWITTER_APP_KEY = u'******'
+TWITTER_APP_SECRET = u'******'
+TWITTER_CALLBACK_URL = u'******'
