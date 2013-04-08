@@ -64,6 +64,7 @@ ul{list-style:none;}
 		<li class="orange">提示：你可以上传JPG、JPEG、GIF、PNG或BMP文件</li>
 		
 		<form method="POST" action="/home/photo/" enctype="multipart/form-data">
+            {% csrf_token %}
              <input type="file" value="photo" name="photo" id="file" />
             <input type="submit" value="上传头像" class="button" style="width:160px;" />
         </form>

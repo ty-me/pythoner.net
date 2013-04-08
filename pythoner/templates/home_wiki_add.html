@@ -43,6 +43,7 @@ input,textarea{ width:100%;}
 </script>
         <form action="" method="POST">
             {{ form.as_p }}
+            {% csrf_token %}
         <p class="submit"><input type="submit" value="提交保存" class="button" style="width:80px"></p>
         </form>
 {% endblock %}
