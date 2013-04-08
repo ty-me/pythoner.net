@@ -11,15 +11,23 @@ from forms import JobForm
 from signals import new_job_was_post
 
 def list(request,page=1):
+    city         =  request.GET.get('city')
+    order        =  request.GET.get('order')
+    if order not in ['sub_time','-sub_time','city','-city']:
+        order = '-sub_time'
+
+    if city:
+        job_all      = Job.objects.filter(display=True,city=city).order_by(order)
+    else:
+        job_all      = Job.objects.filter(display=True).order_by(order)
+
+    paginator    = Paginator(job_all,20)
     current_page = 'jobs'
-    job_all = Job.objects.filter(display=True).order_by('-sub_time')
-    paginator = Paginator(job_all,20)
     pre_url = 'jobs'
     try:
         entrys = paginator.page(page)
     except (EmptyPage,InvalidPage):
         entrys = paginator.page(paginator.num_pages)
-
     return render('jobs_list.html',locals(),context_instance=RequestContext(request))
 
 def detail(request,job_id):

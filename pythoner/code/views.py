@@ -19,7 +19,7 @@ from django.db.models import Q
 def list(request,page=1):
     current_page = 'code'
     pre_url = 'code'
-    category_name = str(request.GET.get('category',''))
+    category_name = request.GET.get('category','')
     if category_name:
         suf_url = '?category=%s' %category_name
         try:

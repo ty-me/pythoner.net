@@ -5,11 +5,23 @@
 {% block main %}
 {% load home_tags %}
 {% load jobs_tags %}
+{% if city %}
+    <div id="category-list">
+        所有<b class='red'>{{ city }}</b>的招聘信息
+        <div class="clear"></div>
+    </div>
+{% else %}
+    <div id="category-list">
+        {% get_cities %}
+        <div class="clear"></div>
+    </div>
+{% endif %}
+
     <div class="box">
         <ul class="list" id="job-list">
             {% for entry in entrys.object_list %}
                 <li>
-                    <span>[{{ entry.city }}]</span>
+                    <span>[<a href="/jobs/?city={{ entry.city }}" title="查看所有{{ entry.city }}的招聘信息">{{ entry.city }}</a>]</span>
                     <a href="{{ entry.get_absolute_url }}" class="title">
                         {{ entry.company }} {{ entry.title }}
                     </a>
