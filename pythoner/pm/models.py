@@ -144,7 +144,7 @@ def job_notice(sender,**kwargs):
         from_user = User.objects.get(id=1),
         to_user = User.objects.get(id=1),
         title = '有新发布的招聘信息等待审核',
-        content = '%s' %kwargs['job'].title,
+        content = 'http://pythoner.net/admin/jobs/job/{0}/edit/'.format(kwargs['job'].id),
         system = True
     ).save()
 
