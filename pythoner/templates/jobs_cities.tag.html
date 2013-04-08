@@ -1,0 +1,13 @@
+<ul>
+<h2>热门城市</h2>
+    {% for city in cities%}
+        <li>
+            <a href="/jobs/?city={{ city.city }}" title="查看 {{ city.city }} 的所有招聘信息">
+                {{ city.city }}
+            </a>
+            <span class="dark"> ({{ city.dcount }})</span>
+        </li>
+    {% empty %}
+        <li><center>无分类</center></li>
+    {% endfor %}
+</ul>
