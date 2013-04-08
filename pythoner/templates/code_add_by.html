@@ -121,6 +121,7 @@ for(i=0;i<tli.length;i++){
     </div>
     <div class="clear"></div>
     <form action="/code/add/{{ base.id }}/publish/" method="POST">
+        {% csrf_token %}
         <p class="submit">
             <input type="submit" value="{{ button }}" class="button" id="publish_button">
         </p>
