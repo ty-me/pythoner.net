@@ -1,10 +1,11 @@
 #!/bin/bash
 # for centos
 yum  install -y libmysqld-dev ibmysqlclient-dev,libfreetype
-easy_install pip
-pip install virtualenvwrapper
+yum  install -y libmysqld-dev ibmysqlclient-dev,libfreetype
 
-source /usr/local/bin/virtualenvwrapper.sh
-mkvirtualenv pythoner
-workon pythoner
+easy_install virtualenv 
+virtualenv /tmp/pythoner
+. /tmp/pythoner/bin/activate
+
+easy_install pip
 pip install -r requirements.txt
