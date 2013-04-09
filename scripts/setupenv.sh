@@ -7,5 +7,5 @@ pip install virtualenvwrapper
 source /usr/local/bin/virtualenvwrapper.sh
 mkvirtualenv pythoner
 workon pythoner
-yum install -y libjpeg-devel freetype-devel libpng-devel
 pip install -r requirements.txt
+yum install -y libjpeg-devel freetype-devel libpng-devel
