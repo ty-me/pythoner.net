@@ -1,7 +1,8 @@
 #!/bin/bash
-sudo apt-get install -y libmysqld-dev ibmysqlclient-dev
-sudo easy_install pip
-sudo pip install virtualenvwrapper
+# for centos
+yum  install -y libmysqld-dev ibmysqlclient-dev,libfreetype
+easy_install pip
+pip install virtualenvwrapper
 
 source /usr/local/bin/virtualenvwrapper.sh
 mkvirtualenv pythoner
