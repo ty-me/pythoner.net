@@ -2,7 +2,7 @@
 
 简介
 ---
-<http://pythoner.net>是TY在11年初用django开发,现正式开源，以便各位去其糟粕
+<http://pythoner.net>是TY在11年用django开发,现正式开源，以便各位去其糟粕
 
 Version
 -------
