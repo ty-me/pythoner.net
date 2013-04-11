@@ -140,11 +140,12 @@ def _wiki_notice(comment):
     ).save()
 
 def job_notice(sender,**kwargs):
+    """ send a message to admin's account """
     Pm(
         from_user = User.objects.get(id=1),
         to_user = User.objects.get(id=1),
         title = '有新发布的招聘信息等待审核',
-        content = 'http://pythoner.net/admin/jobs/job/{0}/edit/'.format(kwargs['job'].id),
+        content = 'http://pythoner.net/admin/jobs/job/{0}/'.format(kwargs['job'].id),
         system = True
     ).save()
 
