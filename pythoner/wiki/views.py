@@ -1,6 +1,5 @@
 #encoding:utf-8
 import time,datetime
-import threading
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -162,10 +161,6 @@ def add(request):
             return HttpResponse('保存文章时出错：%s'%e)
         else:
 
-            # 开启线程添加文章标签
-            TagingThread(wiki_object=new_wiki).start()
-            # 开启下载图片的线程
-            ImageDownloader(new_wiki).start()
             # 发送信号
             new_wiki_was_post.send(
                 sender= new_wiki.__class__,
@@ -212,10 +207,6 @@ def edit(request,wiki_id):
         else:
             messages.success(request,'修改成功！')
 
-        # 开启添加标签线程
-        TagingThread(wiki_object=wiki).start()
-        ImageDownloader(wiki).start()
-
         return HttpResponseRedirect('/wiki/%d/' %wiki.id)
     else:
         return render('wiki_add.html',locals(),context_instance=RequestContext(request))
@@ -254,29 +245,3 @@ def auto_get_tags(request):
 
     return render('wiki_robot.html',locals())
 
-class TagingThread(threading.Thread):
-    """
-    为文章添加标签线程
-    """
-    def __init__(self,wiki_object):
-        self.wiki = wiki_object
-        threading.Thread.__init__(self)
-
-    def run(self):
-        # 清除已有标签
-        self.wiki.tag.clear()
-
-        content = str(self.wiki.title) + self.wiki.content
-        for tag in Tag.objects.all():
-            if content.lower().count(tag.name.lower()) > 0:
-                self.wiki.tag.add(tag)
-
-        self.wiki.save()
-
-    def test(self):
-        try:
-            self.run()
-        except Exception,e:
-            return e
-        else:
-            return 'OK'

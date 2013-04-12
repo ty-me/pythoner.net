@@ -1,6 +1,6 @@
 #encoding:utf-8
 import time 
-from utils.DjangoVerifyCode import Code
+from DjangoVerifyCode import Code
 from django.shortcuts import render_to_response as render
 from django.template import RequestContext
 

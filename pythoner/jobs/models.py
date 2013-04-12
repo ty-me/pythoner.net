@@ -38,8 +38,8 @@ def notify_hr(sender,instance,**kwargs):
         subject = "招聘信息发布成功-来自pythoner.net的通知邮件"
         url = DOMAIN+'/jobs/%d/' %instance.id
         msg = """
-        您好， 你在pythoner.net发布的招聘信息"%s"已经通过了审核，详见：%s
-        有任何疑问或者需要帮助请联系:admin@pythoner.net
+        你好， 你在'python开发者社区'(http://pythoner.net)发布的招聘信息"%s"已经通过了审核，详见：%s
+        有任何疑问或者需要帮助请联系管理员:admin@pythoner.net
                                                     --- pythoner.net敬上
         """ %(instance.title,url)
         send_mail(subject,msg,from_emal,to_email,fail_silently=True)

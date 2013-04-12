@@ -152,6 +152,31 @@ def job_notice(sender,**kwargs):
 def do_nothing(instance):
     pass
 
+def welcome(sender,**kwargs):
+    """
+    用户注册后发送PM
+    """
+    title = '欢迎您!',
+    content = "欢迎来到pythoner.net，网站代码已经开源,欢迎Fork,http://github.com/tianyu0915/pythoner.net"
+    to_user = kwargs['profile'].user
+    Pm(
+        from_user=User.objects.get(id=1),
+        to_user=to_user,
+        title=title,
+        content=content,
+        system = True
+    ).save()
+    
+    # 同时给管理员发送通知
+    Pm(
+        from_user = User.objects.get(id=1),
+        to_user = User.objects.get(id=1),
+        title = 'new user register',
+        content = 'naem:%s' %kwargs['profile'].screen_name,
+        system = True
+    ).save()
+
+
 new_user_register.connect(welcome)
 post_save.connect(comment_notice,sender=Comment)
 new_job_was_post.connect(job_notice)
