@@ -17,6 +17,7 @@ def list(request,page=1):
         order = '-sub_time'
 
     if city:
+        suf_url = u'?city={0}'.format(city)
         job_all      = Job.objects.filter(display=True,city=city).order_by(order)
     else:
         job_all      = Job.objects.filter(display=True).order_by(order)
