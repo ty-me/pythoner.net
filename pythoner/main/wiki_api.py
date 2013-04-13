@@ -14,31 +14,18 @@ def add(request):
         response['info'] = 'Invalide method'
         return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
 
-    if request.META['REMOTE_ADDR'] <> '127.0.0.1':
-        response['info'] = 'Invalide user'
-        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
-
-    print 1
     user_id = int(request.REQUEST.get('user',0))
     try:
-        print 2
         cat = request.REQUEST.get('category')
         category = Category.objects.get(name=cat)
-        print 3
     except:
-        print 4
         category = Category.objects.get(name=u'其它python相关')
-    print 5
-
 
     if user_id:
-        print 6
         user = User.objects.get(id=user_id)
     else:
-        print 7
-        user = User.objects.get(id=random.randrange(1,2))
+        user = User.objects.get(id=random.randrange(2,10))
 
-    print 8
     new_wiki          = Entry()
     new_wiki.author   = user
     new_wiki.title    = request.REQUEST.get('title')
@@ -52,13 +39,9 @@ def add(request):
         response['info'] = 'params error'
         return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
 
-    print 9
     try:
-        print 10
         new_wiki.save()
-        print 11
     except Exception,e:
-        print 12
         response['info'] = e.message
         return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
 
@@ -77,9 +60,6 @@ def add(request):
 def edit(request):
     if request.method == 'GET':
         return HttpResponseBadRequest('error method')
-
-    if request.META['REMOTE_ADDR'] <> '127.0.0.1':
-        return HttpResponseBadRequest('error')
 
     response = {'status':0,'info':''}
     wiki_id  = request.REQUEST.get('wiki_id')
