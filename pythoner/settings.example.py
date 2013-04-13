@@ -13,10 +13,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-# 本地环境
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-DEBUG = True
 DOMAIN = 'http://pythoner.net'
+DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
@@ -30,12 +29,9 @@ DATABASES = {
 }
 
 ENV = os.getenv('ENV')
-
-if ENV in ['DEV','TY']:
+if ENV in ['DEV']:
     DEBUG = True
-    pass
-else:
-    pass
+    DOMAIN = 'http://localhost:8000'
 
 
 STATIC_ROOT = os.path.join(ROOT_PATH,'static')
