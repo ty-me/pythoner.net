@@ -32,7 +32,7 @@
         </div>
     {% endif %}
 
-	<h1 class="title">[呆审核]-{{ entry.title }}</h1>
+	<h1 class="title">{{ entry.title }}</h1>
     <div class="meta">
         本文由 <a href="/home/{{ entry.author.id  }}" target="{{ author.target }}">{{ entry.author.get_profile.screen_name }}</a> 投递于
         {{ entry.sub_time }}，{{ comment_count }}评/{{ entry.click_time }}阅
@@ -65,6 +65,10 @@
         SyntaxHighlighter.defaults['toolbar'] = true;
         SyntaxHighlighter.all() </script>
     <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shBrushPython.js"></script>
+    <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shBrushCss.js"></script>
+    <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shBrushRuby.js"></script>
+    <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="/static/syntaxhighlighter/scripts/shBrushBash.js"></script>
     <div class="clear">&nbsp;</div>
 </div><!-- .post -->
 <script type="text/javascript"><!--
