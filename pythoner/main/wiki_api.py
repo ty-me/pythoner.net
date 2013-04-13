@@ -71,9 +71,13 @@ def edit(request):
 
     user_id = int(request.REQUEST.get('user',0))
     if user_id:
-        user = User.objects.get(id=user_id)
-    else:
-        user = User.objects.get(id=random.randrange(2,10))
+        try:
+            user = User.objects.get(id=user_id)
+        except Exception,e:
+            response['info'] = e.message
+            return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
+        else:
+            wiki.author   = user
 
     try:
         cat = request.REQUEST.get('category')
@@ -82,7 +86,6 @@ def edit(request):
         category = Category.objects.get(name='其它python相关')
 
     
-    wiki.author   = user
     wiki.title    = request.REQUEST.get('title')
     wiki.content  = request.REQUEST.get('content')
     wiki.category = category
