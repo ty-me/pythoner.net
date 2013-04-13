@@ -16,7 +16,7 @@ MANAGERS = ADMINS
 # 本地环境
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 DEBUG = True
-DOMAIN = 'localhost:8009'
+DOMAIN = 'http://pythoner.net'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
