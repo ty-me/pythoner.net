@@ -73,7 +73,7 @@ def edit(request):
     if user_id:
         user = User.objects.get(id=user_id)
     else:
-        user = User.objects.get(id=random.randrange(1,2))
+        user = User.objects.get(id=random.randrange(2,10))
 
     try:
         cat = request.REQUEST.get('category')
