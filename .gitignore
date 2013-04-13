@@ -4,11 +4,12 @@
 *.pyc
 *.log
 
-settings.py
-others
-cache
+pythoner/settings.py
+pythoner/cache
+pythoner/static/upload
 scripts/fabfile.py
 scripts/config
+others
 
 #################
 ## Eclipse
