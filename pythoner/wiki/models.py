@@ -62,7 +62,7 @@ class Entry(models.Model):
     """
     文章
     """
-    title = models.CharField('标题',max_length=50)
+    title = models.CharField('标题',max_length=300)
     category = models.ForeignKey(Category,verbose_name='分类',default=1)
     plink = models.CharField('永久链接',max_length=15,blank=True,null=True)
     public = models.BooleanField('公开',default=False)

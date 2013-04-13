@@ -6,6 +6,7 @@ import time
 import os
 from PIL import Image
 from models import *
+from pythoner.settings import  STATIC_ROOT
 
 class TagingThread(threading.Thread):
     """
@@ -52,7 +53,7 @@ class ImageThread(threading.Thread):
 
         name = 'wiki_%s_%s' %(self.wiki.id,time.time())
         date = time.strftime('%Y%m%d',time.localtime())
-        dir_name =  '/var/pythoner.net/static/upload/%s/' %date
+        dir_name =  STATIC_ROOT + '/upload/%s/' %date
         if not os.path.isdir(dir_name):
             try:
                 os.makedirs(dir_name)
