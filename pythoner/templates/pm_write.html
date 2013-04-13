@@ -35,7 +35,7 @@
     <ul>
         <li>
             <a href="/home/{{ to_user.id }}/">
-                <img src="/static/user/icon_{{ to_user.get_profile.photo|default:"none.jpg" }}">
+                <img src="{{ to_user.username|gravatar_url }}">
                 <br/>去 {{ to_user.get_profile.screen_name }} 的主页
             </a>
     </ul>

@@ -2,6 +2,8 @@
 # Data:11-6-14 下午10:09
 # Author: T-y(master@t-y.me)
 # File:accounts_tags
+
+import urllib, hashlib
 from django import template
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
@@ -30,3 +32,11 @@ def get_alive_user(count=200):
     """
     users = User.objects.filter(is_active=True).order_by('-last_login')[:count]
     return {'users':users}
+
+@register.filter
+def gravatar_url(email="somone@example.com",size=40):
+    default = "http://www.gravatar.com/avatar/00000000000000000000000000000000"
+    # construct the url
+    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+    gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
+    return gravatar_url

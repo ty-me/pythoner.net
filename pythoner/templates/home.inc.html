@@ -1,6 +1,6 @@
 {% load home_tags %}
 <div id="profile">
-    <div class="photo"><img src="/static/user/{{ profile.photo|default:"none.jpg" }}"></div>
+    <div class="photo"><img src="{{ profile.user|gravatar_url }}"></div>
 
 {% if request.user != profile.user %}
     <ul class="action">

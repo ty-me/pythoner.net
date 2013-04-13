@@ -21,7 +21,7 @@
     <div class="item">
         <div class="photo">
             <a href="/home/{{ develop.user.id }}/" title="{{ develop.user.get_profile.screen_name }}">
-            <img src="/static/user/icon_{{ develop.user.get_profile.photo|default:"none.jpg" }}">
+                <img src="{{ develop.user.username|gravatar_url }}">
             </a></div>
         <div class="author"><a href="/home/{{ develop.user.id }}/">{{ develop.user.get_profile.screen_name }}</a> 在{{ develop.sub_time|how_long }}</div>
         <div class="content">

@@ -1,3 +1,4 @@
+{% load accounts_tags %}
 {% load home_tags %}
 <ul class="user">
     <h2>最近来访(TOP{{ count }})</h2>
@@ -5,7 +6,7 @@
         <li>
             <a href="/home/{{ visitor.visitor.id }}/"
                title="{{ visitor.visitor.get_profile.screen_name }} 在 {{ visitor.sub_time|how_long }}">
-                <img src="/static/user/icon_{{ visitor.visitor.get_profile.photo|default:"none.jpg" }}">
+                <img src="{{ visitor.visitor.username|gravatar_url }}">
                 <em>{{ visitor.visitor.get_profile.screen_name }}</em>
             </a>
         </li>

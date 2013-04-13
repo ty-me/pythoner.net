@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load home_tags %}
+{% load accounts_tags %}
 {% block home_title %}
         <div id="head-title" class="home">
             <div class="author">
                 <a href="/home/{{ user.id }}/">
-                    <img src="/static/user/icon_{{ user.get_profile.photo|default:"none.jpg" }}">
+                    <img src="{{ user.username|gravatar_url:"40" }}">
                 </a>
             </div>
             <h1>{% block h1 %}{% endblock %}</h1>

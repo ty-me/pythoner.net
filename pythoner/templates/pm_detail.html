@@ -1,4 +1,5 @@
 {% extends 'home_base.html' %}
+{% load accounts_tags %}
 {% block title %}PM{% endblock %}
 {% block main %}
     {% block home_title %}{% endblock %}
@@ -49,7 +50,7 @@
         <ul>
             <li>
                 <a href="/home/{{ entry.to_user.id }}/">
-                    <img src="/static/user/icon_{{ entry.to_user.get_profile.photo|default:"none.jpg" }}">
+                    <img src="{{ entry.to_user.username|gravatar_url }}">
                 </a>
             </li>
             <li><a href="/home/{{ entry.to_user.id }}">去 {{ entry.to_user.get_profile.screen_name }} 的主页</a> </li>

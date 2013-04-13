@@ -105,30 +105,6 @@ def write(request):
     发送PM
     """
 
-    #########################################################################################
-    # 用户操作行为安全保护
-
-    # 计时器
-    timer = time.time() - request.session.get('time_stamp',0)
-
-    # 危险操作次数
-    action_times = request.session.get('action_times',0)
-
-    # 1分钟内最大操作次数
-    if action_times >= 4:
-        if not check_verify(request):
-            messages.error(request,'你的输入不正确')
-            return render('verify.html',locals(),context_instance=RequestContext(request))
-        else:
-
-            # 重置标志位
-            reset(request)
-
-    elif timer > 60:
-        # 重置标志位
-        reset(request)
-    #########################################################################################
-
     to_id = request.GET.get('to',False)
     r_id = request.GET.get('reply',False)
     next = request.META.get('HTTP_REFERER','/')
@@ -185,8 +161,6 @@ def write(request):
         pm.readed = False
         pm.save()
 
-        # 记录标志位
-        set(request)
         return HttpResponseRedirect('/pm/outbox/')
     else:
         return render('pm_write.html',locals(),context_instance=RequestContext(request))

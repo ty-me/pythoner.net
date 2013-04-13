@@ -17,7 +17,7 @@
         <li>
             <a href="/home/{{ fan.source_user.id }}/"
                title="{{ fan.source_user.get_profile.screen_name }}({{ fan.source_user.get_profile.city }})" target="_blank">
-                <img src="/static/user/icon_{{ fan.source_user.get_profile.photo|default:"none.jpg" }}">
+                <img src="{{ fan.source_user.username|gravatar_url }}">
                 <em>{{ fan.source_user.get_profile.screen_name }}</em>
             </a>
         </li>
