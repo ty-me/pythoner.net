@@ -9,14 +9,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def add(request):
+    response = {'status':0,'info':''}
     if request.method == 'GET':
-        return HttpResponseBadRequest('error method')
+        response['info'] = 'Invalide method'
+        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
 
     if request.META['REMOTE_ADDR'] <> '127.0.0.1':
-        return HttpResponseBadRequest('error')
+        response['info'] = 'Invalide user'
+        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
 
     print 1
-    response = {'status':0,'info':''}
     user_id = int(request.REQUEST.get('user',0))
     try:
         print 2
