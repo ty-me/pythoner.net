@@ -2,7 +2,10 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('main',
+    # custom api
     ('^api/wiki/add/','wiki_api.add'),
+    ('^api/wiki/edit/','wiki_api.edit'),
+
     ('^verify/','views.verify_code'),
     ('^random/$','views.random'),
     ('^emailrss/','views.email_rss'),
