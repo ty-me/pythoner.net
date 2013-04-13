@@ -13,10 +13,9 @@ def add(request):
         HttpResponseBadRequest('error method')
 
     if request.META['REMOTE_ADDR'] <> '127.0.0.1':
-        HttpResponseBadRequest('error')
+        return HttpResponseBadRequest('error')
 
     response = {'status':0,'info':''}
-
     user_id = int(request.REQUEST.get('user',0))
     if user_id:
         user = User.objects.get(id=user_id)
