@@ -1,12 +1,20 @@
 ![logo](http://pythoner.net/static/images/logo.png)
 
+感谢名单
+-------
+特别感谢以下开发者贡献代码（排名不分先后）：
+
++ [cbsheng](https://github.com/cbsheng)
+
+
 简介
 ---
+
 <http://pythoner.net>是TY在11年用django开发,现正式开源，以便各位去其糟粕
 
 Version
 -------
-+ 1.3.1
++ 1.4.0
 
 新特性
 -----
