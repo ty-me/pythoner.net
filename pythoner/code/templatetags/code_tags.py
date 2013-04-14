@@ -8,7 +8,7 @@ from code.models import *
 register = Library()
 
 @register.inclusion_tag('code_list_by_user.tag.html')
-def get_code_list_by_user(user,count=20):
+def get_code_list_by_user(user,count=10):
     """
     得到用户分享的代码
     """
@@ -30,14 +30,14 @@ def get_code_visitor(base,count=90):
     return {'visitors':Visitor.objects.filter(base=base).order_by('-sub_time')[0:count],'count':count}
 
 @register.inclusion_tag('code_latest.tag.html')
-def get_latest_code(count=15):
+def get_latest_code(count=10):
     """
     得到最新的代码
     """
     return {'codes':Base.objects.filter(display=True)[:count]}
 
 @register.inclusion_tag('code_click.tag.html')
-def get_code_by_clicktime(count=15):
+def get_code_by_clicktime(count=10):
     """
     得到点击最多的代码列表
     """

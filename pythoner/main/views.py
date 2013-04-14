@@ -13,7 +13,7 @@ from django.views.decorators.cache import cache_page
 from main.models import Gfw
 from DjangoVerifyCode import Code
 
-#@cache_page(60*15)
+@cache_page(60*15)
 def index(request):
     topics = Topic.objects.filter(deleted=False).order_by('-id')[0:16]
     current_page = 'index'

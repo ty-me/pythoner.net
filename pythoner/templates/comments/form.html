@@ -10,6 +10,7 @@ form.comment div.text{width:600px;float:left;margin:0 0 0 10px;padding:0;}
 input{width:auto;}
 p.submit input{margin:8px;}
 </style>
+{% load accounts_tags %}
 <link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css">
 <script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
 <script type="text/javascript" src="/static/js/kindeditor/lang/zh_CN.js"></script>
@@ -46,7 +47,7 @@ p.submit input{margin:8px;}
             {% else %}
                 <div class="author">
                     <a href="/home/{{ request.user.id }}/">
-                        <img src="/static/user/icon_{{ request.user.get_profile.photo|default:"none.jpg" }}"
+                        <img src="{{ request.user.username|gravatar_url }}"
                              alt="{{ request.user.get_profile.screen_name }}">
                     </a>
                 </div>

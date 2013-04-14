@@ -5,6 +5,7 @@
 {% block title %}代码分享-{{ code_base.title }}({{ code_base.category.name }}) -by {{ code_base.author.get_profile }}{% endblock %}
 {% load comments %}
 {% load code_tags %}
+{% load accounts_tags %}
 {% block main %}
 {% get_comment_count for code.base code_base.id as comment_count %}
 <link type="text/css" rel="stylesheet" href="/static/syntaxhighlighter/styles/shCoreDefault.css" />
@@ -38,7 +39,7 @@ ol li .action a:hover{background:none;color:#000;s}
         <div id="head-title">
             <div class="author">
                 <a href="/home/{{ code_base.author.id }}/">
-                    <img src="/static/user/icon_{{ code_base.author.get_profile.photo|default:"none.jpg" }}">
+                    <img src="{{ code_base.author.username|gravatar_url }}">
                 </a>
             </div>
             <h1>{{ code_base.title|slice:"30" }} </h1>
