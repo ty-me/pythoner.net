@@ -14,6 +14,7 @@ import datetime
 from main.verify.views import *
 from signals import new_code_was_post
 from django.db.models import Q
+from code.models import Code
 
 @cache_page(60)
 def list(request,page=1):
@@ -61,7 +62,7 @@ def detail(request,code_base_id):
     except Base.DoesNotExist:
         raise Http404()
     code_base.view()
-    codes = Code.objects.filter(base=code_base)
+    ciodes = Code.objects.filter(base=code_base)
     zips = Zip.objects.filter(base=code_base)
 
     # 记录访问者
