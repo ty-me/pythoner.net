@@ -112,7 +112,7 @@ def delete(request):
 
 @login_required
 def photo(request):
-    return HttpResponse('哦活，头像上床功能正在维护中...')
+    return HttpResponse('哦活，头像上传功能正在维护中...')
 
     current_page = 'profile-photo'
     profile = UserProfile.objects.get(user=request.user)
