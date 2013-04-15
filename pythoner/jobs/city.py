@@ -32,7 +32,6 @@ def check_city(city_name):
                 continue
     return False
 
-
 def index(request):
     current_page = 'jobs'
     """

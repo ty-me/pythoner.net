@@ -5,7 +5,7 @@ from BeautifulSoup import BeautifulSoup
 import time
 import os
 from PIL import Image
-from models import *
+from models import Tag,Entry
 from pythoner.settings import  STATIC_ROOT
 
 class TagingThread(threading.Thread):
@@ -18,6 +18,7 @@ class TagingThread(threading.Thread):
 
     def run(self):
         # 清除已有标签
+        print 'start tagging...'
         self.wiki.tag.clear()
 
         content = str(self.wiki.title) + self.wiki.content
@@ -34,7 +35,6 @@ class TagingThread(threading.Thread):
             return e
         else:
             return 'OK'
-
 
 class ImageThread(threading.Thread):
 
@@ -72,7 +72,6 @@ class ImageThread(threading.Thread):
             return '/static/upload/%s/%s.jpg' %(date,name)
 
     def run(self):
-        #self.wiki.title = 'fuck title'
         print 'start download img...'
         soup = BeautifulSoup(self.html)
         img_soup = soup.findAll('img')
@@ -92,6 +91,7 @@ class ImageThread(threading.Thread):
             else:
                 li = (remote_url,local_url)
                 imgs.append(li)
+
         new_html = self.html
         print imgs
         for img in imgs:
@@ -111,5 +111,3 @@ class ImageThread(threading.Thread):
 if __name__ == '__main__':
     html = """ <span style="display: none; ">&nbsp;</span><img alt="\" height="314" src="http://www.php100.com/uploadfile/2012/0301/20120301101756716.jpg" style="text-align: -webkit-center; " width="500" />""" 
     entry = Entry.objects.get(id=1)
-    s = ImageDownloader(entry)
-    s.run()

@@ -28,31 +28,22 @@ def json_response(dict,request=None):
 @csrf_exempt
 def add(request):
     response = {'status':0,'info':''}
-    print 1
     if request.method == 'GET':
         response['info'] = 'Invalide method'
-        print 2
         return json_response(response)
 
     user_id = int(request.REQUEST.get('user',0))
-    print 3
     try:
-        print 4
         cat = request.REQUEST.get('category')
         category = Category.objects.get(name=cat)
     except:
-        print 5
         category = Category.objects.get(name=u'其它python相关')
 
-    print 6
     if user_id:
-        print 7
         user = User.objects.get(id=user_id)
     else:
-        print 8
         user = User.objects.get(id=random.randrange(2,10))
 
-    print 9
     new_wiki          = Entry()
     new_wiki.author   = user
     new_wiki.title    = request.REQUEST.get('title')
@@ -62,25 +53,19 @@ def add(request):
     new_wiki.public   = True
 
     if not new_wiki.title or not new_wiki.content:
-        print 10
         response['status'] = 0
         response['info'] = 'params error'
         return json_response(response)
-    print 11
     try:
-        print 12
         new_wiki.save()
     except Exception,e:
-        print 13
         response['info'] = e.message
         return json_response(response)
 
     # 发送信号
-    print 14
     new_wiki_was_post.send( sender= new_wiki.__class__,wiki=new_wiki)
     response['status']  = 1
     response['new_wiki_id'] = new_wiki.id
-    print 15
     return json_response(response)
 
 @csrf_exempt

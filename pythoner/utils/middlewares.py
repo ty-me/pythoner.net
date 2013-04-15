@@ -41,5 +41,4 @@ class PreventWatering(object):
             
             request.session['post_times'] = request.session['post_times']+1
             request.session.save()
-            print 'request.session',request.session.get('post_times')
 
