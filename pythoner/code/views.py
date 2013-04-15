@@ -62,7 +62,7 @@ def detail(request,code_base_id):
     except Base.DoesNotExist:
         raise Http404()
     code_base.view()
-    ciodes = Code.objects.filter(base=code_base)
+    codes = Code.objects.filter(base=code_base)
     zips = Zip.objects.filter(base=code_base)
 
     # 记录访问者
