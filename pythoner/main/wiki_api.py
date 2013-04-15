@@ -7,25 +7,52 @@ from wiki.signals import *
 from accounts.models import User
 from django.views.decorators.csrf import csrf_exempt
 
+def json_response(dict,request=None):
+    """ Return json response
+    """
+    if type(dict) == dict:
+        status = dict.get('status')
+        info   = dict.get('info')
+        if status and not info:
+            if status == 2:
+                dict['info'] = 'Server error'
+            elif status == 3:
+                dict['info']  = 'Param error'
+            elif status == 4:
+                dict['info'] = 'Invalid request'
+            elif status == 5:
+                dict['info'] = 'Need signin'
+    response = HttpResponse(json.dumps(dict), mimetype='application/json; charset=utf-8',status=200)
+    return response
+
 @csrf_exempt
 def add(request):
     response = {'status':0,'info':''}
+    print 1
     if request.method == 'GET':
         response['info'] = 'Invalide method'
-        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
+        print 2
+        return json_response(response)
 
     user_id = int(request.REQUEST.get('user',0))
+    print 3
     try:
+        print 4
         cat = request.REQUEST.get('category')
         category = Category.objects.get(name=cat)
     except:
+        print 5
         category = Category.objects.get(name=u'其它python相关')
 
+    print 6
     if user_id:
+        print 7
         user = User.objects.get(id=user_id)
     else:
+        print 8
         user = User.objects.get(id=random.randrange(2,10))
 
+    print 9
     new_wiki          = Entry()
     new_wiki.author   = user
     new_wiki.title    = request.REQUEST.get('title')
@@ -35,26 +62,26 @@ def add(request):
     new_wiki.public   = True
 
     if not new_wiki.title or not new_wiki.content:
+        print 10
         response['status'] = 0
         response['info'] = 'params error'
-        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
-
+        return json_response(response)
+    print 11
     try:
+        print 12
         new_wiki.save()
     except Exception,e:
+        print 13
         response['info'] = e.message
-        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
+        return json_response(response)
 
     # 发送信号
-    print 13
+    print 14
     new_wiki_was_post.send( sender= new_wiki.__class__,wiki=new_wiki)
-    
     response['status']  = 1
     response['new_wiki_id'] = new_wiki.id
-    print new_wiki.title
-    print response
-    return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
-
+    print 15
+    return json_response(response)
 
 @csrf_exempt
 def edit(request):
@@ -67,7 +94,7 @@ def edit(request):
         wiki = Entry.objects.get(id=wiki_id)
     except:
         response['info'] = 'wiki {0} does not exist '.format(wiki_id)
-        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
+        return json_response(response)
 
     user_id = int(request.REQUEST.get('user',0))
     if user_id:
@@ -75,7 +102,7 @@ def edit(request):
             user = User.objects.get(id=user_id)
         except Exception,e:
             response['info'] = e.message
-            return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
+            return json_response(response)
         else:
             wiki.author   = user
 
@@ -95,6 +122,7 @@ def edit(request):
         wiki.save()
     except Exception,e:
         response['info'] = e.message
-        return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
+        return json_response(response)
+
     response['status']  = 1
-    return HttpResponse(json.dumps(response), mimetype='application/json; charset=utf-8',status=200)
+    return json_response(response)
