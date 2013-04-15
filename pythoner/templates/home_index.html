@@ -23,7 +23,7 @@ ul#user-action li.topic{background:url("/static/images/add_topic.gif") no-repeat
     <div class="blank"></div>
     {% if request.user.is_authenticated %}
     <ul id="user-action">
-    <h2>我的操作</h2>
+    <h2>操作</h2>
     {% if request.user = profile.user %}
         <li class="code"><a href="/code/add/">分享代码</a> </li>
         <li class="wiki"><a href="/wiki/add/">投稿</a> </li>
