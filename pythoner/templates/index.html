@@ -33,10 +33,9 @@ div.top-show a{color:#000;font-size:14px;}
 div.top-show div.content{color:#777;line-height:16px;}
 div.right{margin:0 0 0 20px;}
 #container .topic a,#container .wiki{text-decoration:underline;}
-div#thx{text-align:center;margin:0;padding:0;}
-div#thx ul{margin:0;padding:0}
-div#thx ul li{display:inline; margin:0}
-div#thx ul li img{line-height:20px;height:20px; width:60px;border:1px solid #cecece; padding:1px;margin:1px;}
+#thx{margin:0;padding:0}
+#thx li{display:inline; margin:0}
+#thx li img{height:30px;line-height:30px; width:110px;border:1px solid #cecece; padding:1px;margin:2px;}
 #list-box{width:188px;background:#f3f3f3;position:absolute;padding:0 6px;font-size:8px;}
 .key-hover{background:#33CCFF;color:#333333;}
 </style>
@@ -224,18 +223,15 @@ div#thx ul li img{line-height:20px;height:20px; width:60px;border:1px solid #cec
         {% get_alive_user %}
         <div class="clear"></div>
         {% get_latest_comment 25 %}
+        <ul id="thx">
+            <h2>由以下开源产品强力驱动</h2>
+            <li><img src="/static/images/python.gif" title="python"></li>
+            <li><img src="/static/images/django.gif" title="django"></li>
+            <li><img src="/static/images/nginx.gif" title="nginx"></li>
+            <li><img src="/static/images/centos.png" title="centos"></li>
+            <li><img src="/static/images/mysql.png" title="mysql"></li>
+        </ul>
         <div class="clear"></div>
     </div><!-- #primary .sidebar -->
-
 <div class="clear"></div>
-<div id="thx">
-    <ul>
-        <li>由以下产品强力驱动：</li>
-        <li><img src="/static/images/python.gif" title="python"></li>
-        <li><img src="/static/images/django.gif" title="django"></li>
-        <li><img src="/static/images/nginx.gif" title="nginx"></li>
-        <li><img src="/static/images/centos.png" title="centos"></li>
-        <li><img src="/static/images/mysql.png" title="mysql"></li>
-    </ul>
-</div>
 {% include 'foot.html' %}
