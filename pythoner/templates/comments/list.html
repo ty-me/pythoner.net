@@ -1,3 +1,4 @@
+{% load accounts_tags %}
 <div id='response'>
 <h3>网友的回应({{ comment_count }})</h3>
 {% for comment in comment_list %}
@@ -9,7 +10,7 @@
                 {% else %}
                     <a href="{{ comment.user_url }}" title="{{ comment.user_url }}" target="_blank">
                 {% endif %}
-                    <img src="/static/user/icon_{{ comment.user.get_profile.photo|default:"none.jpg" }}">
+                    <img src="{{ comment.user|gravatar_url }}">
                 </a>
             </div>
             &nbsp; 来自：
