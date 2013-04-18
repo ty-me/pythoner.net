@@ -11,5 +11,4 @@ class TagAdmin(admin.ModelAdmin):
 
 admin.site.register(Entry,EntryAdmin)
 admin.site.register(Category)
-admin.site.register(Picture)
 admin.site.register(Tag,TagAdmin)

@@ -20,8 +20,7 @@ class TagingThread(threading.Thread):
         # 清除已有标签
         print 'start tagging...'
         self.wiki.tag.clear()
-
-        content = str(self.wiki.title) + self.wiki.content
+        content = u'{0}{1}'.format(self.wiki.title,self.wiki.content)
         for tag in Tag.objects.all():
             if content.lower().count(tag.name.lower()) > 0:
                 self.wiki.tag.add(tag)
@@ -93,7 +92,7 @@ class ImageThread(threading.Thread):
                 imgs.append(li)
 
         new_html = self.html
-        print imgs
+        image_urls = []
         for img in imgs:
             self.title = img[0]
             try:
@@ -102,8 +101,10 @@ class ImageThread(threading.Thread):
             except:
                 continue
             else:
+                image_urls.append(local_url)
                 new_html = new_html.replace(remote_url,local_url)
 
+        self.wiki.image_urls = ','.join(image_urls)
         self.wiki.content = new_html
         print 'image saved'
         self.wiki.save()
