@@ -147,7 +147,7 @@ def welcome(sender,**kwargs):
         to_user = User.objects.get(id=1),
         title = 'new user ',
         content = 'name:{0}'.format(kwargs['profile'].screen_name),
-        system = True
+        system = True,
     ).save()
 
 

@@ -1,4 +1,5 @@
 #encoding:utf-8
+import time
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render_to_response as render
 from django.template import RequestContext
@@ -14,15 +15,14 @@ from DjangoVerifyCode import Code
 
 @cache_page(60*60)
 def index(request):
-    topics = Topic.objects.filter(deleted=False).order_by('-id')[0:16]
     current_page = 'index'
-    codes = Base.objects.filter(display=True).order_by('-id')[0:20]
-    jobs = Job.objects.order_by('-sub_time').filter(display=True).order_by('-id')[0:15]
-    wiki_first = Entry.objects.filter(public=True).order_by('-sub_time')[0]
-    wiki_second = Entry.objects.filter(public=True).order_by('-sub_time')[1]
-    wikis = Entry.objects.filter(public=True).exclude(id__in=[wiki_first.id,wiki_second.id]).order_by('-id')[0:20]
-    response = render('index.html',locals(),context_instance=RequestContext(request))
-    return response
+    topics       = Topic.objects.filter(deleted=False).order_by('-id')[0:16]
+    codes        = Base.objects.filter(display=True).order_by('-id')[0:20]
+    jobs         = Job.objects.order_by('-sub_time').filter(display=True).order_by('-id')[0:15]
+    wiki_first   = Entry.objects.filter(public=True).order_by('-sub_time')[0]
+    wiki_second  = Entry.objects.filter(public=True).order_by('-sub_time')[1]
+    wikis        = Entry.objects.filter(public=True).exclude(id__in=[wiki_first.id,wiki_second.id]).order_by('-id')[0:20]
+    return render('index.html',locals(),context_instance=RequestContext(request))
 
 def usernav(request):
     """
@@ -64,6 +64,20 @@ def plink(request,link):
     except Entry.DoesNotExist:
         raise Http404()
     return render('custom.html',locals(),context_instance=RequestContext(request))
+
+def verify(request):
+    _code = request.REQUEST.get('verify','') 
+    code = Code(request)
+
+    # 检查用户输入的验证码是否正确
+    if not code.check(_code):
+        print 'fuck'
+        request.session['next'] = request.path
+        return render('verify.html',locals(),context_instance=RequestContext(request))
+    else:
+        request.session['post_times'] = 0
+        request.session['post_stamp'] = time.time()
+        return HttpResponseRedirect(request.session.get('next','/'))
 
 def verify_code(request):
     code =  Code(request)

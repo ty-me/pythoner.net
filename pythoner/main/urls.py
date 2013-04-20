@@ -7,6 +7,7 @@ urlpatterns = patterns('main',
     ('^api/wiki/edit/','wiki_api.edit'),
 
     ('^verify/','views.verify_code'),
+    #('^oh-my-god/','views.verify'),
     ('^random/$','views.random'),
     ('^emailrss/','views.email_rss'),
     (r'^usernav/$','views.usernav'),

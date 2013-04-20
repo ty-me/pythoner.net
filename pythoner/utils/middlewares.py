@@ -1,57 +1,12 @@
 #encoding:utf-8
 import time 
+import re
 from DjangoVerifyCode import Code
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response as render
 from django.template import RequestContext
-
-class PreventWatering(object):
-    """
-    防灌水
-    """
-
-    def process_request(self,request):
-        if request.method == 'GET':
-            pass
-
-        with_out = ['/main/verify/','/','/wiki/','/topic/','/books/','/jobs/','/code/']
-        with_out = ['/main/verify/']
-        for path in with_out:
-            if request.path.endswith(path):
-                return
-
-        timer = time.time() - request.session.get('post_stamp',0)
-        post_times = request.session.get('post_times',0)
-
-        # 提交次数是否大于单位时间的最大值
-        if request.method == 'POST':
-            if post_times >= 3:
-                _code = request.REQUEST.get('verify','') 
-                code = Code(request)
-
-                # 检查用户输入的验证码是否正确
-                if not code.check(_code):
-                    return render('verify.html',locals(),context_instance=RequestContext(request))
-                else:
-                    request.session['post_times'] = 0
-                    request.session['post_stamp'] = time.time()
-
-            elif timer >= 60:
-                request.session['post_times'] = 0
-                request.session['post_stamp'] = time.time()
-            
-            request.session['post_times'] = request.session['post_times']+1
-            request.session.save()
-
-
-
-
-
-
-import re
-
 from django.utils.text import compress_string
 from django.utils.cache import patch_vary_headers
-
 from django import http
 
 try:
@@ -62,6 +17,53 @@ except:
     XS_SHARING_ALLOWED_ORIGINS = '*'
     XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
+class PreventWatering(object):
+    """
+    防灌水
+    """
+
+    verify_code_uri   = '/verify/code/'
+    verify_check_uri  = '/oh-my-god/check/'
+    verify_page_uri   = '/oh-my-god/'
+
+    def process_request(self,request):
+        if request.path == self.verify_code_uri:
+            code =  Code(request)
+            code.type = 'number'
+            return code.display()
+
+        elif request.path == self.verify_page_uri:
+            return render('verify.html',locals(),context_instance=RequestContext(request))
+
+        elif request.path == self.verify_check_uri:
+            code = Code(request)
+            _code = request.REQUEST.get('verify','')
+            print 'request',request.REQUEST
+
+            # 检查用户输入的验证码是否正确
+            if not code.check(_code):
+                next = self.verify_page_uri
+            else:
+                request.session['post_times'] = 0
+                request.session['post_stamp'] = time.time()
+                next = request.session.get('next','/')
+            return HttpResponseRedirect(next)
+
+        timer = time.time() - request.session.get('post_stamp',0)
+        post_times = request.session.get('post_times',0)
+
+        # 提交次数是否大于单位时间的最大值
+        if request.method == 'POST':
+            if post_times >= 3:
+                request.session['next'] = request.META.get('HTTP_REFERER','/')
+                return HttpResponseRedirect(self.verify_page_uri)
+
+            elif timer >= 60:
+                request.session['post_times'] = 0
+                request.session['post_stamp'] = time.time()
+            
+            request.session['post_times'] = request.session['post_times']+1
+            request.session.save()
 
 class XsSharing(object):
     """

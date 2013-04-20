@@ -10,19 +10,18 @@ $(document).ready(function(){
     });
 
     $('#change_verify').click(function(){
-        #alert('fuck bug');
         var now=new Date().getTime();
-        $('img.verify').attr('src','/main/verify/'+now);
+        $('img.verify').attr('src','/verify/code/?t='+now);
         return false;
     });
 });
 </script>
     <h1>额~</h1>
     <p>你的操作方式很诡异，我们怀疑你是外星机器人派来的卧底！<br>好吧，除非你向我证明你不是机器人</p>
-    <p><img class="verify" src="/main/verify/" alt="告诉我图片上面写了神马？"><a href="#" id="change_verify">换一张</a> </p>
-    <p>那你得告诉我图片上的单词是神马先？</p>
+    <p><img class="verify" src="/verify/code/" alt="告诉我图片上面写了神马？"><a href="#" id="change_verify">换一张</a> </p>
+    <p>那你得告诉我图片上的答案先？</p>
 
-    <form action="" method="GET">
+    <form action="/oh-my-god/check/" method="GET">
         <input name="verify" class="verify" type="text" maxlength="10" style="width:200px;">
         <input type="submit" value="我不是机器人" class="button" style="width:130px;">
     </form>

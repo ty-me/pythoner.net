@@ -25,5 +25,5 @@ urlpatterns = patterns('home',
     (r'^link/$','profile.link'),
     (r'^city/$','city.index'), # 城市列表
     (r'^members/$','views.members'), # 成员
-    (r'^members/p(\d{1,10})/$','views.members') # 成员
+    (r'^members/p(\d{1,10})/$','views.members'), # 成员
 )
