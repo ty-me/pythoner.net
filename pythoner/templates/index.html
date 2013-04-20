@@ -34,7 +34,7 @@ div.top-show div.content{color:#777;line-height:16px;}
 div.right{margin:0 0 0 20px;}
 #container .topic a,#container .wiki{text-decoration:underline;}
 #thx{margin:0;padding:0}
-#thx li{display:inline; margin:0}
+#thx li{ margin:0}
 #thx li img{height:30px;line-height:30px; width:110px;border:1px solid #cecece; padding:1px;margin:2px;}
 #list-box{width:188px;background:#f3f3f3;position:absolute;padding:0 6px;font-size:8px;}
 .key-hover{background:#33CCFF;color:#333333;}
@@ -49,8 +49,12 @@ div.right{margin:0 0 0 20px;}
 {% load wiki_tags %}
 <script>
     $(document).ready(function(){
+        //
+        $('#you-know').html('支持我们,你懂的');
+        // load the sub nav
         $('.welcome').load('/main/usernav/');
         
+        // keyworlds auto complete
         $('#list-box').hide();
         $('.keyworld').keyup(function(){
             var keyword = $('.keyworld').val();
@@ -114,7 +118,7 @@ div.right{margin:0 0 0 20px;}
     <div id="sub-nav">
         <ul>
             <li><a href="/wiki/">python 教程</a> </li>
-            <li><a href="/search/wiki/p1/?q=goagent">goagent翻墙</a></li>
+            <li><a href="/wiki/77/">goagent翻墙</a></li>
             <li><a href="/wiki/tag/Django/p1/">Django</a></li>
             <li><a href="/search/wiki/?q=python%20%E5%BC%80%E5%8F%91/p1/">python 开发</a></li>
             <li><a href="/wiki/tag/Linux/p1/">Linux</a></li>
@@ -125,7 +129,7 @@ div.right{margin:0 0 0 20px;}
             <li><a href="/wiki/tag/Nginx/p1/">Nginx</a></li>
             <li><a href="/code/p1/?category=python语言基础">源代码</a></li>
             <li><a href="/topic/">话题讨论</a></li>
-            <li><a href="/jobs/">python 招聘</a> </li>
+            <li><a href="/jobs/">Python 招聘</a> </li>
         </ul>
 		<div class="clear"></div>
     </div>
@@ -218,6 +222,7 @@ div.right{margin:0 0 0 20px;}
 	</div><!-- #container -->
     <div id="sidebar">
         <!-- 广告位：首页边侧 -->
+        <h2 id="you-know"></h2>
         <script type="text/javascript" >BAIDU_CLB_SLOT_ID = "316465";</script>
         <script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
         {% get_alive_user %}

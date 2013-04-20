@@ -57,6 +57,12 @@ form input{height:24px;font:12px;line-height:12px;margin:6px;padding:3px;}
 #publish_button{width:200px;}
 p.submit{margin:0;padding:0;}
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('option[value=19]').attr('selected','selected');
+
+});
+</script>
     <h1>{{ page_title }} </h1>
     <fieldset>
     <legend>已粘贴/上传代码:</legend>
@@ -65,7 +71,7 @@ p.submit{margin:0;padding:0;}
             <li id="code_{{ code.id }}">
                 [{{ code.language.name }}] <strong>{{ code.name }}</strong>
                 <span class="action">
-                    <a href="/code/{{ base.id }}/edit/{{ code.id }}/" target="_blank">修改</a>
+                    <a href="/code/{{ base.id }}/edit/{{ code.id }}/">修改</a>
                     <a href="javascript:del({{ code.id }},'code')" class="delete">删除</a>
                 </span>
             </li>

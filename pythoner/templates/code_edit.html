@@ -4,6 +4,12 @@
 <style>
 form textarea{width:100%;height:400px;line-height:18px;}
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('option[value={{ code.language.id }}]').attr('selected','selected');
+
+});
+</script>
     <h1>修改代码</h1>
     <form action="" method="POST">
         {{ form.as_p }}

@@ -287,7 +287,7 @@ def edi_code(request,base_id,code_id):
         raise Http404()
     
     if request.method == 'GET':
-        form = PasteForm(initial={'language':code.language.id,'content':code.content})
+        form = PasteForm(initial={'language':code.language,'content':code.content})
         return render('code_edit.html',locals(),context_instance=RequestContext(request))
     form = PasteForm(request.POST)
     if form.is_valid():

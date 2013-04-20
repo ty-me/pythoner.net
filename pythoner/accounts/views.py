@@ -10,11 +10,10 @@ from django.template import loader
 from main.verify.views import *
 from forms import *
 from models import UserProfile
-from settings import DOMAIN,ROOT_PATH
+from settings import DOMAIN
 from accounts.signals import new_user_register
 from main.email.views import send_email
 import hashlib
-import time
 
 TURN_OFF = False
 @csrf_protect
@@ -36,8 +35,13 @@ def _register(request):
     """
     用户注册
     """
-
     form = RegisterForm(request.POST)
+    zen  = request.POST.get('zen')
+
+    if not zen:
+        messages.error(request,'对不起，你没有同意《The Zen Of Python》,暂时不能加入')
+        return render('account_register.html',locals(),context_instance=RequestContext(request))
+
     if form.is_valid():
         data = form.clean()
     else:
@@ -188,7 +192,10 @@ def _get_active_code(email):
     """
     计算激活码
     """
-    date_str = time.strftime('%Y-%m-%d',time.localtime()) # 当天内有效
+    #TODO:代码开源了之后用户可以根据这里计算出激活码，为防止破解
+    #     可随机生成激活码后存入数据库。有时间了优化这里
+    #     date_str = time.strftime('%Y-%m-%d',time.localtime()) # 当天内有效
+
     m = hashlib.md5(str(email)+'pythoner.net'+'axweraf9092443lklnfd0f89dmrej'+date_str)
     return m.hexdigest()
 

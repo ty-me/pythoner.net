@@ -9,7 +9,7 @@ class Language(models.Model):
     js = models.CharField('刷子js文件',max_length=50)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['-name']
         verbose_name_plural='语言包'
 
     def save(self):
@@ -85,7 +85,7 @@ class Code(models.Model):
     base = models.ForeignKey(Base)
     language = models.ForeignKey(Language,verbose_name='语言',default=1)
     name = models.CharField('代码名称',max_length=50,blank=True,null=True)
-    content = models.TextField('代码内容')
+    content = models.TextField('Code')
 
     def __unicode__(self):
         return self.base.title 

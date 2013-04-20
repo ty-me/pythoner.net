@@ -5,7 +5,7 @@
 <style>
 #register{padding:0;margin:10px 0 0 0;}
 #register tr label{font-size:16px;color:#333333;font-weight:100;}
-#id_username,#id_password,#id_screen_name{width:300px;}
+#id_username,#id_password,#id_screen_name{width:600px;}
 label.error,.error {color: red;padding-left: .5em;font-size:12px;}
 </style>    
     <h1 style="font-size:20px;font-weight:normal;">欢迎加入</h1>
@@ -39,6 +39,30 @@ label.error,.error {color: red;padding-left: .5em;font-size:12px;}
         {% csrf_token %}
         <table id="register">
             {{ form.as_table }}
+            <tr><th></th><td><textarea style="width:600px;height:150px;">
+The Zen of Python
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+            </textarea></td></tr>
+            <tr><th></th><td><input type="checkbox" name="zen"> 我同意《The Zen Of Python》</td></tr>
             <tr><th></th><td><input class="button" type="submit" value="我填好了！" name="submit" style="width:100px;"></td></tr>
         </table>
     </form>
