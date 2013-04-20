@@ -13,7 +13,7 @@ def index(request,page=1):
     """
     用户中心
     """
-    url = 'home'
+    pre_url = 'home'
     current_page = 'develop'
     profile = UserProfile.objects.get(user=request.user)
     relation_all = UserRlation.objects.filter(source_user=request.user)
@@ -36,7 +36,7 @@ def members(request,page=1):
     """
     member_all = User.objects.order_by('-id').filter(is_active=True)
     paginatior = Paginator(member_all,42)
-    url = 'home/members'
+    pre_url = 'home/members'
     
     try:
         entrys = paginatior.page(page)

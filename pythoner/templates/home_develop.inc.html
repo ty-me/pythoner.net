@@ -43,11 +43,11 @@
 <div class="paginator">
 共{{ develops.paginator.count }}条记录 第{{ develops.number }}/{{ develops.paginator.num_pages }}页
 {% if develops.has_previous %}
-    <a href="/{{ url }}/p{{ develops.previous_page_number }}/">上一页</a>
+    <a href="/{{ pre_url }}/p{{ develops.previous_page_number }}/">上一页</a>
 {% endif %}
 
  {% if develops.has_next %}
-    <a href="/{{ url }}/p{{ develops.next_page_number }}/">下一页</a>
+    <a href="/{{ pre_url }}/p{{ develops.next_page_number }}/">下一页</a>
 {% endif %}
 </div>
 </div><!-- end develop -->
