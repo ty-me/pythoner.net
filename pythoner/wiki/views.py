@@ -16,9 +16,8 @@ from models import *
 from main.verify.views import *
 from forms import WikiForm
 from signals import new_wiki_was_post
-from image_downloader import ImageDownloader
 
-#@cache_page(60*60)
+@cache_page(60*60)
 def list(request,page=1):
     """
     列表页
@@ -59,7 +58,7 @@ def list(request,page=1):
         entrys = paginator.page(paginator.num_pages)
     return render(LIST_PAGE,locals(),context_instance=RequestContext(request))
 
-#@cache_page(60*60)
+@cache_page(60*60)
 def tag(request,tag_name,page=1):
     """
     按标签显示条目
