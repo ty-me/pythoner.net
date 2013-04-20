@@ -194,8 +194,7 @@ def _get_active_code(email):
     """
     #TODO:代码开源了之后用户可以根据这里计算出激活码，为防止破解
     #     可随机生成激活码后存入数据库。有时间了优化这里
-    #     date_str = time.strftime('%Y-%m-%d',time.localtime()) # 当天内有效
-
+    date_str = time.strftime('%Y-%m-%d',time.localtime()) # 当天内有效
     m = hashlib.md5(str(email)+'pythoner.net'+'axweraf9092443lklnfd0f89dmrej'+date_str)
     return m.hexdigest()
 
