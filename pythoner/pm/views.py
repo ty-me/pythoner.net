@@ -20,7 +20,7 @@ def inbox(request,page=1):
     td1 = '来自'
     empty_msg = '你还木有收到新的PM'
 
-    url = 'pm/inbox'
+    pre_url = 'pm/inbox'
     pm_all  = Pm.objects.filter(to_user=request.user,to_deleted=False)
     paginator = Paginator(pm_all,20)
     try:
@@ -39,7 +39,7 @@ def outbox(request,page=1):
     td1 = '寄给'
     empty_msg = '木有寄出的PM'
 
-    url = 'pm/outbox'
+    pre_url = 'pm/outbox'
     pm_all  = Pm.objects.filter(from_user=request.user,from_deleted=False)
     paginator = Paginator(pm_all,20)
     try:
