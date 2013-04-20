@@ -27,10 +27,8 @@
         <div class="content">
             {% if develop.type.name == 'code' %}{% get_code_develop develop %}{% endif %}
             {% if develop.type.name == 'relation' %}{% get_relation_develop develop %}{% endif %}
-            {% if develop.type.name == 'photo' %}{% get_photo_develop develop %}{% endif %}
             {% if develop.type.name == 'topic' %}{% get_topic_develop develop %}{% endif %}
             {% if develop.type.name == 'wiki'%}{% get_wiki_develop develop %} {% endif %}
-           
             {% if develop.type.name == 'code_comment' %}{% get_code_comment_develop develop %}{% endif %}
             {% if develop.type.name == 'topic_comment' %}{% get_topic_comment_develop develop %}{% endif %}
             {% if develop.type.name == 'wiki_comment' %}{% get_wiki_comment_develop develop %}{% endif %}
