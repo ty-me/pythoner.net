@@ -28,6 +28,7 @@ def json_response(dict,request=None):
 @csrf_exempt
 def add(request):
     response = {'status':0,'info':''}
+    print 'request',request
     if request.method == 'GET':
         response['info'] = 'Invalide method'
         return json_response(response)
