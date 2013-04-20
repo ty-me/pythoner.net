@@ -10,7 +10,7 @@
                 {% else %}
                     <a href="{{ comment.user_url }}" title="{{ comment.user_url }}" target="_blank">
                 {% endif %}
-                    <img src="{{ comment.user|gravatar_url }}">
+                    <img src="{{ comment.user.username|gravatar_url }}">
                 </a>
             </div>
             &nbsp; 来自：
