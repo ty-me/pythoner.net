@@ -1,7 +1,6 @@
 #encoding:utf-8
 from django.db import models
 from django.contrib.auth.models import User
-from accounts.models import UserProfile
 from django.db.models.signals import post_save
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
@@ -35,30 +34,6 @@ class Pm(models.Model):
 
     def __unicode__(self):
         return u'%s -->%s: %s' %(self.from_user.get_profile().screen_name,self.to_user.get_profile().screen_name,self.sub_time)
-
-def welcome(sender,**kwargs):
-    """
-    用户注册后发送PM
-    """
-    title = '欢迎您!',
-    content = "欢迎来到Python开发者社区，网站代码已经开源,欢迎Fork,http://github.com/tianyu0915/pythoner.net"
-    to_user = kwargs['profile'].user
-    Pm(
-        from_user=User.objects.get(id=1),
-        to_user=to_user,
-        title=title,
-        content=content,
-        system = True
-    ).save()
-    
-    # 同时给管理员发送通知
-    Pm(
-        from_user = User.objects.get(id=1),
-        to_user = User.objects.get(id=1),
-        title = 'new user register',
-        content = 'naem:%s' %kwargs['profile'].screen_name,
-        system = True
-    ).save()
 
 def comment_notice(sender,instance,**kwargs):
     """
@@ -156,13 +131,12 @@ def welcome(sender,**kwargs):
     """
     用户注册后发送PM
     """
-    title = 'Welcome!',
-    content = "欢迎来到pythoner.net，网站代码已经开源,欢迎Fork,http://github.com/tianyu0915/pythoner.net"
+    content = "欢迎来到Python开发者社区，网站代码已经开源,欢迎Fork,http://github.com/tianyu0915/pythoner.net"
     to_user = kwargs['profile'].user
     Pm(
         from_user=User.objects.get(id=1),
         to_user=to_user,
-        title=title,
+        title='Welcome',
         content=content,
         system = True
     ).save()
@@ -171,8 +145,8 @@ def welcome(sender,**kwargs):
     Pm(
         from_user = User.objects.get(id=1),
         to_user = User.objects.get(id=1),
-        title = 'new user register',
-        content = 'naem:%s' %kwargs['profile'].screen_name,
+        title = 'new user ',
+        content = 'name:{0}'.format(kwargs['profile'].screen_name),
         system = True
     ).save()
 

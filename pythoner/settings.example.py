@@ -12,16 +12,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 DOMAIN = 'http://pythoner.net'
-DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'pythoner_db',      
-        'USER': 'root',               
-        'PASSWORD': '',                
+        'USER': 'username',               
+        'PASSWORD': 'password',                
         'HOST': 'localhost',            
         'PORT': '',                      
         'REDIS': redis.Redis(host='127.0.0.1')
@@ -29,10 +27,11 @@ DATABASES = {
 }
 
 ENV = os.getenv('ENV')
-if ENV in ['DEV']:
-    DEBUG = True
-    DOMAIN = 'http://localhost:8000'
 
+if ENV in ['DEV','DEBUG']:
+    DEBUG = True
+else:
+    DEBUG = False
 
 STATIC_ROOT = os.path.join(ROOT_PATH,'static')
 
@@ -42,13 +41,12 @@ DATETIME_FORMAT = 'Y-m-d H:i:s'
 LANGUAGE_CODE = 'zh-cn'
 SITE_ID = 1
 USE_I18N = True
-USE_L10N = True
 
 MEDIA_ROOT = os.path.join(ROOT_PATH,'media')
 MEDIA_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/media/'
 
-SECRET_KEY = 'fuck-gfw'
+SECRET_KEY = '***'
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -62,6 +60,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'pythoner.utils.middlewares.PreventWatering',
+    'pythoner.utils.middlewares.XsSharing',
 
 )
 
@@ -100,9 +99,10 @@ INSTALLED_APPS = (
 )
 
 USE_TZ = False
-EMAIL_HOST = '******'
-EMAIL_HOST_USER = '******'
-EMAIL_HOST_PASSWORD = '******'
+
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 
 CACHE_BACKEND = 'file://'+os.path.join(ROOT_PATH,'cache')
 
@@ -112,15 +112,12 @@ PHOTO_SIZE = (128,128)
 ICON_PHOTO_SIZE = (48,48)
 
 DEFAULT_PASSWORD = '******'
-DOUBAN_API_KEY = '******' 
-DOUBAN_API_SECRET = '******' 
+
+DOUBAN_API_KEY = '' 
+DOUBAN_API_SECRET = '' 
 DOUBAN_SCOPE = 'shuo_basic_r,shuo_basic_w,douban_basic_common' 
-DOUBAN_CALLBACK_URL = u'******'
+DOUBAN_CALLBACK_URL = u'http://pythoner.net/accounts/login/douban/callback/'
 
-WEIBO_APP_KEY = u'******'
-WEIBO_APP_SECRET = u'******'
-WEIBO_CALLBACK_URL = u'******'
-
-TWITTER_APP_KEY = u'******'
-TWITTER_APP_SECRET = u'******'
-TWITTER_CALLBACK_URL = u'******'
+WEIBO_APP_KEY = u''
+WEIBO_APP_SECRET = u''
+WEIBO_CALLBACK_URL = u'http://pythoner.net/accounts/login/sina/callback/'
