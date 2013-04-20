@@ -125,7 +125,7 @@ div.share{margin: 15px 0 0 0;text-align: right;float: right;clear: both;}
 /* head-title 代码、个人主页的头部*/
 #head-title{margin:0;padding:0;}
 #head-title.home{margin:0 0 15px 0;}
-#head-title img{margin:1px;padding:1px;border:1px solid #aaa;}
+#head-title img{margin:1px;padding:1px;border:1px solid #aaa;width:35px;}
 #head-title h1{width:500px;float:left;padding-top:0;margin-bottom:0;}
 #head-title .author{float:left;margin:10px 15px 0 0;}
 #head-title .line{display:block;border-bottom:1px solid #e9e9e9;margin:0 0 10px 0;padding:0 0 10px 0;}
