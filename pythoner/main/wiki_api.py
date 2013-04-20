@@ -28,12 +28,22 @@ def json_response(dict,request=None):
 @csrf_exempt
 def add(request):
     response = {'status':0,'info':''}
-    print 'request',request
+
     if request.method == 'GET':
         response['info'] = 'Invalide method'
         return json_response(response)
 
+    source  = request.REQUEST.get('source','')
     user_id = int(request.REQUEST.get('user',0))
+
+    try:
+        Entry.objects.get(source=source)
+    except:
+        pass
+    else:
+        response['info'] = 'This entry has existed'
+        return json_response(response)
+
     try:
         cat = request.REQUEST.get('category')
         category = Category.objects.get(name=cat)
@@ -46,11 +56,11 @@ def add(request):
         user = User.objects.get(id=random.randrange(2,10))
 
     new_wiki          = Entry()
+    new_wiki.source   = request.REQUEST.get('source')
     new_wiki.author   = user
     new_wiki.title    = request.REQUEST.get('title')
     new_wiki.content  = request.REQUEST.get('content')
     new_wiki.category = category
-    new_wiki.source   = request.REQUEST.get('source')
     new_wiki.public   = True
 
     if not new_wiki.title or not new_wiki.content:
