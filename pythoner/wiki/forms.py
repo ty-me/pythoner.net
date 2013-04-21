@@ -16,4 +16,4 @@ class UserWikiForm(forms.ModelForm):
 class WikiForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ('title','content','source')
+        fields = ('title','category','content','source')
