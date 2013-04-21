@@ -1,12 +1,16 @@
 #encoding:utf-8
-import threading
-import time,math,os,re,urllib,urllib2,cookielib
-from BeautifulSoup import BeautifulSoup
-import time
 import os
+import time
+import threading
+import urllib
+from hashlib import md5
+from BeautifulSoup import BeautifulSoup
 from PIL import Image
 from models import Tag,Entry
-from pythoner.settings import  STATIC_ROOT
+from pythoner.settings import  MEDIA_ROOT,MEDIA_URL
+from PIL import Image
+import StringIO
+
 
 class TagingThread(threading.Thread):
     """
@@ -50,25 +54,20 @@ class ImageThread(threading.Thread):
             img_url = img_url.replace('..','').replace('//','')
             img_url = os.path.join('/',img_url)
 
-        name = 'wiki_%s_%s' %(self.wiki.id,time.time())
         date = time.strftime('%Y%m%d',time.localtime())
-        dir_name =  STATIC_ROOT + '/upload/%s/' %date
-        if not os.path.isdir(dir_name):
-            try:
-                os.makedirs(dir_name)
-            except Exception,e:
-                print e,dir_name
-                return False
-        file_name = os.path.join(dir_name,'%s.jpg'%name)
-        print file_name
+        filepath  = os.path.join(MEDIA_ROOT,'{0}/{1}'.format('wiki',date))
+        filedata  = urllib.urlopen(img_url).read()
+        print 'filepath',filepath
+        
+        # make a dir
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+        im = Image.open(StringIO.StringIO(filedata))
+        filename = os.path.join(filepath,'{0}.jpg'.format(md5(filedata).hexdigest()))
+        im.thumbnail((600,600),Image.ANTIALIAS)
+        im.convert('RGB').save(filename,'jpeg',quality=100)
+        return '{0}wiki/{1}/{2}'.format(MEDIA_URL,date,os.path.basename(filename))
 
-        try:
-            urllib.urlretrieve(img_url,file_name)
-        except Exception,e:
-            print e
-            return img_url
-        else:
-            return '/static/upload/%s/%s.jpg' %(date,name)
 
     def run(self):
         print 'start download img...'
@@ -112,3 +111,5 @@ class ImageThread(threading.Thread):
 if __name__ == '__main__':
     html = """ <span style="display: none; ">&nbsp;</span><img alt="\" height="314" src="http://www.php100.com/uploadfile/2012/0301/20120301101756716.jpg" style="text-align: -webkit-center; " width="500" />""" 
     entry = Entry.objects.get(id=1)
+    i = ImageThread(entry)
+    i.start()

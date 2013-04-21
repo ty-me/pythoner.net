@@ -25,6 +25,7 @@ class PreventWatering(object):
     verify_code_uri   = '/verify/code/'
     verify_check_uri  = '/oh-my-god/check/'
     verify_page_uri   = '/oh-my-god/'
+    expaths            = ['/upload/']
 
     def process_request(self,request):
         if request.path == self.verify_code_uri:
@@ -48,22 +49,22 @@ class PreventWatering(object):
                 request.session['post_stamp'] = time.time()
                 next = request.session.get('next','/')
             return HttpResponseRedirect(next)
+        
+        if not request.path in self.expaths:
+            timer = time.time() - request.session.get('post_stamp',0)
+            post_times = request.session.get('post_times',0)
+            # 提交次数是否大于单位时间的最大值
+            if request.method == 'POST':
+                if post_times >= 3:
+                    request.session['next'] = request.META.get('HTTP_REFERER','/')
+                    return HttpResponseRedirect(self.verify_page_uri)
 
-        timer = time.time() - request.session.get('post_stamp',0)
-        post_times = request.session.get('post_times',0)
-
-        # 提交次数是否大于单位时间的最大值
-        if request.method == 'POST':
-            if post_times >= 3:
-                request.session['next'] = request.META.get('HTTP_REFERER','/')
-                return HttpResponseRedirect(self.verify_page_uri)
-
-            elif timer >= 60:
-                request.session['post_times'] = 0
-                request.session['post_stamp'] = time.time()
-            
-            request.session['post_times'] = request.session['post_times']+1
-            request.session.save()
+                elif timer >= 60:
+                    request.session['post_times'] = 0
+                    request.session['post_stamp'] = time.time()
+                
+                request.session['post_times'] = request.session['post_times']+1
+                request.session.save()
 
 class XsSharing(object):
     """
