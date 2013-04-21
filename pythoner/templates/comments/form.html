@@ -19,15 +19,27 @@ p.submit input{margin:8px;}
         KindEditor.ready(function(K) {
                 editor = K.create('#id_comment', {
                         resizeType : 2,
-                        allowImageUpload:false,
+                        allowImageUpload:true,
                         height:'200px',
                         width:'650px',
                         fontSizeTable:'14px',
                         filterMode :true,
-                        items:['source','code','fullscreen'],
+                        items:['code','image','fullscreen'],
                         htmlTags:{
-                            'code,pre' : ['']
-                        }
+                            'code,pre' : [''],
+                            'img' : ['src', 'width', 'height'],
+                        },
+                        
+                        uploadJson : '/upload/',
+                        fileManagerJson : '../asp.net/file_manager_json.ashx',
+                        fieldName : 'file',                
+                        extraFileUploadParams : {
+                            file_type : 'image',
+                            dir : 'comments'
+                        },
+
+
+
 
                 });
         });

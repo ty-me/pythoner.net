@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}投稿{% endblock %}
+{% block title %}分享文章{% endblock %}
 {% block main %}
-<h1>投递稿件</h1>
+<h1>分享文章</h1>
 <style>
-input,textarea{ width:100%;}
+#id_title,#id_source{width:640px;}
 </style>
 <link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css">
 <script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
@@ -13,7 +13,7 @@ input,textarea{ width:100%;}
         KindEditor.ready(function(K) {
                 editor = K.create('#id_content', {
                         resizeType : 2,
-                        allowImageUpload:false,
+                        allowImageUpload:true,
                         height:'500px',
                         fontSizeTable:'14px',
                         filterMode :true,
@@ -36,7 +36,15 @@ input,textarea{ width:100%;}
                             p: ['.color,align'],
                             span: ['.color'],
                             'hr,br,tbody,tr,strong,b,sub,sup,em,i,u,strike' : []
-                        }
+                        },
+                        uploadJson : '/upload/',
+                        fileManagerJson : '../asp.net/file_manager_json.ashx',
+                        fieldName : 'file',                
+                        extraFileUploadParams : {
+                            file_type : 'image',
+                            dir : 'wiki'
+                        },
+                        allowFileManager : true
 
                 });
         });

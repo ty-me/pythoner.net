@@ -1,5 +1,5 @@
 {% for wiki in wikis %}
-<div class="title">分享了笔记：<a href="{{ wiki.get_absolute_url }}">{{ wiki.title }}</a></div>
+<div class="title">投递了稿件：《{{ wiki.title }}》</div>
 <div class="remark"> 
     {{ wiki|striptags|slice:"100" }}
     {% if wiki.tag.count %}

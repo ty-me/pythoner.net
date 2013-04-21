@@ -17,7 +17,7 @@ $(document).ready(function(){
 });
 </script>
 <style>
-#id_title{width:660px;}
+#id_title{width:640px;}
 </style>
 <link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css">
 <script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
@@ -27,27 +27,24 @@ $(document).ready(function(){
         KindEditor.ready(function(K) {
                 editor = K.create('#id_content', {
                         resizeType : 2,
-                        allowImageUpload:false,
+                        allowImageUpload:true,
                         height:'500px',
-                        width:'680px',
+                        width:'650px',
                         fontSizeTable:'14px',
                         filterMode :true,
-                        items:[
-                            'source', '|',
-                            '|', 'insertorderedlist', 'insertunorderedlist', 'subscript',
-                            'superscript', 'clearhtml','|',
-                            '|', 'forecolor', 'bold',
-                            'italic', 'underline', 'removeformat','|','map',
-                             '|','code',
-                            'link', 'unlink', '|', 'fullscreen'
-                        ],
+                        items:['code','image','fullscreen'],
                         htmlTags:{
-                            a : ['href'],
-                            img : ['src', 'width', 'height'],
-                            pre : ['class'],
-                            span: ['.color'],
-                            'br,strong,b,sub,sup,em,i,u,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : []
-                        }
+                            'code,pre' : [''],
+                            'img' : ['src', 'width', 'height'],
+                        },
+                        
+                        uploadJson : '/upload/',
+                        fileManagerJson : '../asp.net/file_manager_json.ashx',
+                        fieldName : 'file',                
+                        extraFileUploadParams : {
+                            file_type : 'image',
+                            dir : 'topic'
+                        },
 
                 });
         });

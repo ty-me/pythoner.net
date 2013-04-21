@@ -1,8 +1,8 @@
 {% extends "home_base.html" %}
-{% block keyworld %}{{ user.get_profile.screen_name }},{{ user.get_profile.screen_name }}的笔记,python学习笔记,python文章{% endblock %}
-{% block title %}{{ user.get_profile.screen_name }}的笔记{% endblock %}
-{% block description %}{{ user.get_profile.screen_name }}在pythoner.net上分享的文章与笔记{% endblock %}
-{% block h1 %}{{ user.get_profile.screen_name }}的笔记{% endblock %}
+{% block keyworld %}{{ user.get_profile.screen_name }},{{ user.get_profile.screen_name }}分享的文章,python文章{% endblock %}
+{% block title %}{{ user.get_profile.screen_name }}分享的文章{% endblock %}
+{% block description %}{{ user.get_profile.screen_name }}在Pythoner.net上分享的文章{% endblock %}
+{% block h1 %}{{ user.get_profile.screen_name }}分享的文章{% endblock %}
 {% block main %}
 <style>
 #wiki-list li{background:none;padding:0;}
@@ -12,7 +12,7 @@
     {% load home_tags %}
     {% load wiki_tags %}
     <ul class="list" id="wiki-list">
-    {% if request.user == user %}<div class="action"><a href="/wiki/add/">+ 写笔记</a> </div>{% endif %}
+    {% if request.user == user %}<div class="action"><a href="/wiki/add/">+ 分享文章</a> </div>{% endif %}
 	{% for entry in entrys.object_list %}
 	{% get_comment_count for wiki.entry entry.id as comment_account %}
         <li>

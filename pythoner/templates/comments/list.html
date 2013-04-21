@@ -21,7 +21,7 @@
                 {% endif %}
             {{ comment.user.get_profile.screen_name|default:comment.user_name }}</a>
             @ {{ comment.submit_date }}
-            <div class="content">{% autoescape off %}{{ comment.comment }}{% endautoescape %}</div>
+            <div class="content">{% autoescape off %}{{ comment.comment|cut:"&nbsp;" }}{% endautoescape %}</div>
         </div>
         <div class="clear"></div>
     </div><!-- end item -->
