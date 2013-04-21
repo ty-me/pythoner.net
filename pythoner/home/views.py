@@ -17,11 +17,9 @@ def index(request,page=1):
     current_page = 'develop'
     profile = UserProfile.objects.get(user=request.user)
     relation_all = UserRlation.objects.filter(source_user=request.user)
-    if relation_all.count() == 0:
-        follows_id_list = [relation.target_user.id for relation in relation_all]
-    follows_id_list = []
+    follows_id_list = [r.target_user.id for r in relation_all]
     follows_id_list.append(request.user.id) # 以便抽取自己的动态
-    develop_all = Develop.objects.filter(user__in=follows_id_list)
+    develop_all = Develop.objects.filter(user__in=follows_id_list).order_by('-sub_time')
     paginator = Paginator(develop_all,15)
     try:
         develops = paginator.page(page)

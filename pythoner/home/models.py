@@ -83,6 +83,7 @@ class Visitor(models.Model):
         return u'%s <- %s' %(self.master.get_profile().screen_name,self.visitor.get_profile().screen_name)
 
 ############################################# 华丽的分割线 #############################################
+# 一些signal用来记录用户的行为事件
 
 def comment_develop(sender,instance,**kwargs):
     user = instance.user
@@ -115,7 +116,7 @@ def topic_develop(sender,**kwargs):
     user = topic.author
 
     # 找到一天以内的动态，如果没有则创建一个
-    yesterday = datetime.datetime.fromtimestamp(time.time()-2600*24)
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
     develop_all = Develop.objects.filter(user=user,type=type,sub_time__gt=yesterday)
     if develop_all.count() == 0:
         develop = Develop(user=user,type=type)
@@ -149,7 +150,7 @@ def relation_develop(sender,instance,**kwargs):
     user = instance.source_user
 
     # 找到一天以内的动态，如果没有则创建一个
-    yesterday = datetime.datetime.fromtimestamp(time.time()-2600*24)
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
     develop_all = Develop.objects.filter(user=user,type=type,sub_time__gt=yesterday)
     if develop_all.count() == 0:
         develop = Develop(user=user,type=type,sub_time=datetime.datetime.now())
@@ -168,7 +169,7 @@ def code_develop(sender,**kwargs):
     user = code.author
 
     # 找到一天以内的动态，如果没有则创建一个
-    yesterday = datetime.datetime.fromtimestamp(time.time()-3600*24)
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
     develop_all = Develop.objects.filter(user=user,type=type,sub_time__gt=yesterday)
     if develop_all.count() == 0:
         develop = Develop(user=user,type=type)
@@ -188,7 +189,7 @@ def wiki_develop(sender,**kwargs):
     user = wiki.author
 
     # 找到一天以内的动态，如果没有，则创建一个新的动态
-    yesterday = datetime.datetime.fromtimestamp(time.time()-3600*24)
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
     develop_all = Develop.objects.filter(user=user,type=type,sub_time__gt=yesterday)
     if develop_all.count() ==0:
         develop = Develop(user=user,type=type)
@@ -200,7 +201,6 @@ def wiki_develop(sender,**kwargs):
 
 
 new_topic_was_posted.connect(topic_develop)
-photo_was_uploaded.connect(photo_develop)
 post_save.connect(comment_develop,sender=Comment)
 post_save.connect(relation_develop,sender=UserRlation)
 new_code_was_post.connect(code_develop)

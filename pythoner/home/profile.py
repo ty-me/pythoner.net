@@ -58,16 +58,20 @@ def index(request,u_id,page=1):
     # 如果账号以删除
     if profile.deleted == True:
         return render('home_none.html',locals(),context_instance=RequestContext(request))
+    
+    # 对未登录的用户只显示前15条动态
+    if not request.user.is_authenticated():
+        develop_all = Develop.objects.filter(user=profile.user)[:5]
+    else:
+        develop_all = Develop.objects.filter(user=profile.user)
 
-    develop_all = Develop.objects.filter(user=profile.user)
     paginator = Paginator(develop_all,15)
-    url = 'home/%d' %profile.user.id
+    pre_url = 'home/%d' %profile.user.id
     current_page = 'develop'
     try:
         develops = paginator.page(page)
     except (EmptyPage,InvalidPage):
         develops = paginator.page(paginator.num_pages)
-
     return render('home_index.html',locals(),context_instance=RequestContext(request))
 
 @login_required
