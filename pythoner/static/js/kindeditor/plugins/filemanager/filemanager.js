@@ -23,7 +23,7 @@ KindEditor.plugin('filemanager', function(K) {
 		}
 	}
 	self.plugin.filemanagerDialog = function(options) {
-		var width = K.undef(options.width, 520),
+		var width = K.undef(options.width, 650),
 			height = K.undef(options.height, 510),
 			dirName = K.undef(options.dirName, ''),
 			viewType = K.undef(options.viewType, 'VIEW').toUpperCase(), // "LIST" or "VIEW"
@@ -70,13 +70,12 @@ KindEditor.plugin('filemanager', function(K) {
 		viewTypeBox = K('[name="viewType"]', div),
 		orderTypeBox = K('[name="orderType"]', div);
 		function reloadPage(path, order, func) {
-			var url = fileManagerJson, param = '&path=' + path + '&order=' + order + '&dir=' + dirName;
-			if (!/\?/.test(url)) {
-				url += '?';
-				param = param.substr(1);
-			}
-			url += param + '&' + new Date().getTime();
-			K.ajax(url, func);
+			var param = 'path=' + path + '&order=' + order + '&dir=' + dirName;
+			dialog.showLoading(self.lang('ajaxLoading'));
+			K.ajax(K.addParam(fileManagerJson, param + '&' + new Date().getTime()), function(data) {
+				dialog.hideLoading();
+				func(data);
+			});
 		}
 		var elList = [];
 		function bindEvent(el, result, data, createFunc) {
@@ -184,6 +183,7 @@ KindEditor.plugin('filemanager', function(K) {
 		}
 		viewTypeBox.val(viewType);
 		reloadPage('', orderTypeBox.val(), viewType == 'VIEW' ? createView : createList);
+		return dialog;
 	}
 
 });

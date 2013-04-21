@@ -9,7 +9,7 @@
 
 KindEditor.plugin('emoticons', function(K) {
 	var self = this, name = 'emoticons',
-		path = (self.emoticonsPath || self.basePath + 'plugins/emoticons/images/'),
+		path = (self.emoticonsPath || self.pluginsPath + 'emoticons/images/'),
 		allowPreview = self.allowPreviewEmoticons === undefined ? true : self.allowPreviewEmoticons,
 		currentPageNum = 1;
 	self.clickToolbar(name, function() {
@@ -63,7 +63,7 @@ KindEditor.plugin('emoticons', function(K) {
 			parentDiv.append(table);
 			if (previewDiv) {
 				K(table).mouseover(function() {
-					previewDiv.show();
+					previewDiv.show('block');
 				});
 				K(table).mouseout(function() {
 					previewDiv.hide();

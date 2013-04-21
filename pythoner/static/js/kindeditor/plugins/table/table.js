@@ -9,6 +9,49 @@
 
 KindEditor.plugin('table', function(K) {
 	var self = this, name = 'table', lang = self.lang(name + '.'), zeroborder = 'ke-zeroborder';
+	// 设置颜色
+	function _setColor(box, color) {
+		color = color.toUpperCase();
+		box.css('background-color', color);
+		box.css('color', color === '#000000' ? '#FFFFFF' : '#000000');
+		box.html(color);
+	}
+	// 初始化取色器
+	var pickerList = [];
+	function _initColorPicker(dialogDiv, colorBox) {
+		colorBox.bind('click,mousedown', function(e){
+			e.stopPropagation();
+		});
+		function removePicker() {
+			K.each(pickerList, function() {
+				this.remove();
+			});
+			pickerList = [];
+			K(document).unbind('click,mousedown', removePicker);
+			dialogDiv.unbind('click,mousedown', removePicker);
+		}
+		colorBox.click(function(e) {
+			removePicker();
+			var box = K(this),
+				pos = box.pos();
+			var picker = K.colorpicker({
+				x : pos.x,
+				y : pos.y + box.height(),
+				z : 811214,
+				selectedColor : K(this).html(),
+				colors : self.colorTable,
+				noColor : self.lang('noColor'),
+				shadowMode : self.shadowMode,
+				click : function(color) {
+					_setColor(box, color);
+					removePicker();
+				}
+			});
+			pickerList.push(picker);
+			K(document).bind('click,mousedown', removePicker);
+			dialogDiv.bind('click,mousedown', removePicker);
+		});
+	}
 	// 取得下一行cell的index
 	function _getCellIndex(table, row, cell) {
 		var rowSpanCount = 0;
@@ -24,7 +67,7 @@ KindEditor.plugin('table', function(K) {
 		//insert or modify table
 		prop : function(isInsert) {
 			var html = [
-				'<div style="padding:10px 20px;">',
+				'<div style="padding:20px;">',
 				//rows, cols
 				'<div class="ke-dialog-row">',
 				'<label for="keRows" style="width:90px;">' + lang.cells + '</label>',
@@ -74,23 +117,12 @@ KindEditor.plugin('table', function(K) {
 				'</div>',
 				'</div>'
 			].join('');
-			var picker, currentElement;
-			function removePicker() {
-				if (picker) {
-					picker.remove();
-					picker = null;
-					currentElement = null;
-				}
-			}
 			var dialog = self.createDialog({
 				name : name,
 				width : 500,
-				height : 300,
 				title : self.lang(name),
 				body : html,
-				beforeDrag : removePicker,
 				beforeRemove : function() {
-					removePicker();
 					colorBox.unbind();
 				},
 				yesBtn : {
@@ -108,6 +140,41 @@ KindEditor.plugin('table', function(K) {
 							border = borderBox.val(),
 							borderColor = K(colorBox[0]).html() || '',
 							bgColor = K(colorBox[1]).html() || '';
+						if (rows == 0 || !/^\d+$/.test(rows)) {
+							alert(self.lang('invalidRows'));
+							rowsBox[0].focus();
+							return;
+						}
+						if (cols == 0 || !/^\d+$/.test(cols)) {
+							alert(self.lang('invalidRows'));
+							colsBox[0].focus();
+							return;
+						}
+						if (!/^\d*$/.test(width)) {
+							alert(self.lang('invalidWidth'));
+							widthBox[0].focus();
+							return;
+						}
+						if (!/^\d*$/.test(height)) {
+							alert(self.lang('invalidHeight'));
+							heightBox[0].focus();
+							return;
+						}
+						if (!/^\d*$/.test(padding)) {
+							alert(self.lang('invalidPadding'));
+							paddingBox[0].focus();
+							return;
+						}
+						if (!/^\d*$/.test(spacing)) {
+							alert(self.lang('invalidSpacing'));
+							spacingBox[0].focus();
+							return;
+						}
+						if (!/^\d*$/.test(border)) {
+							alert(self.lang('invalidBorder'));
+							borderBox[0].focus();
+							return;
+						}
 						//modify table
 						if (table) {
 							if (width !== '') {
@@ -200,12 +267,16 @@ KindEditor.plugin('table', function(K) {
 						for (var i = 0; i < rows; i++) {
 							html += '<tr>';
 							for (var j = 0; j < cols; j++) {
-								html += '<td>' + (K.IE ? '' : '<br />') + '</td>';
+								html += '<td>' + (K.IE ? '&nbsp;' : '<br />') + '</td>';
 							}
 							html += '</tr>';
 						}
 						html += '</table>';
-						self.insertHtml(html).select().hideDialog().focus();
+						if (!K.IE) {
+							html += '<br />';
+						}
+						self.insertHtml(html);
+						self.select().hideDialog().focus();
 						self.addBookmark();
 					}
 				}
@@ -222,35 +293,10 @@ KindEditor.plugin('table', function(K) {
 			alignBox = K('[name="align"]', div),
 			borderBox = K('[name="border"]', div).val(1),
 			colorBox = K('.ke-input-color', div);
-			function setColor(box, color) {
-				color = color.toUpperCase();
-				box.css('background-color', color);
-				box.css('color', color === '#000000' ? '#FFFFFF' : '#000000');
-				box.html(color);
-			}
-			setColor(K(colorBox[0]), '#000000');
-			setColor(K(colorBox[1]), '');
-			function clickHandler(e) {
-				removePicker();
-				if (!picker || this !== currentElement) {
-					var box = K(this),
-						pos = box.pos();
-					picker = K.colorpicker({
-						x : pos.x,
-						y : pos.y + box.height(),
-						z : 811214,
-						selectedColor : K(this).html(),
-						colors : self.colorTable,
-						noColor : self.lang('noColor'),
-						click : function(color) {
-							setColor(box, color);
-							removePicker();
-						}
-					});
-					currentElement = this;
-				}
-			}
-			colorBox.click(clickHandler);
+			_initColorPicker(div, colorBox.eq(0));
+			_initColorPicker(div, colorBox.eq(1));
+			_setColor(colorBox.eq(0), '#000000');
+			_setColor(colorBox.eq(1), '');
 			// foucs and select
 			rowsBox[0].focus();
 			rowsBox[0].select();
@@ -282,8 +328,8 @@ KindEditor.plugin('table', function(K) {
 				spacingBox.val(table[0].cellSpacing || '');
 				alignBox.val(table[0].align || '');
 				borderBox.val(table[0].border === undefined ? '' : table[0].border);
-				setColor(K(colorBox[0]), K.toHex(table.attr('borderColor') || ''));
-				setColor(K(colorBox[1]), K.toHex(table[0].style.backgroundColor || table[0].bgColor || ''));
+				_setColor(colorBox.eq(0), K.toHex(table.attr('borderColor') || ''));
+				_setColor(colorBox.eq(1), K.toHex(table[0].style.backgroundColor || table[0].bgColor || ''));
 				widthBox[0].focus();
 				widthBox[0].select();
 			}
@@ -291,7 +337,7 @@ KindEditor.plugin('table', function(K) {
 		//modify cell
 		cellprop : function() {
 			var html = [
-				'<div style="padding:10px 20px;">',
+				'<div style="padding:20px;">',
 				//width, height
 				'<div class="ke-dialog-row">',
 				'<label for="keWidth" style="width:90px;">' + lang.size + '</label>',
@@ -336,23 +382,12 @@ KindEditor.plugin('table', function(K) {
 				'</div>',
 				'</div>'
 			].join('');
-			var picker, currentElement;
-			function removePicker() {
-				if (picker) {
-					picker.remove();
-					picker = null;
-					currentElement = null;
-				}
-			}
 			var dialog = self.createDialog({
 				name : name,
 				width : 500,
-				height : 220,
 				title : self.lang('tablecell'),
 				body : html,
-				beforeDrag : removePicker,
 				beforeRemove : function() {
-					removePicker();
 					colorBox.unbind();
 				},
 				yesBtn : {
@@ -369,6 +404,21 @@ KindEditor.plugin('table', function(K) {
 							border = borderBox.val(),
 							borderColor = K(colorBox[0]).html() || '',
 							bgColor = K(colorBox[1]).html() || '';
+						if (!/^\d*$/.test(width)) {
+							alert(self.lang('invalidWidth'));
+							widthBox[0].focus();
+							return;
+						}
+						if (!/^\d*$/.test(height)) {
+							alert(self.lang('invalidHeight'));
+							heightBox[0].focus();
+							return;
+						}
+						if (!/^\d*$/.test(border)) {
+							alert(self.lang('invalidBorder'));
+							borderBox[0].focus();
+							return;
+						}
 						cell.css({
 							width : width !== '' ? (width + widthType) : '',
 							height : height !== '' ? (height + heightType) : '',
@@ -395,35 +445,10 @@ KindEditor.plugin('table', function(K) {
 			verticalAlignBox = K('[name="verticalAlign"]', div),
 			borderBox = K('[name="border"]', div).val(1),
 			colorBox = K('.ke-input-color', div);
-			function setColor(box, color) {
-				color = color.toUpperCase();
-				box.css('background-color', color);
-				box.css('color', color === '#000000' ? '#FFFFFF' : '#000000');
-				box.html(color);
-			}
-			setColor(K(colorBox[0]), '#000000');
-			setColor(K(colorBox[1]), '');
-			function clickHandler(e) {
-				removePicker();
-				if (!picker || this !== currentElement) {
-					var box = K(this),
-						pos = box.pos();
-					picker = K.colorpicker({
-						x : pos.x,
-						y : pos.y + box.height(),
-						z : 811214,
-						selectedColor : K(this).html(),
-						colors : self.colorTable,
-						noColor : self.lang('noColor'),
-						click : function(color) {
-							setColor(box, color);
-							removePicker();
-						}
-					});
-					currentElement = this;
-				}
-			}
-			colorBox.click(clickHandler);
+			_initColorPicker(div, colorBox.eq(0));
+			_initColorPicker(div, colorBox.eq(1));
+			_setColor(colorBox.eq(0), '#000000');
+			_setColor(colorBox.eq(1), '');
 			// foucs and select
 			widthBox[0].focus();
 			widthBox[0].select();
@@ -449,8 +474,8 @@ KindEditor.plugin('table', function(K) {
 				border = parseInt(border);
 			}
 			borderBox.val(border);
-			setColor(K(colorBox[0]), K.toHex(cell[0].style.borderColor || ''));
-			setColor(K(colorBox[1]), K.toHex(cell[0].style.backgroundColor || ''));
+			_setColor(colorBox.eq(0), K.toHex(cell[0].style.borderColor || ''));
+			_setColor(colorBox.eq(1), K.toHex(cell[0].style.backgroundColor || ''));
 			widthBox[0].focus();
 			widthBox[0].select();
 		},
@@ -469,6 +494,9 @@ KindEditor.plugin('table', function(K) {
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				index = cell.cellIndex + offset;
+			// 取得第一行的index
+			index += table.rows[0].cells.length - row.cells.length;
+
 			for (var i = 0, len = table.rows.length; i < len; i++) {
 				var newRow = table.rows[i],
 					newCell = newRow.insertCell(index);
@@ -489,20 +517,36 @@ KindEditor.plugin('table', function(K) {
 		rowinsert : function(offset) {
 			var table = self.plugin.getSelectedTable()[0],
 				row = self.plugin.getSelectedRow()[0],
-				cell = self.plugin.getSelectedCell()[0],
-				newRow;
+				cell = self.plugin.getSelectedCell()[0];
+			var rowIndex = row.rowIndex;
 			if (offset === 1) {
-				newRow = table.insertRow(row.rowIndex + (cell.rowSpan - 1) + offset);
-			} else {
-				newRow = table.insertRow(row.rowIndex);
+				rowIndex = row.rowIndex + (cell.rowSpan - 1) + offset;
 			}
+			var newRow = table.insertRow(rowIndex);
+
 			for (var i = 0, len = row.cells.length; i < len; i++) {
+				// 调整cell个数
+				if (row.cells[i].rowSpan > 1) {
+					len -= row.cells[i].rowSpan - 1;
+				}
 				var newCell = newRow.insertCell(i);
 				// copy colspan
 				if (offset === 1 && row.cells[i].colSpan > 1) {
 					newCell.colSpan = row.cells[i].colSpan;
 				}
 				newCell.innerHTML = K.IE ? '' : '<br />';
+			}
+			// 调整rowspan
+			for (var j = rowIndex; j >= 0; j--) {
+				var cells = table.rows[j].cells;
+				if (cells.length > i) {
+					for (var k = cell.cellIndex; k >= 0; k--) {
+						if (cells[k].rowSpan > 1) {
+							cells[k].rowSpan += 1;
+						}
+					}
+					break;
+				}
 			}
 			self.cmd.range.selectNodeContents(cell).collapse(true);
 			self.cmd.select();
