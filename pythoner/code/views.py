@@ -212,7 +212,7 @@ def add_by_file(request,base_id):
         try:
             code.save()
         except Exception,e:
-            messages.error(request,'保存代码时，服务器出现错误：'+str(e))
+            messages.error(request,'保存代码时，服务器出现错误：'+str(e.message))
         else:
             messages.success(request,'上传文件成功！')
         return HttpResponseRedirect('/code/add/%d/' %base.id)
