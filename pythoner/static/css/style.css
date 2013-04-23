@@ -6,7 +6,7 @@ h1{font-size:20px;margin:7px 0;padding:0;}
 pre{line-height:20px;color:#000;font-weight:500;border-left:2px solid #cfc;background:#f4f4f4;margin:0;
     padding:10px 10px 10px 25px;word-wrap:break-word;}
 fieldset{border:1px solid #aaa;margin:0 0 20px;}
-ul,ol{text-align:justify;line-height:26px;margin:0 0 2em;}
+ul,ol{text-align:justify;line-height:26px;margin:0 0 2em 15px;}
 .loading{background:url(../images/loading.gif) no-repeat;display:none;padding:0 0 0 17px;}
 .center{text-align:center;margin:auto;}
 .clear{clear:both;line-height:0;font-size:1px;}
@@ -38,7 +38,7 @@ a img{border:none;}
 table{border:0;}
 th{text-align:right;width:60px;overflow:hidden;}
 /* form */
-form p{margin:5px;padding:8px 5px 8px 0;}
+form p{margin:5px 0;padding:8px 5px 8px 0;}
 form p label{height:40px;line-height:40px;font-size:16px;color:#666;font-weight:550;}
 form p.submit{text-align:right;margin:8px 0;}
 textarea{border:1px solid #cecece;font-size:14px;line-height:14px;padding:5px;} 

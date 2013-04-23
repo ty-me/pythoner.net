@@ -1,7 +1,7 @@
 #encoding:utf-8
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
+import markdown
 
 class Tag(models.Model):
     name = models.CharField('tagname',max_length=10,unique=True)
@@ -21,17 +21,18 @@ class Tag(models.Model):
         super(Tag,self).save()
 
 class Topic(models.Model):
-    title = models.CharField('标题',max_length=50)
-    author = models.ForeignKey(User,verbose_name='作者',related_name='author')
-    deleted = models.BooleanField('删除',default=False)
-    top = models.BooleanField('置顶',default=False)
-    ip = models.IPAddressField('IP',default='127.0.0.1')
-    sub_time = models.DateTimeField('时间',auto_now_add=True)
+    title       = models.CharField('标题',max_length=50)
+    author      = models.ForeignKey(User,verbose_name='作者',related_name='author')
+    deleted     = models.BooleanField('删除',default=False)
+    top         = models.BooleanField('置顶',default=False)
+    ip          = models.IPAddressField('IP',default='127.0.0.1')
+    sub_time    = models.DateTimeField('时间',auto_now_add=True)
     latest_response = models.DateTimeField('最后回复',null=True,blank=True)
     click_times = models.PositiveIntegerField('点击次数',max_length=10,default=0,editable=False)
-    content = models.TextField('内容',blank=False,null=False)
-    tag = models.ManyToManyField(Tag,verbose_name='标签',blank=True,null=True,editable=True)
-    notice = models.BooleanField('是否通知作者',default=True)
+    content     = models.TextField('内容',blank=False,null=False)
+    tag         = models.ManyToManyField(Tag,verbose_name='标签',blank=True,null=True,editable=True)
+    md_content  = models.TextField('MarkDown内容',default='')
+    notice      = models.BooleanField('是否通知作者',default=True)
 
     class Meta:
         ordering = ['deleted','-top','-latest_response','-sub_time','author','-click_times']
@@ -75,6 +76,10 @@ class Topic(models.Model):
                 self.tag.add(tag)
                 del tag
                 continue
+        # convert markdown content to html string
+        if self.md_content:
+            self.content = markdown.markdown(self.md_content)
+
 
         super(Topic,self).save(*args, **kwargs)
 

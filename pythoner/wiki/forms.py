@@ -17,3 +17,10 @@ class WikiForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ('title','category','content','source')
+
+
+class WikiMdForm(forms.ModelForm):
+    class Meta:
+        model = Entry
+        fields = ('title','category','md_content','source')
+

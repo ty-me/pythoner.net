@@ -1,10 +1,11 @@
-﻿{% extends 'base.html' %}
-{% block title %}编辑{% endblock %}
+{% extends "base.html" %}
+{% block title %}分享文章{% endblock %}
 {% block main %}
-
+<h1>分享文章</h1>
 <style>
-#id_title{width:650px;}
+#id_title,#id_source{width:640px;}
 </style>
+
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type='text/javascript' src="/static/wmd/showdown.js"></script>
 <script type='text/javascript' src="/static/wmd/wmd.js"></script>
@@ -12,9 +13,9 @@
 <link rel="stylesheet" type="text/css" href="/static/wmd/wmd.css" />
 <script type="text/javascript">
 $(document).ready(function(){
-    //$("#wmd-image-button").unbind("click");
+	//$("#wmd-image-button").unbind("click");
     $("#wmd-image-button").on("click",function(){
-        alert('hello world');
+    	alert('hello world');
         setTimeout(function(){
             $(".wmd-prompt-dialog").css({"opacity": "0", display: "none"});
         }, 100);
@@ -35,31 +36,25 @@ $(document).ready(function(){
         $div.append($form).dialog({title: "Upload Image"});
     });
     $("#wmd-link-button").on("click", function(){
-        alert('fuck gfw');
+    	alert('fuck gfw');
         setTimeout(function(){
             $(".wmd-prompt-dialog").css("opacity", "1");
         }, 100);
     });
 });
 </script>
+<form action="" method="POST">
+    <p><label>标题</label>{{ form.title }}</p>
+    <p><label for="id_category">分类:</label>{{ form.category }}</p>
+	<div id="wmd-button-bar" class="wmd-panel"></div>
+	
+	<textarea id="wmd-input" class="wmd-panel" name="md_content">{{ form.initial.md_content }}</textarea>
+	<br/>
+	<div id="wmd-preview" class="wmd-panel">preview</div>
+	<br/>
+	<p><label>来源:</label>{{ form.source }}</p>
 
-
-{% load topic_tags %}
-<h1>{{ title }}</h1>
-<form action="{{ form_action }}" method="POST">
-    <p><label>标题</label></br>{{ form.title }}</p>
-    <div id="wmd-button-bar" class="wmd-panel"></div>
-    <textarea id="wmd-input" class="wmd-panel" name="md_content">
-        {{ form.initial.md_content }}</textarea>
-    <br/>
-    <div id="wmd-preview" class="wmd-panel">preview</div>
     {% csrf_token %}
-    <div style="text-align:right;">
-        <input type="submit" name="submit" value="写好了！" class="button" style="width:90px;">
-    </div>
-
+<p class="submit"><input type="submit" value="提交保存" class="button" style="width:80px"></p>
 </form>
-{% endblock %}
-{% block sidebar %}
-    {% get_latest_topic %}
 {% endblock %}

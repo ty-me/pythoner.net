@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_protect
 from settings import *
 from models import *
 from main.verify.views import *
-from forms import WikiForm
+from forms import WikiForm,WikiMdForm
 from signals import new_wiki_was_post
 
 @cache_page(60*60)
@@ -135,24 +135,33 @@ def post(request):
 
 @login_required
 @csrf_protect
-def add(request):
+def add(request,method='markdown'):
     """ 用户写新的文章 """
 
     current_page = 'user_wiki'
-    title = '投稿'
+    title = '分享文章'
 
     if request.method == 'GET':
-        form = WikiForm()
-        return render('wiki_add.html',locals(),context_instance=RequestContext(request))
+        if method == 'markdown':
+            form = WikiMdForm()
+            template = 'wiki_add_md.html'
+        else:
+            form = WikiForm()
+            template = 'wiki_add.html'
+        return render(template,locals(),context_instance=RequestContext(request))
+    
+    if method == 'markdown':
+        form = WikiMdForm(request.POST)
+    else:
+        form = WikiForm(request.POST)
 
-    form = WikiForm(request.POST)
     if form.is_valid():
         data = form.cleaned_data
-        new_wiki = Entry()
+        new_wiki = Entry(**data)
         new_wiki.author = request.user
-        new_wiki.title = data['title']
-        new_wiki.content = data['content']
-        new_wiki.source = data['source']
+        #new_wiki.title = data['title']
+        #new_wiki.content = data['content']
+        #new_wiki.source = data['source']
         
         try:
             new_wiki.save()
@@ -185,19 +194,29 @@ def edit(request,wiki_id):
         wiki = Entry.objects.get(id=wiki_id,author=request.user)
     except Entry.DoesNotExist:
         raise Http404()
+
+    if wiki.md_content:
+        template = 'wiki_add_md.html'
+    else:
+        template = 'wiki_add.html'
     
     # 处理GET请求
     if request.method == 'GET':
         form = WikiForm(instance=wiki)
-        return render('wiki_add.html',locals(),context_instance=RequestContext(request))
+        return render(template,locals(),context_instance=RequestContext(request))
 
     # 处理POST请求    
-    form = WikiForm(request.POST)
+    if wiki.md_content:
+        form = WikiMdForm(request.POST)
+    else:
+        form = WikiForm(request.POST)
+
     if form.is_valid():
         data = form.cleaned_data
-        wiki.title = data['title']
-        wiki.content = data['content']
-        wiki.source = data['source'] and data['source'] or 'http://pythoner.net/home/%d/' %request.user.id
+        for k,v in data.items():
+            setattr(wiki,k,v)
+        print 'md_content'
+        print data['md_content']
         try:
             wiki.save()
         except Exception,e:
@@ -208,7 +227,7 @@ def edit(request,wiki_id):
 
         return HttpResponseRedirect('/wiki/%d/' %wiki.id)
     else:
-        return render('wiki_add.html',locals(),context_instance=RequestContext(request))
+        return render(template,locals(),context_instance=RequestContext(request))
 
 @login_required
 def delete(request,wiki_id):

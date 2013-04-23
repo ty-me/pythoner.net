@@ -7,6 +7,7 @@ from settings import APP
 from django.db.models.signals import post_save
 from django.db.models.signals import pre_save
 from signals import new_wiki_was_post
+import markdown
 
 class Category(models.Model):
     """
@@ -52,6 +53,7 @@ class Entry(models.Model):
     plink         = models.CharField('永久链接',max_length=15,blank=True,null=True)
     public        = models.BooleanField('公开',default=False)
     content       = models.TextField('内容')
+    md_content    = models.TextField('MarkDown内容',default='')
     author        = models.ForeignKey(User,verbose_name='作者',default=1)
     sub_time      = models.DateTimeField(default=datetime.datetime.now)
     allow_comment = models.BooleanField('允许回复',default=True)
@@ -59,6 +61,13 @@ class Entry(models.Model):
     click_time    = models.PositiveIntegerField('点击次数',max_length = 10,blank=True,null=True,default=0)
     tag           = models.ManyToManyField(Tag,verbose_name=APP_NAME+'标签',blank=True,null=True)
     image_urls    = models.CharField('图片',max_length=1000,default='')
+
+
+    def save(self,*args,**kwargs):
+        if self.md_content:
+            self.content = markdown.markdown(self.md_content)
+
+        super(Entry,self).save(*args,**kwargs)
 
     def search(self,kw):
         """ search from title or content """

@@ -11,6 +11,7 @@ from django.core.paginator import Paginator,InvalidPage,EmptyPage
 from django.shortcuts import render_to_response as render
 from main.verify.views import *
 from signals import new_topic_was_posted
+import datetime
 
 def list(request,page=1):
     current_page = 'topic'
@@ -74,18 +75,17 @@ def add(request):
     form = TopicForm(request.POST)
     if form.is_valid():
         data = form.clean()
-        new_topic = Topic()
+        new_topic = Topic(**data)
         new_topic.author = request.user
-        new_topic.title = data['title']
         new_topic.latest_response = datetime.datetime.now()
-        new_topic.content = data['content']
-        new_topic.ip = request.META['REMOTE_ADDR']
+        new_topic.ip = request.META.get('REMOTE_ADDR','0.0.0.0')
         try:
             new_topic.save()
         except Exception,e:
             messages.error(request,'服务器出现了错误，发表话题失败，请稍候重试')
             return render('topic_edit.html',locals(),context_instance=RequestContext(request))
         else:
+            print 3
             #发送信号
             new_topic_was_posted.send(
                 sender = new_topic.__class__,
@@ -95,6 +95,7 @@ def add(request):
 
     # 数据有限性验证失败
     else:
+        messages.error(request,'服务器出现了错误，发表话题失败，请稍候重试')
         return render('topic_edit.html',locals(),context_instance=RequestContext(request))
 
 @csrf_protect
@@ -113,7 +114,8 @@ def edit(request,topic_id):
     form_action = '/topic/%d/edit/' %topic.id
     # 处理GET请求
     if request.method == 'GET':
-        form = TopicForm(initial={'title':topic.title,'content':topic.content})
+        print 'get.',topic.md_content
+        form = TopicForm(initial={'title':topic.title,'md_content':topic.md_content})
         return render('topic_edit.html',locals(),context_instance=RequestContext(request))
 
     # 处理POST请求
@@ -121,7 +123,9 @@ def edit(request,topic_id):
     if form.is_valid():
         data = form.clean()
         topic.title = data['title']
-        topic.content = data['content']
+        topic.md_content = data['md_content']
+        print 'reques.',request.POST.get('md_content')
+        print 'data.',data['md_content']
         try:
             topic.save()
         except :

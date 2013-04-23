@@ -12,7 +12,7 @@ urlpatterns = patterns(APP,
     (r'^(\d{1,10})/$','views.detail'),#详细页面
     (r'^\S{1,20}/(\d{1,10})','views.detail'),
 
-    (r'^add/$','views.add'),#增加
+    (r'^add/(?P<method>default|markdown)/$','views.add'),#增加
     (r'^(\d{1,10})/edit/$','views.edit'),#修改
     (r'^(\d{1,10})/del/$','views.delete'),#删除
     (r'^rss.xml',EntryFeed()),

@@ -6,4 +6,4 @@ from django import forms
 
 class TopicForm(forms.Form):
     title = forms.CharField(label='标题',min_length=3,max_length=50,required=True)
-    content = forms.CharField(label='正文',required=True,widget = forms.Textarea(),help_text='')
+    md_content = forms.CharField(label='正文',required=True,widget = forms.Textarea(),help_text='')
