@@ -4,9 +4,10 @@
 # File:feed
 from django.contrib.syndication.views import Feed
 from topic.models import Topic
+from settings import SITE_NAME
 
 class TopicFeed(Feed):
-    title = 'python爱好者上的最新话题'
+    title = '{0}最新话题'.format(SITE_NAME)
     link = '/feed/topic.xml'
 
     def items(self):

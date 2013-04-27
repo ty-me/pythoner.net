@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 # Data:11-7-27 上午12:06
-# Author: T-y(master@t-y.me)
+# Author: TY(admin@pythoner.net)
 # File:feed
+
 from django.contrib.syndication.views import Feed
 from models import Entry
 import datetime
-
+from settings import SITE_NAME
 now = datetime.datetime.now()
 
 class EntryFeed(Feed):
-    title = 'python爱好者-最近更新的文章'
+    title = '{0}-最近更新的文章'.format(SITE_NAME)
     link = '/feed/comment.xml'
 
     def items(self):

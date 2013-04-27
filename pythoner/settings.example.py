@@ -13,6 +13,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SITE_NAME = 'site name'
 DOMAIN = 'http://pythoner.net'
 DATABASES = {
     'default': {
