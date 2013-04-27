@@ -153,7 +153,7 @@ def active(request,u_id,active_code):
     elif active_code == 'not_active':
 
         active_url = '%s/accounts/active/%d/%s/' %(DOMAIN,user.id,_get_active_code(user.username))
-        subject = 'pythoner.net账号激活邮件'
+        subject = 'Python开发者社区-账号激活邮件'
         body = loader.render_to_string('account_active.email.html',{'user':user,'active_url':active_url})
         from_email = 'accounts@pythoner.net'
         to = [user.username]
