@@ -25,7 +25,7 @@ class Job(models.Model):
         else:
             return u'[待审核][%s]%s %s' %(self.city,self.company,self.title)
 
-    def save(sender,self,*args,**kwargs):
+    def save(self,*args,**kwargs):
         if self.id and self.display and not self.is_noticed:
             from_emal = 'jobs@pythoner.net'
             to_email = []
