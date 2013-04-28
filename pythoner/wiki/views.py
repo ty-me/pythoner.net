@@ -26,8 +26,8 @@ def list(request,page=1):
     nowtime = datetime.datetime.now()
     pre_url = APP
     allow_category = True
-    category_name = str(request.GET.get('category','')) 
-    tag_name = str(request.GET.get('tag',''))
+    category_name = request.GET.get('category','').encode('utf-8')
+    tag_name = request.GET.get('tag','').encode('utf-8')
 
     if category_name:
         suf_url = '?category=%s' %category_name
