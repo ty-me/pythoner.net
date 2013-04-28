@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block keyworld %},python招聘,{{ job.city }},招聘pythoner,{{ job.company }}{% endblock %}
-{% block title %}({{ job.city }}){{ job.company }}{{ job.title }}{% endblock %}
-{% block description %}{{ job.content|slice:"120" }} -来自{{ job.city }}{{ job.company }}的招聘信息{% endblock %}
+{% block title %}{{ job.company }}{{ job.title }}{% endblock %}
+{% block keyworld %},Python招聘,{{ job.city }},招聘Pythoner,{{ job.company }}{% endblock %}
+{% block description %}{{ job.content|slice:"120" }} - {{ job.company }} 的招聘信息{% endblock %}
 {% block main %}
 <style>
 /* job detail */
