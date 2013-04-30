@@ -27,4 +27,5 @@ urlpatterns = patterns('',
 
     (r'^main/',include('main.urls')),
     (r'^(\S{1,10})/$','main.views.plink'),
+    (r'^(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_ROOT}),
 )
