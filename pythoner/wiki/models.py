@@ -58,7 +58,7 @@ class Entry(models.Model):
     source        = models.URLField('来源',default='',blank=True,null=True,verify_exists=False)
     click_time    = models.PositiveIntegerField('点击次数',max_length = 10,blank=True,null=True,default=0)
     tag           = models.ManyToManyField(Tag,verbose_name=APP_NAME+'标签',blank=True,null=True)
-    image_urls    = models.CharField('图片',max_length=1000,default='')
+    image_urls    = models.CharField('图片',max_length=1000,default='',blank=True,null=True)
 
     def search(self,kw):
         """ search from title or content """
