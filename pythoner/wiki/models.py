@@ -57,7 +57,7 @@ class Entry(models.Model):
     author        = models.ForeignKey(User,verbose_name='作者',default=1)
     sub_time      = models.DateTimeField(default=datetime.datetime.now)
     allow_comment = models.BooleanField('允许回复',default=True)
-    source        = models.URLField('来源',default='',blank=True,null=True,verify_exists=False)
+    source        = models.URLField('转载来源',default='',blank=True,null=True,verify_exists=False,help_text="没有可不填")
     click_time    = models.PositiveIntegerField('点击次数',max_length = 10,blank=True,null=True,default=0)
     tag           = models.ManyToManyField(Tag,verbose_name=APP_NAME+'标签',blank=True,null=True)
     image_urls    = models.CharField('图片',max_length=1000,default='')
