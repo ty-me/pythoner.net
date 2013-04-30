@@ -138,14 +138,14 @@ def post(request):
 
 @login_required
 @csrf_protect
-def add(request,method='markdown'):
+def add(request,editor='markdown'):
     """ 用户写新的文章 """
 
     current_page = 'user_wiki'
     title = '分享文章'
 
     if request.method == 'GET':
-        if method == 'markdown':
+        if editor == 'markdown':
             form = WikiMdForm()
             template = 'wiki_add_md.html'
         else:
@@ -153,7 +153,7 @@ def add(request,method='markdown'):
             template = 'wiki_add.html'
         return render(template,locals(),context_instance=RequestContext(request))
     
-    if method == 'markdown':
+    if editor == 'markdown':
         form = WikiMdForm(request.POST)
     else:
         form = WikiForm(request.POST)
@@ -218,8 +218,6 @@ def edit(request,wiki_id):
         data = form.cleaned_data
         for k,v in data.items():
             setattr(wiki,k,v)
-        print 'md_content'
-        print data['md_content']
         try:
             wiki.save()
         except Exception,e:

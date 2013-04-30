@@ -11,7 +11,6 @@ from PIL import Image
 import os
 
 
-
 class BrowserBase(object):
     ERROR = {
         '0':'Can not open the url,checck you net',
@@ -166,8 +165,6 @@ class Spider(BrowserBase):
         im = Image.open(file_path)
         im.thumbnail((120,120),Image.ANTIALIAS)
         im.save(thumb_path,'jpeg')
-
-
 
 
 if __name__ == '__main__':

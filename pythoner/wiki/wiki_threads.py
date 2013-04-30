@@ -9,8 +9,8 @@ from PIL import Image
 from models import Tag,Entry
 from pythoner.settings import  MEDIA_ROOT,MEDIA_URL
 from PIL import Image
+from utils.common import BrowserBase
 import StringIO
-
 
 class TagingThread(threading.Thread):
     """
@@ -39,7 +39,7 @@ class TagingThread(threading.Thread):
         else:
             return 'OK'
 
-class ImageThread(threading.Thread):
+class ImageThread(threading.Thread,BrowserBase):
 
     def __init__(self,wiki):
         self.html = wiki.content
@@ -56,7 +56,9 @@ class ImageThread(threading.Thread):
 
         date = time.strftime('%Y%m%d',time.localtime())
         filepath  = os.path.join(MEDIA_ROOT,'{0}/{1}'.format('wiki',date))
-        filedata  = urllib.urlopen(img_url).read()
+        filedata  = self.urlopen(img_url).read()
+        print 'img_url',img_url
+        print 'filedata',filedata
         print 'filepath',filepath
         
         # make a dir
@@ -67,7 +69,6 @@ class ImageThread(threading.Thread):
         im.thumbnail((600,600),Image.ANTIALIAS)
         im.convert('RGB').save(filename,'jpeg',quality=100)
         return '{0}wiki/{1}/{2}'.format(MEDIA_URL,date,os.path.basename(filename))
-
 
     def run(self):
         print 'start download img...'

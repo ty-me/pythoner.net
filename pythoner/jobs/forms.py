@@ -8,4 +8,4 @@ from jobs.models import Job
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ('display','click_times','city','ip')
+        exclude = ('display','click_times','city','ip','is_expired','is_noticed')

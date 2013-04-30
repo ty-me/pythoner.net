@@ -15,8 +15,7 @@
                         resizeType : 2,
                         allowImageUpload:true,
                         height:'500px',
-                        fontSizeTable:'14px',
-                        filterMode :true,
+                        fontSizeTable:'14px', filterMode :true,
                         items:[
                             'source', '|', 'undo', 'redo', '|', 'template',
                             'plainpaste', '|', 'insertorderedlist', 'insertunorderedlist', 'subscript',
@@ -38,7 +37,6 @@
                             'hr,br,tbody,tr,strong,b,sub,sup,em,i,u,strike' : []
                         },
                         uploadJson : '/upload/',
-                        fileManagerJson : '../asp.net/file_manager_json.ashx',
                         fieldName : 'file',                
                         extraFileUploadParams : {
                             file_type : 'image',
@@ -54,4 +52,13 @@
             {% csrf_token %}
         <p class="submit"><input type="submit" value="提交保存" class="button" style="width:80px"></p>
         </form>
+{% endblock %}
+{% block sidebar %}
+{% if not wiki_id %}
+    <ol>
+        <h2>分享文章提示{{ wiki_id}}</h2>
+    <li>当前正在使用<span class="red">富文本</span>编辑器</li>
+    <li>需要切换到<span class="red">Markdown</span>请点<a href="/wiki/add/markdown/">这里</a></li>
+    </ol>
+{% endif %}
 {% endblock %}

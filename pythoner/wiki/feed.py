@@ -6,7 +6,7 @@
 from django.contrib.syndication.views import Feed
 from models import Entry
 import datetime
-from settings import SITE_NAME
+from pythoner.settings import SITE_NAME
 now = datetime.datetime.now()
 
 class EntryFeed(Feed):

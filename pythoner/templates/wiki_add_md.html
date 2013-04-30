@@ -5,56 +5,32 @@
 <style>
 #id_title,#id_source{width:640px;}
 </style>
-
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type='text/javascript' src="/static/wmd/showdown.js"></script>
 <script type='text/javascript' src="/static/wmd/wmd.js"></script>
 <script type='text/javascript' src="/static/js/jquery.form.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/wmd/wmd.css" />
-<script type="text/javascript">
-$(document).ready(function(){
-	//$("#wmd-image-button").unbind("click");
-    $("#wmd-image-button").on("click",function(){
-    	alert('hello world');
-        setTimeout(function(){
-            $(".wmd-prompt-dialog").css({"opacity": "0", display: "none"});
-        }, 100);
-        var $div = $("<div>");
-        var $form = $("<form>").attr({action: "create_new_blog_post/submit_image", method: "post"})
-        var $file = $("<input/>").attr({type: "file", name: "image"});
-        var $name = $("<input/>").attr({type: "text", name: "name", placeholder: "Name"});
-        var $submit = $("<input/>").attr("type", "submit");
-        $form.append($name, $file, $submit)
-        .ajaxForm(function(r) {
-            r = $.parseJSON(r);
-            if(r.success){
-                $("#dialogform input[type='text']").val(r.filename);
-                $("#dialogform input[value='OK']").trigger("click");
-                $div.dialog("close");
-            }
-        });
-        $div.append($form).dialog({title: "Upload Image"});
-    });
-    $("#wmd-link-button").on("click", function(){
-    	alert('fuck gfw');
-        setTimeout(function(){
-            $(".wmd-prompt-dialog").css("opacity", "1");
-        }, 100);
-    });
-});
-</script>
 <form action="" method="POST">
     <p><label>标题</label>{{ form.title }}</p>
     <p><label for="id_category">分类:</label>{{ form.category }}</p>
 	<div id="wmd-button-bar" class="wmd-panel"></div>
 	
-	<textarea id="wmd-input" class="wmd-panel" name="md_content">{{ form.initial.md_content }}</textarea>
+	<textarea id="wmd-input" class="wmd-panel" name="md_content">{{ form.initial.md_content|default:form.instance.md_content }}</textarea>
 	<br/>
 	<div id="wmd-preview" class="wmd-panel">preview</div>
 	<br/>
-	<p><label>来源:</label>{{ form.source }}</p>
+	<p><label>转载来源(没有可不填):</label>{{ form.source }}</p>
 
     {% csrf_token %}
 <p class="submit"><input type="submit" value="提交保存" class="button" style="width:80px"></p>
 </form>
+{% endblock %}
+{% block sidebar %}
+{% if not wiki_id %}
+    <ol>
+    <h2>分享文章提示</h2>
+    <li>当前正在使用<span class="red">MarkDown</span>编辑器，查看MD语法请见<a href="/code/" >这里</a></li>
+    <li>需要切换到<span class="red">富文本编辑器</span>请点<a href="/wiki/add/full/">这里</a></li>
+    </ol>
+{% endif %}
 {% endblock %}
