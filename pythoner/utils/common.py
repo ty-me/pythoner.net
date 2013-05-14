@@ -12,17 +12,6 @@ def json_response(dict,request=None):
     return HttpResponse(json.dumps(dict), mimetype='application/json; charset=utf-8',status=200)
 
 class BrowserBase(object):
-    ERROR = {
-        '0':'Can not open the url,checck you net',
-        '1':'Creat download dir error',
-        '2':'The image links is empty',
-        '3':'Download faild',
-        '4':'Build soup error,the html is empty',
-        '5':'Can not save the image to your disk',
-    }
-    image_links = []
-    image_count = 0
-
     def __init__(self):
         socket.setdefaulttimeout(20)
 
@@ -48,7 +37,6 @@ class BrowserBase(object):
 
                     ]
 
-        # 随机选取一个agent
         agent = random.choice(user_agents)
         self.opener.addheaders = [("User-agent",agent),("Accept","*/*"),('Referer','http://www.google.com')]
         try:
