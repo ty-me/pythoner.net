@@ -91,7 +91,7 @@ def add(request):
                 sender = new_topic.__class__,
                 topic = new_topic
             )
-        return HttpResponseRedirect('/topic/')
+        return HttpResponseRedirect('/topic/{0}/'.format(new_topic.id))
 
     # 数据有限性验证失败
     else:
