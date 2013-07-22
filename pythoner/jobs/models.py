@@ -27,12 +27,12 @@ class Job(models.Model):
 
     def save(self,*args,**kwargs):
         if self.id and self.display and not self.is_noticed:
-            from_emal = 'jobs@pythoner.net'
+            from_emal = 'admin@pythoner.net'
             to_email = []
             to_email.append(self.email)
-            subject = "招聘信息发布成功-来自[Python开发者社区]的通知邮件"
+            subject = u"招聘信息发布成功-来自[Python开发者社区]的通知邮件"
             url = DOMAIN+'/jobs/%d/' %self.id
-            msg = """
+            msg = u"""
             你好， 你在'Python开发者社区'(http://pythoner.net)发布的招聘信息"%s"已经通过了审核，详见：%s
             有任何疑问或者需要帮助请联系管理员:admin@pythoner.net
                                                         --- Python开发者社区 敬上

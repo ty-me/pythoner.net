@@ -68,7 +68,7 @@ def tag(request,tag_name,page=1):
     """
     current_page = APP
     app = APP
-    pre_url = 'wiki/tag/%s'%tag_name
+    pre_url = 'wiki/tag/%s'%tag_name.encode('utf-8')
     nowtime = datetime.datetime.now()
     
     try:
@@ -83,7 +83,6 @@ def tag(request,tag_name,page=1):
         entrys = paginator.page(page)
     except (EmptyPage,InvalidPage):
         entrys = paginator.page(paginator.num_pages)
-
     return render(LIST_PAGE,locals(),context_instance=RequestContext(request))
 
 def detail(request,id):
@@ -245,22 +244,4 @@ def delete(request,wiki_id):
         return HttpResponseRedirect('/home/%d/wiki/'%request.user.id)
     else:
         return HttpResponse('非法操作！')
-
-def auto_get_tags(request):
-    """
-    为某一篇文章添加标签
-    """
-    if request.user.id <> 1:
-        return HttpResponse('please login')
-    result = ''
-    entrys = Entry.objects.all()
-    for entry in entrys:
-        entry.tag.clear()
-        content = u'%s%s' %(entry.title,entry.content)
-        for tag in Tag.objects.all():
-            if content.lower().count(tag.name.lower())>0:
-                entry.tag.add(tag)
-        entry.save()
-
-    return render('wiki_robot.html',locals())
 
