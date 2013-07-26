@@ -162,13 +162,24 @@ def add(request,editor='markdown'):
     title = '分享文章'
 
     if request.method == 'GET':
+        backup_data = {}
+        for k in ['title','content','md_content','source']:
+            _k = 'backup_{}'.format(k)
+            try:
+                v = request.session.get(_k)
+                backup_data[k] = v
+            except:
+                pass
+
         if editor == 'markdown':
             form = WikiMdForm()
             template = 'wiki_add_md.html'
         else:
-            form = WikiForm()
+            form = WikiForm(backup_data)
             template = 'wiki_add.html'
+        form.initial = backup_data
         return render(template,locals(),context_instance=RequestContext(request))
+    
     
     if editor == 'markdown':
         form = WikiMdForm(request.POST)
@@ -179,9 +190,6 @@ def add(request,editor='markdown'):
         data = form.cleaned_data
         new_wiki = Entry(**data)
         new_wiki.author = request.user
-        #new_wiki.title = data['title']
-        #new_wiki.content = data['content']
-        #new_wiki.source = data['source']
         
         try:
             new_wiki.save()
@@ -194,6 +202,14 @@ def add(request,editor='markdown'):
                 sender= new_wiki.__class__,
                 wiki =  new_wiki
             )
+
+            # 清除备份数据
+            _keys = request.session.keys()
+            for k in ['title','content','md_content','source']:
+                _k = 'backup_{}'.format(k)
+                if _k in  _keys:
+                    del request.session[_k]
+
             return HttpResponseRedirect('/wiki/%d/' %new_wiki.id)
     else:
         return render('wiki_add.html',locals(),context_instance=RequestContext(request))

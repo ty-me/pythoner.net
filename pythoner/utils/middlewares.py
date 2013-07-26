@@ -73,8 +73,17 @@ class PreventWatering(object):
             post_times = request.session.get('post_times',0)
             # 提交次数是否大于单位时间的最大值
             if request.method == 'POST':
-                if post_times >= 3:
+                if post_times >= 1:
                     request.session['next'] = request.META.get('HTTP_REFERER','/')
+
+                    # backup data
+                    for k,v in request.POST.items():
+                        k = 'backup_{}'.format(k)
+                        try:
+                            request.session[k] = v
+                        except:
+                            pass
+
                     return HttpResponseRedirect(self.verify_page_uri)
 
                 elif timer >= 60:

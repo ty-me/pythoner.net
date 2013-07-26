@@ -28,4 +28,18 @@ def deal_with_new_wiki(sender,**kwargs):
     # 开启下载图片的线程
     ImageThread(new_wiki).start()
 
+    #向管理员发站内信提醒
+    content = "http://pythoner.net/admin/wiki/entry/{}/".format(new_wiki.id)
+    from pm.models import Pm
+    from accounts.models import User
+    if new_wiki.author.id <> 1:
+        Pm(
+            from_user = User.objects.get(id=1),
+            to_user = User.objects.get(id=1),
+            title='新的文章等待审核:{}'.format(new_wiki.title),
+            content=content,
+            system = True
+        ).save()
+    
+
 new_wiki_was_post.connect(deal_with_new_wiki)
