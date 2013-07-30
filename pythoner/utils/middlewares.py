@@ -73,7 +73,7 @@ class PreventWatering(object):
             post_times = request.session.get('post_times',0)
             # 提交次数是否大于单位时间的最大值
             if request.method == 'POST':
-                if post_times >= 1:
+                if post_times >= 4:
                     request.session['next'] = request.META.get('HTTP_REFERER','/')
 
                     # backup data
