@@ -53,7 +53,7 @@
                     <img src="{{ entry.to_user.username|gravatar_url }}">
                 </a>
             </li>
-            <li><a href="/home/{{ entry.to_user.id }}">去 {{ entry.to_user.get_profile.screen_name }} 的主页</a> </li>
+            <li><a href="/home/{{ entry.to_user.id }}/">去 {{ entry.to_user.get_profile.screen_name }} 的主页</a> </li>
         </ul>
     {% else %}
         <ul>
