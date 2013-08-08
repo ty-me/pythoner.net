@@ -9,6 +9,7 @@ pythoner/cache
 pythoner/static/upload
 scripts/fabfile.py
 scripts/config
+scripts/backup
 george
 others
 
