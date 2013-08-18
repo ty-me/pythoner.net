@@ -17,8 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os,sys
-sys.path.insert(0,'/www')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'pythoner.settings'
+sys.path.insert(0,'/srv/pythoner.net')
+sys.path.insert(0,'/srv/pythoner.net/pythoner')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django.core.handlers.wsgi
 application=django.core.handlers.wsgi.WSGIHandler()
 
