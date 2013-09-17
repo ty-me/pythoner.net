@@ -51,7 +51,7 @@ class Job(models.Model):
             subject = u"招聘信息发布成功-来自[Python开发者社区]的通知邮件"
             url = DOMAIN+'/jobs/%d/' %self.id
             msg = u"""
-            你好， 你在'Python开发者社区'(http://pythoner.net)发布的招聘信息"%s"已经通过了审核，详见：%s
+            你好， 你在'Python开发者社区'(http://pythoner.org)发布的招聘信息"%s"已经通过了审核，详见：%s
             有任何疑问或者需要帮助请联系管理员:admin@pythoner.net
                                                         --- Python开发者社区 敬上
             """ %(self.title,url)
