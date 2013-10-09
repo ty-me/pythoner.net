@@ -8,16 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Entry.md_content'
-        db.add_column('wiki_entry', 'md_content',
-                      self.gf('django.db.models.fields.TextField')(default=''),
-                      keep_default=False)
 
+        # Changing field 'Entry.image_urls'
+        db.alter_column('wiki_entry', 'image_urls', self.gf('django.db.models.fields.CharField')(max_length=1000, null=True))
 
     def backwards(self, orm):
-        # Deleting field 'Entry.md_content'
-        db.delete_column('wiki_entry', 'md_content')
 
+        # Changing field 'Entry.image_urls'
+        db.alter_column('wiki_entry', 'image_urls', self.gf('django.db.models.fields.CharField')(max_length=1000))
 
     models = {
         'auth.group': {
@@ -69,7 +67,7 @@ class Migration(SchemaMigration):
             'click_time': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0', 'max_length': '10', 'null': 'True', 'blank': 'True'}),
             'content': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image_urls': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '1000'}),
+            'image_urls': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '1000', 'null': 'True', 'blank': 'True'}),
             'md_content': ('django.db.models.fields.TextField', [], {'default': "''"}),
             'plink': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True', 'blank': 'True'}),
             'public': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),

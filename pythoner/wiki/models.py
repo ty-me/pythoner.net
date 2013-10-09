@@ -71,7 +71,7 @@ class Entry(models.Model):
     plink         = models.CharField('永久链接',max_length=15,blank=True,null=True)
     public        = models.BooleanField('公开',default=False)
     content       = models.TextField('内容')
-    md_content    = models.TextField('MarkDown内容',default='')
+    md_content    = models.TextField('MarkDown内容',default='',blank=False,null=False)
     author        = models.ForeignKey(User,verbose_name='作者',default=1)
     sub_time      = models.DateTimeField(default=datetime.datetime.now)
     allow_comment = models.BooleanField('允许回复',default=True)
