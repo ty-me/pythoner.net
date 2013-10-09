@@ -29,6 +29,7 @@ from django.core.paginator import Paginator,InvalidPage,EmptyPage
 from django.shortcuts import render_to_response as render
 from signals import new_topic_was_posted
 import datetime
+import time
 
 def list(request,page=1):
     current_page = 'topic'
