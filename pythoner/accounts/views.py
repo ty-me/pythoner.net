@@ -25,7 +25,6 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 from django.template import loader
-from main.verify.views import *
 from forms import *
 from models import UserProfile
 from settings import DOMAIN
@@ -105,7 +104,6 @@ def login(request):
         return render('account_login.html',locals(),context_instance=RequestContext(request))
     
 
-    print 'post data',request.POST
     form = LoginForm(request.POST)
     if form.is_valid():
         data = form.clean()

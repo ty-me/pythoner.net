@@ -27,7 +27,6 @@ from models import *
 from forms import *
 from django.core.paginator import Paginator,InvalidPage,EmptyPage
 from django.shortcuts import render_to_response as render
-from main.verify.views import *
 from signals import new_topic_was_posted
 import datetime
 

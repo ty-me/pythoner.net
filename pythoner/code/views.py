@@ -29,7 +29,6 @@ from code.models import *
 from django.contrib.auth.decorators import login_required
 from settings import ROOT_PATH
 import datetime
-from main.verify.views import *
 from signals import new_code_was_post
 from django.db.models import Q
 from code.models import Code

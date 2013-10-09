@@ -22,7 +22,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response as render
 from django.contrib.auth.decorators import login_required
-from main.verify.views import *
 import os
 
 def get_citys():

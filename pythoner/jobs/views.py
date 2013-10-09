@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.core.paginator import Paginator,EmptyPage,InvalidPage
-from main.verify.views import *
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import cache_page
 from models import Job

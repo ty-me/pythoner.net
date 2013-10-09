@@ -57,7 +57,6 @@ class PreventWatering(object):
         elif request.path == self.verify_check_uri:
             code = Code(request)
             _code = request.REQUEST.get('verify','')
-            print 'request',request.REQUEST
 
             # 检查用户输入的验证码是否正确
             if not code.check(_code):

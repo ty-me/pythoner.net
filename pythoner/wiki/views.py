@@ -31,7 +31,6 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_protect
 from settings import *
 from models import *
-from main.verify.views import *
 from forms import WikiForm,WikiMdForm
 from signals import new_wiki_was_post
 

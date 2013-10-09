@@ -1,0 +1,8 @@
+    <div class="top-nav">
+        <a href="/">首页</a>
+        <a href="/code/" {% if current_page == 'code' %}class="current"{% endif %}>代码</a>
+        <a href="/wiki/" {% if current_page == 'wiki' %}class="current"{% endif %}>板报</a>
+        <a href="/topic/" {% if current_page == 'topic' %}class="current"{% endif %}>讨论</a>
+        <a href="/jobs/" {% if current_page == 'jobs' %}class="current"{% endif %}>招聘</a>
+        <a href='/books/' {% if current_page == 'books' %}class="current"{% endif %}>图书</a>
+    </div>

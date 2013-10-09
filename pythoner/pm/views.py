@@ -27,7 +27,6 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from models import *
 from forms import *
-from main.verify.views import *
 
 @login_required
 def inbox(request,page=1):

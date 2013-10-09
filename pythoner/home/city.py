@@ -23,7 +23,6 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response as render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from main.verify.views import *
 from settings import ROOT_PATH
 import os
 
