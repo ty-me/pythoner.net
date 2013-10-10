@@ -1,7 +1,7 @@
 {% extends "home_base.html" %}
 {% block keyworld %},{{ user.get_profile.screen_name }}{% endblock %}
 {% block title %}{{ user.get_profile.screen_name }}发起的话题{% endblock %}
-{% block description %}{{ user.get_profile.screen_name }}在pythoner.net讨论栏目发起的话题{% endblock %}
+{% block description %}{{ user.get_profile.screen_name }}在pythoner.org讨论栏目发起的话题{% endblock %}
 {% block h1 %}{{ user.get_profile.screen_name }}的话题{% endblock %}
 {% load topic_tags %}
 {% block main %}

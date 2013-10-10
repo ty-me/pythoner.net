@@ -3,7 +3,7 @@
 {% block title %}
     {{ profile.screen_name }}的{% if request.user.is_anonymous %}主页{% else %}个人中心{% endif %}
 {% endblock %}
-{% block description %}{{ profile.screen_name }}在pythoner.net上的动态{% endblock %}
+{% block description %}{{ profile.screen_name }}在pythoner.org上的动态{% endblock %}
 {% block h1 %}
     {% if request.user == profile.user %}欢迎，{{ profile.screen_name }}{% else %}{{ profile.screen_name }}的动态{% endif %}
 {% endblock %}

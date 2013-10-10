@@ -24,7 +24,7 @@ function mark(){
             <h1>由 {{  topic.author.get_profile.screen_name }} 发起的话题</h1>
             <div class="meta">
                 {% if request.user.id %}
-                    <strong>本页链接</strong>http://pythoner.net/topic/{{ topic.id }}/
+                    <strong>本页链接</strong>http://pythoner.org/topic/{{ topic.id }}/
                     <span>|</span>
                     <a href="/home/{{ topic.author.id }}/follow/" id="follow">
                         {{ request.user|get_relation:user }}
@@ -44,7 +44,7 @@ function mark(){
             </div>
             <div class="action">
                 {% if request.user.is_anonymous %}
-                    <a href="/wiki/post" title="向pythoner.net板报栏目投递稿件">投递稿件(?)</a>
+                    <a href="/wiki/post" title="向pythoner.org板报栏目投递稿件">投递稿件(?)</a>
                 {% endif  %}
                 {% if topic.author.id == request.user.id %}
                     <a href="/topic/{{ topic.id }}/edit/">编辑</a>

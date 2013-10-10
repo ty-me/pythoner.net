@@ -22,3 +22,5 @@ def get_link_by_category(category_id=1):
         return {'title':category.name,'links':links}
     else:
         pass
+
+

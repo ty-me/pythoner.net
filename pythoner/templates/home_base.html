@@ -10,7 +10,7 @@
             </div>
             <h1>{% block h1 %}{% endblock %}</h1>
             <div class="meta">
-                <strong>永久链接:</strong><a href="/home/{{ user.id }}">http://pythoner.net/home/{{ user.id }}/</a>
+                <strong>永久链接:</strong><a href="/home/{{ user.id }}">http://pythoner.org/home/{{ user.id }}/</a>
                 {% if request.user.id %}
                     <span>|</span>
                     <a href="/home/{{ user.id }}/follow/" id="follow">
