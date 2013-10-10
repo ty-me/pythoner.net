@@ -33,6 +33,10 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def general_file_upload_handle(request):
     response = {'error':1,'message':0,'url':'','size':''}
+    if not request.user.id:
+        response['message']['login required']
+        return json_response(response)
+
     if request.method == 'GET':
         response['message'] = 'POST request only'
         return json_response(response)
