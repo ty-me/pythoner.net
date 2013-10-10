@@ -220,8 +220,17 @@ div.right{margin:0 0 0 20px;}
     <div id="sidebar">
         <!-- 广告位：首页边侧 -->
         <h2 id="you-know"></h2>
-        <script type="text/javascript"> /*250*250，创建于2013-4-20*/ var cpro_id = "u1266508"; </script> 
-        <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+        <script type="text/javascript">
+             document.write('<a style="display:none!important" id="tanx-a-mm_28628925_4250601_14412501"></a>');
+             tanx_s = document.createElement("script");
+             tanx_s.type = "text/javascript";
+             tanx_s.charset = "gbk";
+             tanx_s.id = "tanx-s-mm_28628925_4250601_14412501";
+             tanx_s.async = true;
+             tanx_s.src = "http://p.tanx.com/ex?i=mm_28628925_4250601_14412501";
+             tanx_h = document.getElementsByTagName("head")[0];
+             if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
+        </script>
         {% get_alive_user %}
         <div class="clear"></div>
         {% get_latest_comment 25 %}
