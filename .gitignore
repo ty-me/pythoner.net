@@ -3,6 +3,7 @@
 ##############
 *.pyc
 *.log
+.idea
 
 pythoner/settings.py
 pythoner/cache
