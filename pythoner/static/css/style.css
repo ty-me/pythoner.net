@@ -58,10 +58,18 @@ div.tabs a:hover{background:none;color:#000;}
 div.tabs span.selected{background:#fff;border:1px solid #6B90DA;border-bottom:1px solid #fff;color:#fff;font-weight:900;}
 div.tabs span.selected a{color:#000;}
 /* header */
-#header{font-weight:900;margin:10px 0;padding:0;}
-#header .logo{height:30px;width:200px;overflow:hidden;font-size:20px;line-height:30px;background:url(../images/logo.png) no-repeat;text-indent:150px;text-align:right;float:left;margin:0;padding:0;}
 #header .welcome{text-align:right;font-weight:400;}
 #header .welcome span.blank{color:#cecece;margin:0 6px;}
+#header{font-weight:900;margin:10px 0;padding:0;height:40px;line-height:40px;color:#fff; padding:0 10px; margin:0 0 2px 0; background:#08C; }
+#header a{ color:#f4f4f4; padding-bottom:10px;}
+#header a:hover{cursor:pointer;background:none;border-bottom:2px solid #fff;color:#fff;}
+#header .logo:hover{cursor:pointer;background:none;}
+#header .logo{width:120px;float:left;text-transform:uppercase;font-size:16px;font-style:italic;color:#cecece;padding:0;}
+#header .top-nav{ float:left; width:300px; display:block; }
+#header .top-nav a{ margin-right:10px; font-size:14px; }
+#header .top-nav a.current{  border-bottom:2px solid #fff;}
+#header .sub-nav{ width:300px; float:right; display:block; text-align:right; }
+#header .sub-nav{ font-size:12px; font-weight:normal; }
 /* nav */
 #nav{background:#3975CE;margin:0;padding:0 0 0 15px;height:30px; position:relative;}
 #nav ul{list-style:none;display:block;margin:0;padding:0; position:absolute; bottom:0;}

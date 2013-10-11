@@ -40,6 +40,7 @@ def list(request,page=1):
     列表页
     """
     current_page = APP
+    page_title   = u'板报'
     nowtime = datetime.datetime.now()
     pre_url = APP
     allow_category = True

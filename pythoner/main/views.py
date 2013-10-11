@@ -31,9 +31,10 @@ from main.models import Gfw
 from code.models import Base
 from DjangoVerifyCode import Code
 
-@cache_page(60*60)
+#@cache_page(60*60)
 def index(request):
     current_page = 'index'
+    page_title   = u'首页'
     topics       = Topic.objects.filter(deleted=False).order_by('-id')[0:16]
     codes        = Base.objects.filter(display=True).order_by('-id')[0:20]
     jobs         = Job.objects.order_by('-sub_time').filter(display=True).order_by('-id')[0:15]

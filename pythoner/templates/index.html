@@ -1,14 +1,11 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="zh-CN">
-<head>
-    <title>{% block title %}Python开发者社区-首页{% endblock %}</title>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Python开发者社区,Python教程" />
-    <meta name="keywords" content="{% include 'keyworld.html' %}" />
-    <meta name="baidu-site-verification" content="3SceZCJk7t0GjAuy" />
-    <meta property="wb:webmaster" content="9614bd471b3a2170" />
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="/static/css/style.css" title="pythoner.org" />
-	<script type="text/javascript" src="/static/js/jquery.js"></script>
-    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+﻿{% extends "base.html" %}
+{% load main_tags %}
+{% load cache %}
+{% load home_tags %}
+{% load comments %}
+{% load accounts_tags %}
+{% load wiki_tags %}
+{% block main %}
 <style>
 ul.login_method a:hover{background:none;}
 ul.login_method{border:1px solid #f4f4f4;background:#f4f4f4;}
@@ -35,102 +32,6 @@ div.right{margin:0 0 0 20px;}
 #list-box{width:188px;background:#f3f3f3;position:absolute;padding:0 6px;font-size:8px;}
 .key-hover{background:#33CCFF;color:#333333;}
 </style>
-</head>
-<body>
-{% load main_tags %}
-{% load cache %}
-{% load home_tags %}
-{% load comments %}
-{% load accounts_tags %}
-{% load wiki_tags %}
-<script>
-    $(document).ready(function(){
-        //
-        $('#you-know').html('支持我们,你懂的');
-        // load the sub nav
-        $('.welcome').load('/main/usernav/');
-        
-        // keyworlds auto complete
-        $('#list-box').hide();
-        $('.keyworld').keyup(function(){
-            var keyword = $('.keyworld').val();
-            var data =  keyword;
-            $.ajax({
-                type:"POST",
-                url:"/search/autocomplete/",
-                data:{'data':data},
-                success:function(html) {
-                    $('#list-box').show();
-                    $('#list-box').html(html);
-                    $('#list-box div').hover(function(){
-                        $(this).addClass('key-hover');
-                    },function(){
-                        $(this).removeClass('key-hover');
-                    });
-                    $('#list-box div').click(function(){
-                        var x = $(this).text();
-                        $('.keyworld').val(x);
-                        $('#list-box').hide();
-                    });
-                }
-            });
-            return false;
-        });    
-
-
-    });
-
-
-</script>
-<div id="wrapper">
-    <div id="header">
-		<h1 class="logo"></h1>
-        <div class="welcome">
-        </div>
-		<div class="clear"></div>
-    </div><!-- #header -->
-    <div id="nav">
-        <ul>
-            <li class="{% if current_page == 'index' %}curent{% endif %}"><a href="/">首页</a></li>
-            <li class="{% if current_page == 'code' %}curent{% endif %}"><a href="/code/">代码</a></li>
-            <li class="{% if current_page == 'wiki' %}curent{% endif %}"><a href="/wiki/">板报</a></li>
-            <li class="{% if current_page == 'topic' %}curent{% endif %}"><a href="/topic/">讨论</a></li>
-            <li class="{% if current_page == 'jobs' %}curent{% endif %} "><a href="/jobs/">招聘</a></li>
-            <li class="{% if current_page == 'books' %}curent{% endif %} "><a href="/books/">图书</a></li>
-            <a href="http://www.lidata.net/cart.php" target="_blank"><i>PHP空间</i></a>
-        </ul>
-        <div class="search">
-        <!--
-        <form method="get" action="/search/wiki/p1/" id="searchform" name="searchform" target="_blank">
-              <input type="text" class="keyworld" name="q" id="q">
-              <div id="list-box">
-              </div>
-              <input type="submit" value="搜索" class="button" name="submit" id="submit">
-          </form>
-        -->
-
-        </div>
-        <div class="clear">&nbsp;</div>
-    </div>
-    <div id="sub-nav">
-        <ul>
-            <li><a href="/wiki/">python 教程</a> </li>
-            <li><a href="/wiki/77/">goagent翻墙</a></li>
-            <li><a href="/wiki/tag/Django/p1/">Django</a></li>
-            <li><a href="/search/wiki/?q=python%20%E5%BC%80%E5%8F%91/p1/">python 开发</a></li>
-            <li><a href="/wiki/tag/Linux/p1/">Linux</a></li>
-            <li><a href="/wiki/tag/Apache/p1/">Apache</a></li>
-            <li><a href="/wiki/tag/Ubuntu/p1/">Ubuntu</a></li>
-            <li><a href="/wiki/tag/Socket/p1/">Socket</a></li>
-            <li><a href="/wiki/tag/Web.py/p1/">Web.py</a></li>
-            <li><a href="/wiki/tag/Nginx/p1/">Nginx</a></li>
-            <li><a href="/code/p1/?category=python语言基础">源代码</a></li>
-            <li><a href="/topic/">话题讨论</a></li>
-            <li><a href="/jobs/">Python 招聘</a> </li>
-        </ul>
-		<div class="clear"></div>
-    </div>
-	<div id="container">
         <div class="top-show left">
             <h2 style="font-size:16px;margin:0;padding:0;">
                 <a href="{{ wiki_first.get_absolute_url }}"> {{ wiki_first.title|slice:"15" }}</a></h2>
@@ -216,8 +117,8 @@ div.right{margin:0 0 0 20px;}
                 <div class="clear"></div>
             </ul>
         </div>
-	</div><!-- #container -->
-    <div id="sidebar">
+{% endblock %}
+{% block sidebar %}
         <!-- 广告位：首页边侧 -->
         <h2 id="you-know"></h2>
         <script type="text/javascript">
@@ -243,6 +144,5 @@ div.right{margin:0 0 0 20px;}
             <li><img src="/static/images/mysql.png" title="mysql"></li>
         </ul>
         <div class="clear"></div>
-    </div><!-- #primary .sidebar -->
-<div class="clear"></div>
+{% endblock %}
 {% include 'foot.html' %}

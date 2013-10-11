@@ -36,6 +36,7 @@ from code.models import Code
 @cache_page(60)
 def list(request,page=1):
     current_page = 'code'
+    page_title   = u'代码分享'
     pre_url = 'code'
     category_name = request.GET.get('category','')
     if category_name:
@@ -81,6 +82,7 @@ def detail(request,code_base_id):
     code_base.view()
     codes = Code.objects.filter(base=code_base)
     zips = Zip.objects.filter(base=code_base)
+    page_title   = u'{}-代码分享'.format(code_base.title)
 
     # 记录访问者
     if request.user.is_authenticated() and request.user <> code_base.author:
@@ -94,6 +96,7 @@ def detail(request,code_base_id):
 @csrf_protect
 def add(request):
     current_page = 'code'
+    page_title   = u'代码分享'
     code_id = request.GET.get('id',False)
     if code_id:
         title = '修改代码基本信息'
@@ -138,6 +141,7 @@ def add(request):
 @csrf_protect
 def add_by_paste(request,code_base_id):
     current_page = 'code'
+    page_title   = u'代码分享'
     try:
         base = Base.objects.get(id=code_base_id,author=request.user)
     except Base.DoesNotExist:
@@ -331,6 +335,7 @@ def edi_code(request,base_id,code_id):
 @login_required
 def publish(request,code_base_id):
     current_page = 'code'
+    page_title   = u'代码分享'
     try:
         code_base = Base.objects.get(id=code_base_id,author=request.user)
     except Base.DoesNotExist:
