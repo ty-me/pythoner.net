@@ -21,6 +21,7 @@ import time,datetime
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http import HttpResponsePermanentRedirect as Redirect301
 from django.shortcuts import render_to_response as render
 from django.core.paginator import Paginator,InvalidPage,EmptyPage
 from django.core.mail import send_mail
@@ -34,20 +35,21 @@ from models import *
 from forms import WikiForm,WikiMdForm
 from signals import new_wiki_was_post
 
-@cache_page(60*60)
+#@cache_page(60*60)
 def list(request,page=1):
     """
     列表页
     """
     current_page = APP
-    page_title   = u'板报'
     nowtime = datetime.datetime.now()
     pre_url = APP
     allow_category = True
     category_name = request.GET.get('category','').encode('utf-8')
     tag_name = request.GET.get('tag','').encode('utf-8')
+    page_title   = category_name or tag_name or u'板报'
 
     if category_name:
+        page_description = u'分享在在{}分类下的所有文章'
         suf_url = '?category=%s' %category_name
         title   = category_name
         try:
@@ -57,8 +59,16 @@ def list(request,page=1):
         else:
             entry_all = Entry.objects.filter(public=True,sub_time__lt = nowtime,category=category_obj)
     elif tag_name:
+        # close the category list
+        allow_category = False
+        page_description = u'分享在在{}标签下的所有文章'
         suf_url = '?tag=%s' %tag_name
-        title   = tag_name
+    
+        try:
+            tag = Tag.objects.get(name = tag_name)
+        except Tag.DoesNotExist:
+            raise Http404()
+
         try:
             tag_obj = Tag.objects.get(name=tag_name)
         except Tag.DoesNotExist:
@@ -66,7 +76,7 @@ def list(request,page=1):
         else:
             entry_all = Entry.objects.filter(public=True,sub_time__lt = nowtime,tag=tag_obj)
     else:
-        title =  '板报-Python技术文章'
+        page_description = u'由用户分享的所有文章'
         entry_all = Entry.objects.filter(public=True,sub_time__lt = nowtime)
 
 
@@ -79,29 +89,12 @@ def list(request,page=1):
         entrys = paginator.page(paginator.num_pages)
     return render(LIST_PAGE,locals(),context_instance=RequestContext(request))
 
-@cache_page(60*60)
 def tag(request,tag_name,page=1):
     """
     按标签显示条目
     """
-    current_page = APP
-    app = APP
-    pre_url = 'wiki/tag/%s'%tag_name.encode('utf-8')
-    nowtime = datetime.datetime.now()
-    
-    try:
-        tag = Tag.objects.get(name = tag_name)
-    except Tag.DoesNotExist:
-        raise Http404()
-    
-    entry_all = Entry.objects.filter(public=True,sub_time__lt = nowtime,tag=tag)
-    paginator = Paginator(entry_all,20)
-    
-    try:
-        entrys = paginator.page(page)
-    except (EmptyPage,InvalidPage):
-        entrys = paginator.page(paginator.num_pages)
-    return render(LIST_PAGE,locals(),context_instance=RequestContext(request))
+    new_url = u'/wiki/p{}/?tag={}'.format(page,tag_name)
+    return Redirect301(new_url)
 
 def detail(request,id):
     """
@@ -121,7 +114,9 @@ def detail(request,id):
         entry = Entry.objects.get(id = id)
     except Entry.DoesNotExist:
         raise Http404()
-
+    
+    page_title = u'{}-({})'.format(entry.title,entry.category)
+    page_description = u'{}'.format(entry.title)
     if not entry.public and entry.author.id <> request.user.id:
         raise Http404()
     
