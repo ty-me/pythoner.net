@@ -36,7 +36,8 @@ def list(request,page=1):
     topic = Topic()
     topic_all = topic.all()
     paginator = Paginator(topic_all,20)
-    title = u'正在讨论'
+    page_title = u'正在讨论'
+    page_description = u'大家正在讨论的话题'
     pre_url ='topic'
     tags = Tag.objects.all()
     try:
@@ -185,7 +186,8 @@ def detail(request,topic_id):
     except (ValueError,Topic.DoesNotExist):
         raise Http404()
     topic.view()
-
+    page_title = topic.title
+    page_description = u'大家正在讨论：{}'.format(topic.title)
     return render('topic_detail.html',locals(),context_instance=RequestContext(request))
 
 def list_by_tag(request,tag_name):

@@ -24,8 +24,6 @@ function mark(){
             <h1>由 {{  topic.author.get_profile.screen_name }} 发起的话题</h1>
             <div class="meta">
                 {% if request.user.id %}
-                    <strong>本页链接</strong>http://pythoner.org/topic/{{ topic.id }}/
-                    <span>|</span>
                     <a href="/home/{{ topic.author.id }}/follow/" id="follow">
                         {{ request.user|get_relation:user }}
                     </a>

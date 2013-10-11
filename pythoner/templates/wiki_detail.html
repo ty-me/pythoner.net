@@ -24,7 +24,7 @@
 {% get_comment_form for entry as form %}
 {% get_comment_count for entry as comment_count %}
 <div id="post">
-    {% if request.user.id == entry.author.id %}
+    {% if request.user.id == entry.author.id and not entry.public %}
         <div class="action">
             <a href="/wiki/{{ entry.id }}/edit/">修改</a>
             <span>|</span>
@@ -81,18 +81,6 @@
     </div>
     <div class="clear">&nbsp;</div>
 </div><!-- .post -->
-<script type="text/javascript"><!--
-    google_ad_client = "ca-pub-8602112008660595";
-    /* 正文顶部横幅官高 */
-    google_ad_slot = "3645907010";
-    google_ad_width = 700;
-    google_ad_height = 80;
-    google_language = 'zh-CN';
-    //-->
-</script>
-<script type="text/javascript"
-    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
 
 <div class="comments">
 	{% render_comment_list for entry %}

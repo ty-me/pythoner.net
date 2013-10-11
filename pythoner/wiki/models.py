@@ -53,7 +53,7 @@ class Tag(models.Model):
         return self.name 
 
     def get_absolute_url(self):
-        return '/%s/tag/%s/p1/' %(APP,self.name)
+        return '/wiki/p1/?tag={}'.format(self.name)
 
     def save(self):
         self.name = self.name.strip()

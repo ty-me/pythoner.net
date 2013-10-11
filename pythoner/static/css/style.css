@@ -185,6 +185,16 @@ ul#book-list li{background:none}
 #topic div.meta{float:left;width:500px;}
 #topic div.content{margin:0 0 20px 0;}
 #topic div.action{float:right;width:160px;text-align:right;}
+/* wiki detail*/
+#post {margin:5px 0px 0px 0; padding:0px 0;font-size:13px; }
+#post .title{ margin:10px 0;padding:10px 0;text-align:center;}
+#post .source{border-left:10px solid #cfc; padding:4px;background:#EFE;line-height:25px;}
+#post .meta{border-bottom:1px solid #ddd;margin:0 0 10px 0;padding:0 0 10px 0;}
+#post .meta{color:#aaa;text-align:center;font-size:12px;}
+#post .action{text-align:right;}
+#post ul,#post ol{padding:0 0 0 20px;list-style:none;}
+#adsense {text-align:center;margin:0 auto;}
+
 /* response 回复列表 */
 #response .author{height:20px;line-height:20px;margin:0 0 10px;}
 #response{padding:0;}
