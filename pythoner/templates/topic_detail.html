@@ -49,7 +49,7 @@ function mark(){
                     <span>|</span>
                     <a href="/topic/{{ topic.id }}/del/" onclick="return del();">删除</a>
                 {% else %}
-                    {% if request.user.id %}<a href="javascript:mark();" id="mark">收藏此帖</a>{% endif %}
+                {% comment %}TODO{% if request.user.id %}<a href="javascript:mark();" id="mark">收藏此帖</a>{% endif %}{% endcomment %}
                 {% endif %}
             </div>
             <div class="clear"></div>
@@ -57,6 +57,7 @@ function mark(){
         <div class="content">{% autoescape off %}{{ topic.content }}{% endautoescape %}
         </div>
     </div><!-- end blog -->
+{% comment %}
 <script type="text/javascript"><!--
     google_ad_client = "ca-pub-8602112008660595";
     /* 正文顶部横幅官高 */
@@ -65,6 +66,7 @@ function mark(){
     google_ad_height = 80;
     //-->
 </script>
+{% endcomment %}
 <script type="text/javascript"
     src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
