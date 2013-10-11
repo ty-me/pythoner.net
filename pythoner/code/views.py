@@ -36,11 +36,11 @@ from code.models import Code
 @cache_page(60)
 def list(request,page=1):
     current_page = 'code'
-    page_title   = u'代码分享'
     pre_url = 'code'
     category_name = request.GET.get('category','')
     if category_name:
         suf_url = '?category=%s' %category_name
+        page_title   = u'代码分享-{}'.format(category_name)
         try:
             category_obj = Category.objects.get(name=category_name)
         except Category.DoesNotExist:
@@ -48,6 +48,7 @@ def list(request,page=1):
         else:
             code_base_all = Base.objects.filter(display=True,category=category_obj) 
     else:
+        page_title   = u'代码分享'
         code_base_all = Base.objects.filter(display=True)
     
     paginator = Paginator(code_base_all,20)
