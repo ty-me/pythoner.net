@@ -100,9 +100,9 @@ def add(request):
     page_title   = u'代码分享'
     code_id = request.GET.get('id',False)
     if code_id:
-        title = '修改代码基本信息'
+        page_title = '修改代码基本信息'
     else:
-        title = '填写代码基本信息'
+        page_title = '填写代码基本信息'
     try:
         code_base = Base.objects.get(id=code_id,author=request.user)
     except Exception,e:
