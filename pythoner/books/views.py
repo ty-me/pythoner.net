@@ -48,5 +48,6 @@ def detail(request,isbn):
     next = "/books/%s/" %book.isbn
     Book.objects.filter(isbn=isbn).update(click_time=book.click_time+1)
     page_title = book.name
+    page_description = u'{}由出版社：{}出版，作者：{}'.format(book.name,book.publish,book.pub_date)
     return render('book_detail.html',locals(),context_instance=RequestContext(request))
 

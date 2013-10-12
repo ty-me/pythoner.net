@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
+import re
 from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.core.paginator import Paginator,EmptyPage,InvalidPage
 from django.views.decorators.csrf import csrf_protect
@@ -36,8 +36,11 @@ def list(request,page=1):
     if city:
         suf_url = u'?city={0}'.format(city)
         job_all      = Job.objects.filter(display=True,city=city).order_by(order)
+        page_title   = '{}的招聘信息'
     else:
         job_all      = Job.objects.filter(display=True).order_by(order)
+        page_title   = u'招聘'
+        page_description = u'招聘python开发工程师'
 
     paginator    = Paginator(job_all,20)
     current_page = 'jobs'
@@ -56,11 +59,13 @@ def detail(request,job_id):
         raise Http404()
     Job.objects.filter(id=job_id).update(click_times=int(job.click_times+1))
     job.email = str(job.email).replace('@','[at]')
+    page_title = u'{}{}'.format(job.company,job.title)
+    page_description = u'{},更多职位请见PYTHON开发者社区招聘栏目'.format(page_title)
     return render('jobs_detail.html',locals(),context_instance=RequestContext(request))
 
-@csrf_protect
 def add(request):
     current_page = 'jobs'
+    page_title   = u'发布招聘信息'
 
     # 检查用户选择的城市是否存在
     if check_city(request.GET.get('city_name',False)):

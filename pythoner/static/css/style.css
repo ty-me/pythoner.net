@@ -209,11 +209,11 @@ dd{text-align:center;overflow:hidden;margin:0;}
 dt{height:24px;overflow:hidden;text-align:center;line-height:24px;margin:0;}
 /* footer */
 #footer{width:100%;display:block;}
-#footer .top{color:#666;font-size:10px;}
-#footer .bottom{margin:10px 0 20px 0;padding:0 10px;height:25px;line-height:25px;background:#3975CE;color:#fff;text-transform:uppercase;}
-#footer .bottom a{color:#fff;margin:0 5px;}
-#footer .bottom a:hover{text-decoration:underline;background:none;}
-#footer .sitemap{width:780px;display:block;float:left;}
+#footer .copyright{color:#666;font-size:10px;text-align:center;}
+#footer .info{margin:10px 0 0px 0;padding:0 10px;height:25px;line-height:25px;background:#3975CE;color:#fff;text-transform:uppercase;}
+#footer .info a{color:#fff;margin:0 5px;}
+#footer .info a:hover{text-decoration:underline;background:none;}
+#footer .links{width:780px;display:block;float:left;}
 #footer .version{display:block;float:right;text-align:right;width:160px;}
 #adsense {text-align:center;margin:0 auto;}
 
