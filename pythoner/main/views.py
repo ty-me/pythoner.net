@@ -29,7 +29,6 @@ from jobs.models import Job
 from django.views.decorators.cache import cache_page
 from main.models import Gfw
 from code.models import Base
-from DjangoVerifyCode import Code
 
 #@cache_page(60*60)
 def index(request):
@@ -84,24 +83,6 @@ def plink(request,link):
         raise Http404()
     return render('custom.html',locals(),context_instance=RequestContext(request))
 
-def verify(request):
-    _code = request.REQUEST.get('verify','') 
-    code = Code(request)
-
-    # 检查用户输入的验证码是否正确
-    if not code.check(_code):
-        print 'fuck'
-        request.session['next'] = request.path
-        return render('verify.html',locals(),context_instance=RequestContext(request))
-    else:
-        request.session['post_times'] = 0
-        request.session['post_stamp'] = time.time()
-        return HttpResponseRedirect(request.session.get('next','/'))
-
-def verify_code(request):
-    code =  Code(request)
-    code.type = 'number'
-    return code.display()
 
 def email_rss(request):
     """

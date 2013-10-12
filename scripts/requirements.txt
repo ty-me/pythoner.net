@@ -3,7 +3,7 @@ BeautifulSoup==3.2.1
 MySQL-python==1.2.3
 PIL==1.1.7
 redis==2.4.13
-DjangoVerifyCode==0.2.4
+DjangoCaptcha=0.2.8
 tweepy
 douban_client
 gevent

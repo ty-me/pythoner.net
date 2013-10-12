@@ -3,26 +3,26 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('input.button').click(function(){
-        var verify = $('input.verify').val();
-        if (verify == '' || len(verify)<=1){
+        var captcha = $('input.captcha').val();
+        if (captcha == '' || len(captcha)<=1){
             return false;
         }
     });
 
-    $('#change_verify').click(function(){
+    $('#change_captcha').click(function(){
         var now=new Date().getTime();
-        $('img.verify').attr('src','/verify/code/?t='+now);
+        $('img.captcha').attr('src','/captcha/?t='+now);
         return false;
     });
 });
 </script>
     <h1>额~</h1>
     <p>你的操作方式很诡异，我们怀疑你是外星机器人派来的卧底！<br>好吧，除非你向我证明你不是机器人</p>
-    <p><img class="verify" src="/verify/code/" alt="告诉我图片上面写了神马？"><a href="#" id="change_verify">换一张</a> </p>
+    <p><img class="captcha" src="/captcha/" alt="告诉我图片上面写了神马？"><a href="#" id="change_captcha">换一张</a> </p>
     <p>那你得告诉我图片上的答案先？</p>
 
     <form action="/oh-my-god/check/" method="GET">
-        <input name="verify" class="verify" type="text" maxlength="10" style="width:200px;">
+        <input name="captcha" class="captcha" type="text" maxlength="10" style="width:200px;">
         <input type="submit" value="我不是机器人" class="button" style="width:130px;">
     </form>
     {% if messages %}
