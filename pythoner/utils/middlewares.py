@@ -26,6 +26,7 @@ from django.template import RequestContext
 from django.utils.text import compress_string
 from django.utils.cache import patch_vary_headers
 from django import http
+import settings
 
 try:
     import settings
@@ -119,3 +120,13 @@ class XsSharing(object):
         
         return response
 
+class ApiMiddleware(object):
+    """ API protected 
+
+    """
+    
+    def process_response(self, request, response):
+        if request.path.startswith('/main/api/'):
+            if request.REQUEST.get('token','') <> settings.API_TOKEN:
+                return HttpResponse('invalid token')
+        return response
