@@ -1,12 +1,10 @@
 {% if request.user.is_authenticated %}
     {% load pm_tags %}
-    <a href="/home/">{{ request.user.get_profile.screen_name }} 的个人中心</a>
-    <span class="blank">|</span>
-    <a href="/home/edit/">设置</a>
+    <a href="/home/">{{ request.user.get_profile.screen_name }} 的声望:<span class="orange">342</span></a>
     <span class="blank">|</span>
     <a href="/pm/">PM{% autoescape off %}{{ request.user|pm_count }}{% endautoescape %}</a>
     <span class="blank">|</span>
-    <a href="/accounts/logout/">退出</a>
+    <a href="/home/edit/">设置</a>
 {% else %}
     <span class="dark">你还没有登录</span>
     <span class="blank">|</span>

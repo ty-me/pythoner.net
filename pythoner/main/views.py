@@ -43,9 +43,6 @@ def index(request):
     return render('index.html',locals(),context_instance=RequestContext(request))
 
 def usernav(request):
-    """
-    返回一个sub nav
-    """
     return render('user.nav.html',locals(),context_instance=RequestContext(request))
 
 @cache_page(60*60*24)
