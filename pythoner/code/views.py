@@ -16,7 +16,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
+import os
+import time
+from hashlib import md5
 from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response as render
@@ -218,8 +220,9 @@ def add_by_file(request,base_id):
     # 处理.py 文件
     lans = Language.objects.filter(~Q(suffix=''))
     code_file_list = [ lan.suffix for lan in lans]
-    zip_file_list = ['tar','zip','rar']
-    if file.name.split('.')[-1] in code_file_list:
+    zip_file_list = ['tar','zip','rar','gz']
+    file_suffix        = file.name.split('.')[-1]
+    if file_suffix in code_file_list:
         try:
             language = Language.objects.get(suffix=file.name.split('.')[-1])
         except Language.DoesNotExist:
@@ -236,32 +239,41 @@ def add_by_file(request,base_id):
         except Exception,e:
             messages.error(request,'保存代码时，服务器出现错误：'+str(e.message))
         else:
-            messages.success(request,'上传文件成功！')
+            messages.success(request,'上传python文件成功！')
         return HttpResponseRedirect('/code/add/%d/' %base.id)
 
     # 处理压缩文件
-    elif file.name.split('.')[-1] in zip_file_list:
-        zip_file_path = os.path.join(ROOT_PATH,'media/file/')
+    elif file_suffix  in zip_file_list:
+        base_path = os.path.join(ROOT_PATH,'media/file/')
+        md5_key     = md5(u'{}-{}-{}'.format(file.name,time.time(),request.user.id)).hexdigest()
+        dir1        = md5_key[0:2]
+        dir2        = md5_key[2:4]
+        dir3        = md5_key[4:6]
+        zip_file_path   = os.path.join(base_path,dir1,dir2,dir3)
+        simple_name    = '{}.{}'.format(md5_key,file_suffix)
+        if not os.path.exists(zip_file_path):
+            os.makedirs(zip_file_path)
 
         # 判断文件是否存在
-        if os.path.exists(os.path.join(zip_file_path,file.name)):
-            file.name = str(time.time())+'_'+file.name
-        zip_file_name = os.path.join(zip_file_path,file.name)
+        #if os.path.exists(os.path.join(zip_file_path,file.name)):
+        #    file.name = str(time.time())+'_'+file.name
+        zip_file_name = os.path.join(zip_file_path,simple_name)
+        print 'zip_file_name',zip_file_name
         
         try:
-            dump_file = open(zip_file_name,'wb')
-            for chunk in file.chunks():
-                dump_file.write(chunk)
-            dump_file.close()
+            with open(zip_file_name,'wb+') as tmp_file:
+                for chunk in file.chunks():
+                    tmp_file.write(chunk)
         except Exception,e:
-            messages.error(request,'上传文件时服务器出现错误:'+str(e))
+            messages.error(request,'上传文件时服务器出现错误:'+str(e.message))
         else:
-            zip = Zip(base=base,name=file.name,size=int(file.size))
+            zip = Zip(base=base,name='{}/{}/{}/{}'.format(dir1,dir2,dir3,simple_name),size=int(file.size))
             zip.save()
             messages.success(request,'上传文件成功！')
         return HttpResponseRedirect('/code/add/%d/' %base.id)
     else:
-        messages.error(request,'你的文件类型不合法，请上传%s文件' %str(code_file_list+zip_file_list))
+        messages.error(request,'你的文件类型不合法，请上传一下后缀的文件:{}'.\
+                format(','.join(code_file_list+zip_file_list)))
         return HttpResponseRedirect('/code/add/%d/' %base.id)
 
 def del_code(request,code_base_id,code_id):
