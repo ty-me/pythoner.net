@@ -103,7 +103,6 @@ class Code(models.Model):
     base = models.ForeignKey(Base)
     language = models.ForeignKey(Language,verbose_name='语言',default=1)
     name = models.CharField('代码名称',max_length=50,blank=True,null=True)
-    #path = models.CharField('相对路径',max_length=200)
     content = models.TextField('Code')
 
     def __unicode__(self):
@@ -115,6 +114,7 @@ class Code(models.Model):
 class Zip(models.Model):
     base = models.ForeignKey(Base)
     name = models.CharField('文件名',max_length=50,blank=True,null=True)
+    path = models.CharField('相对路径',max_length=200)
     file = models.BooleanField('压缩包',max_length=50,default=False)
     size = models.PositiveIntegerField('尺寸(bit)',max_length=10)
     download_times = models.PositiveIntegerField('下载次数',max_length=10,default=0)

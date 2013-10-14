@@ -8,15 +8,27 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Code.path'
-        db.add_column('code_code', 'path',
+        # Adding field 'Zip.path'
+        db.add_column('code_zip', 'path',
                       self.gf('django.db.models.fields.CharField')(default='', max_length=200),
                       keep_default=False)
 
+        # Deleting field 'Code.path'
+        #db.delete_column('code_code', 'path')
+
 
     def backwards(self, orm):
-        # Deleting field 'Code.path'
-        db.delete_column('code_code', 'path')
+        # Deleting field 'Zip.path'
+        db.delete_column('code_zip', 'path')
+
+
+        # User chose to not deal with backwards NULL issues for 'Code.path'
+        raise RuntimeError("Cannot reverse this migration. 'Code.path' and its values cannot be restored.")
+        
+        # The following code is provided here to aid in writing a correct migration        # Adding field 'Code.path'
+        #db.add_column('code_code', 'path',
+        #              self.gf('django.db.models.fields.CharField')(max_length=200),
+        #              keep_default=False)
 
 
     models = {
@@ -72,8 +84,7 @@ class Migration(SchemaMigration):
             'content': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['code.Language']"}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'path': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'})
         },
         'code.language': {
             'Meta': {'ordering': "['-name']", 'object_name': 'Language'},
@@ -102,6 +113,7 @@ class Migration(SchemaMigration):
             'file': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'max_length': '50'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
+            'path': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'size': ('django.db.models.fields.PositiveIntegerField', [], {'max_length': '10'})
         },
         'contenttypes.contenttype': {
