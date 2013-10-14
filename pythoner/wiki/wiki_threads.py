@@ -82,6 +82,7 @@ class ImageThread(threading.Thread,BrowserBase):
         # make a dir
         if not os.path.exists(filepath):
             os.makedirs(filepath)
+
         im = Image.open(StringIO.StringIO(filedata))
         filename = os.path.join(filepath,'{0}.jpg'.format(md5(filedata).hexdigest()))
         im.thumbnail((600,600),Image.ANTIALIAS)
