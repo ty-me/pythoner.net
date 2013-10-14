@@ -267,7 +267,7 @@ def add_by_file(request,base_id):
         except Exception,e:
             messages.error(request,'上传文件时服务器出现错误:'+str(e.message))
         else:
-            zip = Zip(base=base,name='{}/{}/{}/{}'.format(dir1,dir2,dir3,simple_name),size=int(file.size))
+            zip = Zip(base=base,path='{}/{}/{}/{}'.format(dir1,dir2,dir3,simple_name),size=int(file.size),name=file.name)
             zip.save()
             messages.success(request,'上传文件成功！')
         return HttpResponseRedirect('/code/add/%d/' %base.id)
@@ -409,7 +409,7 @@ def _zip(request,id):
 
     file_path = os.path.join(ROOT_PATH,'media/file')
     try:
-        file = open(os.path.join(file_path,zip.name))
+        file = open(os.path.join(file_path,zip.path))
     except Exception,e:
         return HttpResponse('读取文件出错')
     else:

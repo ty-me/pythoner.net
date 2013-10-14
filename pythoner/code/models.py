@@ -103,6 +103,7 @@ class Code(models.Model):
     base = models.ForeignKey(Base)
     language = models.ForeignKey(Language,verbose_name='语言',default=1)
     name = models.CharField('代码名称',max_length=50,blank=True,null=True)
+    #path = models.CharField('相对路径',max_length=200)
     content = models.TextField('Code')
 
     def __unicode__(self):
