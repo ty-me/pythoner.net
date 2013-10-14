@@ -276,11 +276,6 @@ def delete(request,wiki_id):
     except Entry.DoesNotExist:
         raise Http404()
 
-    if wiki.public:
-        messages.error(request,'文章已经发表，不允许被修改或删除')
-        url = '/wiki/{}/'.format(wiki.id)
-        return HttpResponseRedirect(url)
-
     if request.user == wiki.author:
         wiki.delete()
         # 删除后回到用户文章列表
