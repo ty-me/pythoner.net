@@ -4,16 +4,18 @@
 {% block canonical %}<link rel="canonical" href="http://pythoner.org/wiki/" />{% endblock %}
 {% load books_tags %}
 {% block main %}
-    <div id="category-list">
-        <h1>python图书推荐</h1>    
-    </div>
+<div id="category-list">
+    <h1>python图书推荐</h1>    
+</div>
+
 <div class="box">
     {% include 'books_list.inc.html' %}
+    <div class="clear"></div>
 </div>
+
 {% endblock %}
 {% block sidebar %}
 {% get_book_by_clicktime %}
-
 <script type="text/javascript"><!--
     google_ad_client = "ca-pub-8602112008660595";
     /* 侧边栏广告 */
@@ -26,4 +28,3 @@
     src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 {% endblock %}
-
