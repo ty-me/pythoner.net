@@ -111,6 +111,10 @@ div.share{margin: 15px 0 0 0;text-align: right;float: right;clear: both;}
 #tags ul li a:hover{background:#7F9FB6;}
 #tags ul li span{color:#999;text-align:center;}
 /* container */
+#container,#sidebar{font: 500 0.875em/1.8 Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;}
+pre, code { font-family: "Courier New", Courier, monospace; white-space: pre-wrap; word-wrap: break-word; }
+pre { background: #f8f8f8; border:1px solid #ddd; padding: 1em 1.5em; } 
+hr{ border:none; border-bottom:1px solid #cfcfcf; margin-bottom:10px; *color:pink;*filter:chroma(color=pink); height:10px; *margin:-7px 0 2px; }
 #container {word-wrap:break-word;}
 #post p,#wiki p,#blog p,#job p,#topic p,#code p{font-size:14px;margin:10px 0;padding:10px 0;text-indent:30px;}
 #container{width:700px;margin:10px 0 5px 0;float:left;}
