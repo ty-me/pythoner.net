@@ -6,6 +6,7 @@
 {% load comments %}
 {% load code_tags %}
 {% load accounts_tags %}
+{% load main_tags %}
 {% block main %}
 {% get_comment_count for code.base code_base.id as comment_count %}
 <link type="text/css" rel="stylesheet" href="/static/syntaxhighlighter/styles/shCoreDefault.css" />
@@ -94,4 +95,5 @@ ol li .action a:hover{background:none;color:#000;s}
     {% get_code_list_by_user code_base.author %}
     {% get_code_visitor code_base %}
     {% get_latest_code %}
+    <div id="float-ads"> {% render_sidebar_ads %} </div>
 {% endblock %}

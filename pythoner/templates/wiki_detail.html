@@ -20,6 +20,7 @@
 {% block main %}
 {% load comments %}
 {% load wiki_tags %}
+{% load main_tags %}
 {% load cache %}
 {% get_comment_form for entry as form %}
 {% get_comment_count for entry as comment_count %}
@@ -84,4 +85,5 @@
     {% get_latest_wiki 10 %}
     {% get_wiki_by_clicktime 10 %}
     {% get_wiki_tag %}
+    <div id="float-ads"> {% render_sidebar_ads %} </div>
 {% endblock %}

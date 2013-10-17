@@ -13,6 +13,7 @@
 #job p{text-indent:0;}
 </style>
 {% load home_tags %}
+{% load main_tags %}
 <div id="job">
         <h1 align="center">{{ job.company }}{{ job.title }}</h1>
         <div class="meta">发表于{{ job.sub_time|how_long }} ,
@@ -61,4 +62,5 @@
     <a href="/jobs/add/" id="add" class="btn">+ 发布招聘信息</a>
     {% load jobs_tags %}
     {% get_latest_job %}
+    <div id="float-ads"> {% render_sidebar_ads %} </div>
 {% endblock %}

@@ -15,3 +15,8 @@ def get_latest_comment(count=6):
     comments = Comment.objects.order_by('-id')[0:count]
     return {'comments':comments}
 
+@register.inclusion_tag('sidebar_ads.tag.html')
+def render_sidebar_ads():
+    return ''
+
+
