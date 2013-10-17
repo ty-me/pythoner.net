@@ -58,6 +58,7 @@ div.tabs a:hover{background:none;color:#000;}
 div.tabs span.selected{background:#fff;border:1px solid #6B90DA;border-bottom:1px solid #fff;color:#fff;font-weight:900;}
 div.tabs span.selected a{color:#000;}
 /* header */
+#header-banner img{width:960px;}
 #header .welcome{text-align:right;font-weight:400;}
 #header .welcome span.blank{color:#cecece;margin:0 6px;}
 #header{font-weight:900;margin:10px 0;padding:0;height:40px;line-height:40px;color:#fff; padding:0 10px; margin:0 0 2px 0; background:#08C; }

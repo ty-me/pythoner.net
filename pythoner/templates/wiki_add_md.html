@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% block title %}分享文章{% endblock %}
 {% block main %}
-<h1>分享文章</h1>
+<h1>{{ page_title }}</h1>
 <style>
 #id_title,#id_source{width:640px;}
 </style>
@@ -29,7 +28,7 @@
 {% if not wiki_id %}
     <ol>
     <h2>分享文章提示</h2>
-    <li>当前正在使用<span class="red">MarkDown</span>编辑器，查看MD语法请见<a href="http://markdown.tw/" >这里</a></li>
+    <li>当前正在使用<span class="red">MarkDown</span>编辑器，查看MD语法请见<a href="http://markdown.tw/" target="_blank">这里</a></li>
     <li>需要切换到<span class="red">富文本编辑器</span>请点<a href="/wiki/add/full/">这里</a></li>
     </ol>
 {% endif %}

@@ -154,7 +154,6 @@ def add(request,editor='markdown'):
     """ 用户写新的文章 """
 
     current_page = 'user_wiki'
-    title = '分享文章'
 
     if request.method == 'GET':
         backup_data = {}
@@ -167,11 +166,14 @@ def add(request,editor='markdown'):
                 pass
 
         if editor == 'markdown':
+            title = u'分享文章(使用MarkDown编辑器)'
             form = WikiMdForm()
             template = 'wiki_add_md.html'
         else:
-            form = WikiForm(backup_data)
+            title = u'分享文章(使用富文本编辑器)'
+            form = WikiForm()
             template = 'wiki_add.html'
+        page_title = title
         form.initial = backup_data
         return render(template,locals(),context_instance=RequestContext(request))
     
@@ -188,6 +190,11 @@ def add(request,editor='markdown'):
         
         try:
             new_wiki.save()
+            # 增加声望
+            profile = request.user.get_profile()
+            profile.score += 10
+            profile.save()
+            messages.success(request,'分享文章成功，声望+10')
         except Exception,e:
             return HttpResponse('保存文章时出错：%s'%e)
         else:
@@ -195,7 +202,7 @@ def add(request,editor='markdown'):
             # 发送信号
             new_wiki_was_post.send(
                 sender= new_wiki.__class__,
-                wiki =  new_wiki
+                wiki =  new_wiki,
             )
 
             # 清除备份数据
@@ -204,6 +211,7 @@ def add(request,editor='markdown'):
                 _k = 'backup_{}'.format(k)
                 if _k in  _keys:
                     del request.session[_k]
+
 
             return HttpResponseRedirect('/wiki/%d/' %new_wiki.id)
     else:

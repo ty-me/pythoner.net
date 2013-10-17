@@ -94,23 +94,25 @@ function del(msg){
 
 </script>
 <div id="wrapper">
-    <script type="text/javascript">
-     document.write('<a style="display:none!important" id="tanx-a-mm_28628925_4250601_14452032"></a>');
-     tanx_s = document.createElement("script");
-     tanx_s.type = "text/javascript";
-     tanx_s.charset = "gbk";
-     tanx_s.id = "tanx-s-mm_28628925_4250601_14452032";
-     tanx_s.async = true;
-     tanx_s.src = "http://p.tanx.com/ex?i=mm_28628925_4250601_14452032";
-     tanx_h = document.getElementsByTagName("head")[0];
-     if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
-    </script>
+    <div id="head-banner">
+        <script type="text/javascript">
+             document.write('<a style="display:none!important" id="tanx-a-mm_28628925_4250601_14452032"></a>');
+             tanx_s = document.createElement("script");
+             tanx_s.type = "text/javascript";
+             tanx_s.charset = "gbk";
+             tanx_s.id = "tanx-s-mm_28628925_4250601_14452032";
+             tanx_s.async = true;
+             tanx_s.src = "http://p.tanx.com/ex?i=mm_28628925_4250601_14452032";
+             tanx_h = document.getElementsByTagName("head")[0];
+             if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
+        </script>
+    </div>
     <div id="header">
         <a class="logo" href="/">python<span class="orange">er</span> !</a>
         <div class="top-nav">
             <a href="/" {% if current_page == 'index' %}class="current"{% endif %}>首页</a>
             <a href="/code/" {% if current_page == 'code' %}class="current"{% endif %}>代码</a>
-            <a href="/wiki/" {% if current_page == 'wiki' %}class="current"{% endif %}>板报</a>
+            <a href="/wiki/" {% if current_page == 'wiki' %}class="current"{% endif %}>文章</a>
             <a href="/topic/" {% if current_page == 'topic' %}class="current"{% endif %}>讨论</a>
             <a href="/jobs/" {% if current_page == 'jobs' %}class="current"{% endif %}>招聘</a>
             <a href='/books/' {% if current_page == 'books' %}class="current"{% endif %}>图书</a>
