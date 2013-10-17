@@ -3,9 +3,9 @@
 	{% for entry in entrys.object_list %}	
         <li>
             <span class="category">[{{ entry.category }}]</span>
-            <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="title">{{ entry.title|title }}</a>
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="title">{{ entry.title|title|slice:"35" }}</a>
             <span class="time">
-                由 {{ entry.author.get_profile.screen_name }} 投递于{{ entry.sub_time|how_long }}
+                由 {{ entry.author.get_profile.screen_name }} 分享于{{ entry.sub_time|how_long }}
             </span>
             <span class="count">{{ entry.click_time }}阅</span>
         </li>
