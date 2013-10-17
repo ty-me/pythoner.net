@@ -85,6 +85,8 @@
 {% block sidebar %}
     {% get_latest_wiki 10 %}
     {% get_wiki_by_clicktime 10 %}
+    <div id="float-ads-sidebar"> 
     {% get_wiki_tag %}
-    <div id="float-ads"> {% render_sidebar_ads %} </div>
+    {% render_sidebar_ads %} 
+    </div>
 {% endblock %}

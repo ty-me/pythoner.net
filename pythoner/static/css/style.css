@@ -221,4 +221,5 @@ dt{height:24px;overflow:hidden;text-align:center;line-height:24px;margin:0;}
 #footer .links{width:780px;display:block;float:left;}
 #footer .version{display:block;float:right;text-align:right;width:160px;}
 #adsense {text-align:center;margin:0 auto;}
-
+/* float ads */
+#float-ads-sidebar{width:250px;}
