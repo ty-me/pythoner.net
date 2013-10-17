@@ -84,7 +84,7 @@ div.tabs span.selected a{color:#000;}
 #sub-nav ul li{margin:0 10px 0 0;padding:0 2px;float:left;}
 /* div.box */
 div.box{padding:0 0px 0 0;margin:8px 10px 2px 0 ;border:1px solid #e9e9e9;border-bottom:3px solid #e9e9e9;
-    border-right:2px solid #e9e9e9;background:#fff;}
+    border-right:2px solid #e9e9e9;background:#fff;font-size:14px;}
 div.box h2{height:26px;line-height:26px;padding:0 0 0 10px;margin:0;background:#fff;border-bottom:1px solid #e9e9e9;}
 div.box h2 .title{font-size:14px;color:#000;}
 div.box h2 .action{float:right;margin:0 10px 0 0;color:#ff4500;font-weight:normal;}
@@ -112,7 +112,7 @@ div.share{margin: 15px 0 0 0;text-align: right;float: right;clear: both;}
 #tags ul li a:hover{background:#7F9FB6;}
 #tags ul li span{color:#999;text-align:center;}
 /* container */
-#container,#sidebar{font: 500 0.875em/1.8 Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;}
+#container,#sidebar{font: 100 14px Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;}
 pre, code { font-family: "Courier New", Courier, monospace; white-space: pre-wrap; word-wrap: break-word; }
 pre { background: #f8f8f8; border:1px solid #ddd; padding: 1em 1.5em; } 
 hr{ border:none; border-bottom:1px solid #cfcfcf; margin-bottom:10px; *color:pink;*filter:chroma(color=pink); height:10px; *margin:-7px 0 2px; }
