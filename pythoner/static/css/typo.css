@@ -1,0 +1,6 @@
+
+/* container */
+#container,#sidebar{font: 500 0.875em/1.8 Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;}
+pre, code { font-family: "Courier New", Courier, monospace; white-space: pre-wrap; word-wrap: break-word; }
+pre { background: #f8f8f8; border:1px solid #ddd; padding: 1em 1.5em; } 
+hr{ border:none; border-bottom:1px solid #cfcfcf; margin-bottom:10px; *color:pink;*filter:chroma(color=pink); height:10px; *margin:-7px 0 2px; }
