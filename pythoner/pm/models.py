@@ -57,6 +57,8 @@ def comment_notice(sender,instance,**kwargs):
     """
     当用户发表的内容有新回复是，通过PM通知用户
     """
+    print 'instance',dir(instance)
+    instance.comment = 'abcd'
     try:
         content_type = ContentType.objects.get(id=instance.content_type.id)
     except ContentType.DoesNotExist:
@@ -88,7 +90,7 @@ def _topic_notice(comment):
         return
     if topic.author_id == comment.user_id:
         return
-    pm_content = u"你发表的话题《%s》收到了新的评论：\n%s\
+    pm_content = u"你发表的话题《%s》收到了新的回复：\n%s\
     \n详情请见- %s%s" %(topic.title,comment.comment,DOMAIN,topic.get_absolute_url())
     Pm(
         from_user = User.objects.get(id=1),

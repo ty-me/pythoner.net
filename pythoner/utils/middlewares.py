@@ -27,6 +27,7 @@ from django.utils.text import compress_string
 from django.utils.cache import patch_vary_headers
 from django import http
 import settings
+import markdown
 
 try:
     import settings
@@ -130,3 +131,16 @@ class ApiMiddleware(object):
             if request.REQUEST.get('token','') <> settings.API_TOKEN:
                 return HttpResponse('invalid token')
         return response
+
+
+class CommentPatchMiddle(object):
+    """ Pathc comment
+
+    """
+
+    def process_request(self,request):
+        if request.method == 'POST':
+            if request.path == '/comments/post/':
+                data = request.POST.copy()
+                data['comment'] =  markdown.markdown(data['comment'])
+                request.POST = data

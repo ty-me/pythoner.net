@@ -1,7 +1,12 @@
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type='text/javascript' src="/static/wmd/showdown.js"></script>
+<script type='text/javascript' src="/static/wmd/wmd.js"></script>
+<script type='text/javascript' src="/static/js/jquery.form.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/wmd/wmd.css" />
 <style>
 #id_name,#id_email,#id_url{width:250px;}
+/*
 div.please-login{border:1px solid #ccc;padding:2px 10px;text-align:right;background:#ffc;}
-form.comment #id_comment{width:640px;}
 form.comment label{font-weight:800;margin:0;padding:0}
 form.comment p{margin:0;padding:0;text-indent:100px;}
 form.comment p.submit{text-align:right;}
@@ -9,41 +14,9 @@ form.comment .author img{height:25px;width:25px;border:1px solid #aaa;margin:1px
 form.comment div.text{width:600px;float:left;margin:0 0 0 10px;padding:0;}
 input{width:auto;}
 p.submit input{margin:8px;}
+*/
 </style>
 {% load accounts_tags %}
-<link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css">
-<script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
-<script type="text/javascript" src="/static/js/kindeditor/lang/zh_CN.js"></script>
-<script>
-        var editor;
-        KindEditor.ready(function(K) {
-                editor = K.create('#id_comment', {
-                        resizeType : 2,
-                        allowImageUpload:true,
-                        height:'200px',
-                        width:'650px',
-                        fontSizeTable:'14px',
-                        filterMode :true,
-                        items:['code','image','fullscreen'],
-                        htmlTags:{
-                            'code,pre' : [''],
-                            'img' : ['src', 'width', 'height'],
-                        },
-                        
-                        uploadJson : '/upload/',
-                        fileManagerJson : '../asp.net/file_manager_json.ashx',
-                        fieldName : 'file',                
-                        extraFileUploadParams : {
-                            file_type : 'image',
-                            dir : 'comments'
-                        },
-
-
-
-
-                });
-        });
-</script>
     {% if request.user.is_authenticated %}
     {% load comments %}
     <form class="comment" action="{% comment_form_target %}" method="POST">{% csrf_token %}
@@ -57,14 +30,20 @@ p.submit input{margin:8px;}
                 <p><label>站点</label>{{ form.url }}</p>
                 <p>{{ form.comment }}</p>
             {% else %}
+                {% comment %}
                 <div class="author">
                     <a href="/home/{{ request.user.id }}/">
                         <img src="{{ request.user.username|gravatar_url }}"
                              alt="{{ request.user.get_profile.screen_name }}">
                     </a>
                 </div>
-                <div class="text">{{ form.comment }}</div>
+                {% endcomment %}
+                {% comment %}<div class="text">{{ form.comment }}</div>{% endcomment %}
+	            <div id="wmd-button-bar" class="wmd-panel"></div>
+	            <textarea id="wmd-input" class="wmd-panel" name="comment"></textarea>
+                <p><div id="wmd-preview" class="wmd-panel">fuck</div></p>
                 <div class="clear"></div>
+
             {% endif %}
             <p class="submit"><input class="button" type="submit" value="写上去！" style="width:80px;"></p>
     </form>
