@@ -23,6 +23,22 @@ import socket
 from django.http import HttpResponseBadRequest, HttpResponseNotFound,HttpResponse
 from wiki.models import *
 from wiki.signals import *
+import lxml.html
+from lxml.html.clean import Cleaner
+
+def filter_html(html):
+    cleaner = Cleaner(javascript=True,scripts=True,style=True,embedded=False,remove_unknown_tags=True)
+    cleaner.remove_tags = ['div','font','strong','u','em','b']
+    html = cleaner.clean_html(html)
+    tree = lxml.html.fromstring(html)
+    links = tree.xpath('//a')
+
+    for a in links:
+        a.set('rel','nofollow')
+        a.set('target','_blank')
+
+    html = lxml.html.tostring(tree)
+    return html
 
 def json_response(dict,request=None):
     """ Return json response
@@ -64,5 +80,6 @@ class BrowserBase(object):
             raise Exception
         else:
             return res
+
 
 

@@ -26,6 +26,7 @@ from django.db.models.signals import post_save
 from django.db.models.signals import pre_save
 from signals import new_wiki_was_post
 import markdown
+from utils.common import filter_html
 
 class Category(models.Model):
     """
@@ -84,6 +85,7 @@ class Entry(models.Model):
     def save(self,*args,**kwargs):
         if self.md_content:
             self.content = markdown.markdown(self.md_content)
+        self.content = filter_html(self.content)
 
         super(Entry,self).save(*args,**kwargs)
 
