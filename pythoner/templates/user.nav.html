@@ -5,6 +5,8 @@
     <a href="/pm/">PM{% autoescape off %}{{ request.user|pm_count }}{% endautoescape %}</a>
     <span class="blank">|</span>
     <a href="/home/edit/">设置</a>
+    <span class="blank">|</span>
+    <a href="/accounts/logout/">退出</a>
 {% else %}
     <span class="dark">你还没有登录</span>
     <span class="blank">|</span>
