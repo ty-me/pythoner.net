@@ -16,10 +16,14 @@
 <body>
 <script>
     $(document).ready(function(){
+        // 调整部广告条宽度
+        $('#head-banner img').attr('width','960px');
+        
         // 加载导航条
         $('.sub-nav').load('/main/usernav/');
 
         $('#you-know').html('支持我们,你懂的');
+
 
         // 滚动跟随
         $.fn.smartFloat = function() {

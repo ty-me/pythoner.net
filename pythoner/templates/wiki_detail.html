@@ -25,7 +25,7 @@
 {% get_comment_form for entry as form %}
 {% get_comment_count for entry as comment_count %}
 <div id="post">
-    {% if request.user.id == entry.author.id and not entry.public %}
+    {% if request.user.id == entry.author.id %}
         <div class="action">
             <a href="/wiki/{{ entry.id }}/edit/">修改</a>
             <span>|</span>

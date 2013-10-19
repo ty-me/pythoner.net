@@ -22,6 +22,7 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponsePermanentRedirect as Redirect301
+from django.db import transaction
 from django.shortcuts import render_to_response as render
 from django.core.paginator import Paginator,InvalidPage,EmptyPage
 from django.core.mail import send_mail
@@ -151,7 +152,9 @@ def post(request):
 @login_required
 @csrf_protect
 def add(request,editor='markdown'):
-    """ 用户写新的文章 """
+    """ 用户写新的文章 
+    
+    """
 
     current_page = 'user_wiki'
 
@@ -190,14 +193,14 @@ def add(request,editor='markdown'):
         
         try:
             new_wiki.save()
+        except Exception,e:
+            return HttpResponse('保存文章时出错：%s'%e)
+        else:
             # 增加声望
             profile = request.user.get_profile()
             profile.score += 10
             profile.save()
             messages.success(request,'分享文章成功，声望+10')
-        except Exception,e:
-            return HttpResponse('保存文章时出错：%s'%e)
-        else:
 
             # 发送信号
             new_wiki_was_post.send(
@@ -273,19 +276,31 @@ def edit(request,wiki_id):
         return render(template,locals(),context_instance=RequestContext(request))
 
 @login_required
+@transaction.commit_manually
 def delete(request,wiki_id):
     """
     用户删除文章
 
     """
-
     try:
         wiki = Entry.objects.get(id=wiki_id,author=request.user)
     except Entry.DoesNotExist:
         raise Http404()
 
     if request.user == wiki.author:
-        wiki.delete()
+        try:
+            wiki.delete()
+            # 扣除声望
+            profile = request.user.get_profile()
+            profile.score -= 15
+            profile.save()
+        except Exception,e:
+            transaction.rollback()
+            messages.error(request,'删除文章失败')
+        else:
+            transaction.commit()
+            messages.success(request,'删除文章成功，声望-15')
+
         # 删除后回到用户文章列表
         return HttpResponseRedirect('/home/%d/wiki/'%request.user.id)
     else:

@@ -100,16 +100,17 @@ def add(request):
         new_topic.ip = request.META.get('REMOTE_ADDR','0.0.0.0')
         try:
             new_topic.save()
-            # 增加声望
-            profile = request.user.get_profile()
-            profile.score += 10
-            profile.save()
-            messages.success(request,'发表话题成功，声望+10')
         except Exception,e:
             messages.error(request,'服务器出现了错误，发表话题失败，请稍候重试')
             return render('topic_edit.html',locals(),context_instance=RequestContext(request))
         else:
-            print 3
+            # 增加声望
+            #发送信号
+            profile = request.user.get_profile()
+            profile.score += 10
+            profile.save()
+            messages.success(request,'发表话题成功，声望+10')
+
             #发送信号
             new_topic_was_posted.send(
                 sender = new_topic.__class__,

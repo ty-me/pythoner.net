@@ -30,8 +30,8 @@ def get_alive_user(count=200):
     """
     得到活跃用户
     """
-    users = User.objects.filter(is_active=True).order_by('-last_login')[:count]
-    return {'users':users}
+    ps = UserProfile.objects.filter().order_by('-score')[:count]
+    return {'users':[p.user for p in ps]}
 
 @register.filter
 def gravatar_url(email="somone@example.com",size=40):

@@ -1,9 +1,9 @@
 <style>
-    div#book-list div.book{border-bottom:1px dashed #cecece;}
-    div.pic{width:150px;float:left;margin:10px 0 5px 0;}
-    div.pic img{height:100px;margin:0 0 0 15px;}
-    div.info{float:left;margin:10px 0 0 0;width:520px;}
-    div.price{float:right;}
+    #book-list div.book{border-bottom:1px dashed #cecece;}
+    #book-list div.pic{width:150px;float:left;margin:10px 0 5px 0;}
+    #book-list div.pic img{height:100px;margin:0 0 0 15px;}
+    #book-list div.info{float:left;margin:10px 0 0 0;width:520px;}
+    #book-list div.price{float:right;}
 </style>
 
 {% load home_tags %}
@@ -19,7 +19,6 @@
                 <div class="isbn">ISBN:{{ entry.isbn }}</div>
                 <div class="price"><a  href="#">价格 ￥{{ entry.price }}</a></div>
             </div>
-
             <div class="clear"></div>
         </div>
 
