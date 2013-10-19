@@ -23,6 +23,7 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from link.models import *
 from link.forms import LinkForm
+from django.contrib import messages
 
 def index(request):
     return render('link_index.html',locals(),context_instance=RequestContext(request))
@@ -40,7 +41,18 @@ def add(request):
 
     # 处理用户提交的数据
     if form.is_valid():
-        form.save()
+        try:
+            form.save()
+        except Exception,e:
+             messages.error('保存数据时出错')
+        
+        if request.user.is_authenticated():
+            # 增加声望
+            profile = request.user.get_profile()
+            profile.score += 5
+            profile.save()
+            messages.success(request,'分享酷站成功，声望+5')
+
         return render('link_posted.html',locals(),context_instance=RequestContext(request))
     else:
         return render('link_add.html',locals(),context_instance=RequestContext(request))

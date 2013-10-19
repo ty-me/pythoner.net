@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}添加链接{% endblock %}
+{% block title %}添加网站链接{% endblock %}
 {% block description %}欢迎与pythoner.org建立友情链接{% endblock %}
 {% block main %}
 <style>
@@ -16,7 +16,7 @@ $(document).ready(function(){
 			email:{required:true,email:true},
 			remark:{required:true,minlength:10,maxlength:100},
 		},
-		
+	
 		messages:{
 			category:{required:'请选择一个分类'},
 			title:{required:'标题不能为空',minlength:'标题不能少于3个字符',maxlength:'标题不能多于10个字符'},
@@ -27,7 +27,7 @@ $(document).ready(function(){
 	});
 });
 </script>
-    <h1>添加一个链接</h1>
+    <h1>添加一个网站链接</h1>
     <form action="/link/add/" method="POST">
         {{ form.as_p }}
         {% csrf_token %}
@@ -35,5 +35,5 @@ $(document).ready(function(){
     </form>
 {% endblock %}
 {% block sidebar %}
-    <ul><li><a href="/link/">返回链接列表</a> </li></ul>
+    <ul><li><a href="/link/">返回网站列表</a> </li></ul>
 {% endblock %}

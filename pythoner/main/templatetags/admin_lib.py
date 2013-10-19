@@ -6,15 +6,15 @@ register = template.Library()
 def trans_app(app_name):
     app = {'Auth':'权限系统',
            'Comments':'评论系统',
-           'News':'新闻模块',
-           'Wiki':'维基模块',
-           'Topic':'讨论模块',
-           'Code':'代码模块',
-           'Jobs':'招聘模块',
+           'News':'新闻',
+           'Wiki':'维基',
+           'Topic':'讨论',
+           'Code':'代码',
+           'Jobs':'招聘',
            'Sites':'站点管理',
-           'Pm':'短信模块',
+           'Pm':'短信',
            'Books':'图书模块',
-           'Link':'链接模块',
+           'Link':'酷站',
            'Spider':'站点爬虫',
            'Home':'用户中心',}
     try:
