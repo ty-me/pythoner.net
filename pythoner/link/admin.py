@@ -22,7 +22,7 @@ from django.contrib import admin
 from models import *
 
 class LinkAdmin(admin.ModelAdmin):
-    list_display = ('category','title','url','email','sub_time','display')
+    list_display = ('category','title','url','sub_time','display')
     list_display_links = ('title','category')
 
 admin.site.register(Category)

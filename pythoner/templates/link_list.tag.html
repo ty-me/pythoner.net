@@ -3,7 +3,7 @@
     {% for link in links %}
         <li>
             <img src="{{ link.url }}/favicon.ico" class="icon">
-            <a href="{{ link.url }}" title="{{ link.remark }}" target="_blank">{{ link.title }}</a></li>
+            <a href="{{ link.url }}" title="{{ link.remark }}" target="_blank" rel="external nofollow">{{ link.title }}</a></li>
     {% endfor %}
 <div class="clear">&nbsp;</div>
 </ul>
