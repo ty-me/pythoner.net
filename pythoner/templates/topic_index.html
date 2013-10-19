@@ -39,16 +39,5 @@
 {% block sidebar %}
     <a href="/topic/add/" id="add">发起讨论</a>
     {% get_topic_tag %}
-        <h2>相关信息</h2>
-            <script type="text/javascript"><!--
-            google_ad_client = "ca-pub-8602112008660595";
-            /* pythoner250&#42;250文字广告 */
-            google_ad_slot = "8037771748";
-            google_ad_width = 250;
-            google_ad_height = 250;
-            //-->
-            </script>
-            <script type="text/javascript"
-            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-            </script>
+    {% include "ads-250-60.html" %}
 {% endblock %}

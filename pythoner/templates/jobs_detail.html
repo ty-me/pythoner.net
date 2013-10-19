@@ -61,6 +61,8 @@
 {% block sidebar %}
     <a href="/jobs/add/" id="add" class="btn">+ 发布招聘信息</a>
     {% load jobs_tags %}
+    <div id="float-ads-sidebar"> 
     {% get_latest_job %}
-    <div id="float-ads"> {% render_sidebar_ads %} </div>
+    {% render_sidebar_ads %} 
+    </div>
 {% endblock %}
