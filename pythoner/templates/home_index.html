@@ -28,7 +28,6 @@ ul#user-action li.topic{background:url("/static/images/add_topic.gif") no-repeat
         <li class="code"><a href="/code/add/">分享代码</a> </li>
         <li class="wiki"><a href="/wiki/add/">分享文章</a> </li>
         <li class="topic"><a href="/topic/add/">提问/讨论</a> </li>
-        <li class="settings"><a href="/home/edit/">帐号设置</a> </li>
     {% else %}
         <li class="follow"><a href="/home/{{ profile.user.id }}/follow/">{{ request.user|get_relation:profile.user }}</a></li>
         <li class="pm"><a href="/pm/write/?to={{ user.id }}">发送PM</a></li>
