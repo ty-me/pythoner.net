@@ -1,6 +1,6 @@
 {% if request.user.is_authenticated %}
     {% load pm_tags %}
-    {{ request.user.get_profile.screen_name }} 的声望:<a href="/home/"><b>{{request.user.get_profile.score }}</b></a>
+    {{ request.user.get_profile.screen_name }} 的声望:<b class="orange">{{request.user.get_profile.score }}</b>
     <span class="blank">|</span>
     <a href="/pm/">PM{% autoescape off %}{{ request.user|pm_count }}{% endautoescape %}</a>
     <span class="blank">|</span>
