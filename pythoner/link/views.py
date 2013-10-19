@@ -26,10 +26,12 @@ from link.forms import LinkForm
 from django.contrib import messages
 
 def index(request):
+    current_page = 'link'
     return render('link_index.html',locals(),context_instance=RequestContext(request))
 
 @csrf_protect
 def add(request):
+    current_page = 'link'
 
     # 处理GET请求
     if request.method == 'GET':
