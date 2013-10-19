@@ -92,8 +92,9 @@ ol li .action a:hover{background:none;color:#000;s}
 {% endblock %}
 {% block sidebar %}
     <a href="/code/add/" id="add">+ 分享我的代码</a>
-    {% get_code_list_by_user code_base.author %}
     {% get_code_visitor code_base %}
-    {% get_latest_code %}
-    <div id="float-ads"> {% render_sidebar_ads %} </div>
+    <div id="float-ads-sidebar"> 
+    {% get_code_list_by_user code_base.author %}
+    {% render_sidebar_ads %} 
+    </div>
 {% endblock %}
