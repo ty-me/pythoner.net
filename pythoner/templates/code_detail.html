@@ -45,7 +45,7 @@ ol li .action a:hover{background:none;color:#000;s}
             </div>
             <h1>{{ code_base.title|slice:"30" }} </h1>
             <div class="meta">
-                <a href="/home/{{ code_base.author.id }}">{{ code_base.author.get_profile.screen_name }}</a>
+                <a href="/home/{{ code_base.author.id }}/">{{ code_base.author.get_profile.screen_name }}</a>
                 发布于 {{ code_base.sub_time }}，分类:{{ code_base.category.name }}，{{ comment_count }}评/{{ code_base.click_times }}阅
             </div>
         <div class="clear">&nbsp;</div>
