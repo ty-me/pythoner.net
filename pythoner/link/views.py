@@ -27,11 +27,13 @@ from django.contrib import messages
 
 def index(request):
     current_page = 'link'
+    page_title = '酷站'
     return render('link_index.html',locals(),context_instance=RequestContext(request))
 
 @csrf_protect
 def add(request):
     current_page = 'link'
+    page_title = '酷站'
 
     # 处理GET请求
     if request.method == 'GET':

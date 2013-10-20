@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% block title %}链接页面{% endblock %}
 {% block description %}所有与pythoner.org网站建立过友情链接的网站、博客{% endblock %}
 {% block main %}
 {% load link_tags %}
@@ -25,7 +24,7 @@ ul.link li img{
     margin:0 4px 0 0;
 }
 </style>
-    <h1>链接页面</h1>
+<h1>{{ page_title }}</h1>
     {% get_link_by_category 1 %}
     {% get_link_by_category 2 %}
     {% get_link_by_category 3 %}
