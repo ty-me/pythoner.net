@@ -53,9 +53,9 @@ def add(request):
         if request.user.is_authenticated():
             # 增加声望
             profile = request.user.get_profile()
-            profile.score += 5
+            profile.score += 1
             profile.save()
-            messages.success(request,'分享酷站成功，声望+5')
+            messages.success(request,'分享酷站成功，声望+1')
 
         return render('link_posted.html',locals(),context_instance=RequestContext(request))
     else:
