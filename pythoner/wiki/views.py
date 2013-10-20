@@ -35,8 +35,10 @@ from settings import *
 from models import *
 from forms import WikiForm,WikiMdForm
 from signals import new_wiki_was_post
+from utils.logger import getlogger
+log = getlogger(__name__)
 
-#@cache_page(60*60)
+@cache_page(60*60)
 def list(request,page=1):
     """
     列表页
@@ -183,24 +185,32 @@ def add(request,editor='markdown'):
     
     if editor == 'markdown':
         form = WikiMdForm(request.POST)
+        tpl_name = 'wiki_add_md.html'
     else:
         form = WikiForm(request.POST)
+        tpl_name = 'wiki_add.html'
 
     if form.is_valid():
         data = form.cleaned_data
+        if not data.get('md_content') and not data.get('content'):
+            messages.error(request,u'文章文章内容不能为空')
+            return render(tpl_name,locals(),context_instance=RequestContext(request))
+
         new_wiki = Entry(**data)
         new_wiki.author = request.user
         
         try:
             new_wiki.save()
         except Exception,e:
-            return HttpResponse('保存文章时出错：%s'%e)
+            msg = u'保存文章时出错'
+            log.error(msg + str(e.message ))
+            return HttpResponse(msg)
         else:
             # 增加声望
             profile = request.user.get_profile()
             profile.score += 10
             profile.save()
-            messages.success(request,'分享文章成功，声望+10')
+            messages.success(request,u'分享文章成功，声望+10')
 
             # 发送信号
             new_wiki_was_post.send(
@@ -214,11 +224,9 @@ def add(request,editor='markdown'):
                 _k = 'backup_{}'.format(k)
                 if _k in  _keys:
                     del request.session[_k]
-
-
             return HttpResponseRedirect('/wiki/%d/' %new_wiki.id)
     else:
-        return render('wiki_add.html',locals(),context_instance=RequestContext(request))
+        return render(tpl_name,locals(),context_instance=RequestContext(request))
 
 @login_required
 @csrf_protect
@@ -243,7 +251,7 @@ def edit(request,wiki_id):
         template = 'wiki_add.html'
 
     if wiki.public:
-        messages.error(request,'文章已经发表，不允许被修改或删除')
+        messages.error(request,u'文章已经发表，不允许被修改或删除')
         url = '/wiki/{}/'.format(wiki.id)
         return HttpResponseRedirect(url)
 
@@ -266,10 +274,10 @@ def edit(request,wiki_id):
         try:
             wiki.save()
         except Exception,e:
-            messages.error(request,'保存文章时出错：%s'%e)
+            messages.error(request,u'保存文章时出错：%s'%e)
             return HttpResponseRedirect('/home/wiki/')
         else:
-            messages.success(request,'修改成功！')
+            messages.success(request,u'修改成功！')
 
         return HttpResponseRedirect('/wiki/%d/' %wiki.id)
     else:
@@ -296,13 +304,11 @@ def delete(request,wiki_id):
             profile.save()
         except Exception,e:
             transaction.rollback()
-            messages.error(request,'删除文章失败')
+            messages.error(request,u'删除文章失败')
         else:
             transaction.commit()
-            messages.success(request,'删除文章成功，声望-15')
-
-        # 删除后回到用户文章列表
-        return HttpResponseRedirect('/home/%d/wiki/'%request.user.id)
+            messages.success(request,u'删除文章成功，声望-15')
+        return HttpResponseRedirect('/wiki/')
     else:
-        return HttpResponse('非法操作！')
-
+        raise Http404
+            
