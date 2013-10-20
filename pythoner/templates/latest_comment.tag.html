@@ -4,7 +4,7 @@
     <h2>最近评论</h2>
     {% for comment in comments %}
         <li>
-            <a href="{{ comment.get_absolute_url }}" title="{{ comment.comment }}">
+            <a href="{{ comment.url }}" title="{{ comment.comment }}">
                 {{ comment.comment|slice:"20" }}</a>
         </li>
 
