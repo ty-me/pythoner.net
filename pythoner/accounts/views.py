@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
+import time
 from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response as render

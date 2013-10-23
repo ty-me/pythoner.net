@@ -22,7 +22,6 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponsePermanentRedirect as Redirect301
-from django.db import transaction
 from django.shortcuts import render_to_response as render
 from django.core.paginator import Paginator,InvalidPage,EmptyPage
 from django.core.mail import send_mail
@@ -35,6 +34,7 @@ from settings import *
 from models import *
 from forms import WikiForm,WikiMdForm
 from signals import new_wiki_was_post
+from accounts.signals import update_user_repulation
 from utils.logger import getlogger
 log = getlogger(__name__)
 
@@ -206,11 +206,17 @@ def add(request,editor='markdown'):
             log.error(msg + str(e.message ))
             return HttpResponse(msg)
         else:
-            # 增加声望
-            profile = request.user.get_profile()
-            profile.score += 10
-            profile.save()
-            messages.success(request,u'分享文章成功，声望+10')
+            # 发送增加声望的信号
+            update_user_repulation.send(
+                    sender = __name__,
+                    request = request,
+                    message = u'分享文章成功',
+                    user  = request.user,
+                    action = 'add',
+                    content_type = 'wiki',
+                    title  = new_wiki.title,
+                    url    = new_wiki.get_absolute_url(),
+            )
 
             # 发送信号
             new_wiki_was_post.send(
@@ -284,7 +290,6 @@ def edit(request,wiki_id):
         return render(template,locals(),context_instance=RequestContext(request))
 
 @login_required
-@transaction.commit_manually
 def delete(request,wiki_id):
     """
     用户删除文章
@@ -292,6 +297,7 @@ def delete(request,wiki_id):
     """
     try:
         wiki = Entry.objects.get(id=wiki_id,author=request.user)
+        wiki_title = wiki.title
     except Entry.DoesNotExist:
         raise Http404()
 
@@ -303,11 +309,19 @@ def delete(request,wiki_id):
             profile.score -= 15
             profile.save()
         except Exception,e:
-            transaction.rollback()
-            messages.error(request,u'删除文章失败')
+            pass
         else:
-            transaction.commit()
-            messages.success(request,u'删除文章成功，声望-15')
+            # 发送增加声望的信号
+            update_user_repulation.send(
+                    sender = __name__,
+                    request = request,
+                    message = u'删除文章成功',
+                    user  = request.user,
+                    action = 'delete',
+                    content_type = 'wiki',
+                    title  = wiki_title,
+                    url    = '/',
+            )
         return HttpResponseRedirect('/wiki/')
     else:
         raise Http404

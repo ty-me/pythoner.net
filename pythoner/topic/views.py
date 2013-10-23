@@ -104,12 +104,17 @@ def add(request):
             messages.error(request,'服务器出现了错误，发表话题失败，请稍候重试')
             return render('topic_edit.html',locals(),context_instance=RequestContext(request))
         else:
-            # 增加声望
-            #发送信号
-            profile = request.user.get_profile()
-            profile.score += 10
-            profile.save()
-            messages.success(request,'发表话题成功，声望+10')
+            # 发送增加声望的信号
+            update_user_repulation.send(
+                    sender = __name__,
+                    request = request,
+                    user  = request.user,
+                    action = 'add',
+                    content_type = 'topic',
+                    message = u'发起新话题成功',
+                    title  = new_topic.title,
+                    url    = new_topic.get_absolute_url(),
+            )
 
             #发送信号
             new_topic_was_posted.send(

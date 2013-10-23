@@ -21,3 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from django.dispatch import Signal
 
 new_user_register = Signal(providing_args=['profile'])
+
+# 更新用户声望的信号
+update_user_repulation = Signal(providing_args=['user','action','content_type','url','title'])
