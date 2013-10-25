@@ -40,20 +40,6 @@ def index(request):
     wiki_first   = Entry.objects.filter(public=True).order_by('-sub_time')[0]
     wiki_second  = Entry.objects.filter(public=True).order_by('-sub_time')[1]
     wikis        = Entry.objects.filter(public=True).exclude(id__in=[wiki_first.id,wiki_second.id]).order_by('-id')[0:20]
-
-
-    from accounts.signals import update_user_repulation
-    from django.contrib.auth.models import User
-    update_user_repulation.send(
-            sender = __name__,
-            user  = User.objects.get(pk=1),
-            action = 'add',
-            content_type = 'wiki',
-            title  = 'test signal',
-            message = u'分享文章成功',
-            url    = '/',
-            request = request,
-    )
     return render('index.html',locals(),context_instance=RequestContext(request))
 
 def usernav(request):
