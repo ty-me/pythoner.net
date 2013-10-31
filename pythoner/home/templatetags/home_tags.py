@@ -97,6 +97,8 @@ def how_long(sub_time):
         sub_time = time.mktime(sub_time.utctimetuple()) #将转换为秒
     except TypeError:
         sub_time = time.mktime(datetime.datetime.now())
+    except Exception,e:
+        return sub_time
     s = int(now_time - sub_time)
     #1分钟以内
     if s<=60:

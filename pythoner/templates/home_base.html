@@ -32,6 +32,8 @@
             <a href="/home/{{ user.id }}/wiki/">文章</a></span>
         <span class="tab {% if current_page == 'user_topic' %}selected{% endif %}">
             <a href="/home/{{ user.id }}/topic/">讨论</a></span>
+        <span class="tab {% if current_page == 'user_repulation' %}selected{% endif %}">
+            <a href="/home/{{ user.id }}/repulation/">声望</a></span>
         {% comment %}
         <span class="tab {% if current_page == 'user_reputation' %}selected{% endif %}">
             <a href="/home/{{ user.id }}/reputation/">声望</a></span>

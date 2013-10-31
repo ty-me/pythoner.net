@@ -26,24 +26,24 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django import forms
-from pythoner.wiki.models import Entry
 from django.views.decorators.csrf import csrf_protect
+from accounts.models import Repulation
 
 def list(request,user_id,page=1):
     """
-    用户发表的代码
+    用户声望变化的历史记录
     """
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
         raise Http404()
 
-    pre_url = 'home/%d/wiki' %user.id
-    current_page = 'user_wiki'
-    wiki_all = Entry.objects.filter(author=user)
-    paginator = Paginator(wiki_all,20)
+    pre_url = 'home/%d/repulation' %user.id
+    current_page = 'user_repulation'
+    items_all = Repulation.objects.filter(user=user).order_by('-created_at')
+    paginator = Paginator(items_all,20)
     try:
-        entrys = paginator.page(page)
+        items = paginator.page(page)
     except (EmptyPage,InvalidPage):
-        entrys = paginator.page(paginator.num_pages)
-    return render('home_wiki.html',locals(),context_instance=RequestContext(request))
+        items = paginator.page(paginator.num_pages)
+    return render('home_repulation.html',locals(),context_instance=RequestContext(request))

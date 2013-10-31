@@ -34,7 +34,11 @@ urlpatterns = patterns('home',
     (r'^(\d{1,10})/topic/$','views.topic'), # 用户发起的话题
     (r'^(\d{1,10})/topic/p(\d{1,10})/$','views.topic'), # 用户发起得话题(翻页
 
-    (r'^(\d{1,10})/wiki/','userwiki.list'), # 用户板报列表
+    (r'^(\d{1,10})/wiki/p(\d{1,10})/$','userwiki.list'), # 用户板报列表
+    (r'^(\d{1,10})/wiki/$','userwiki.list'), # 用户板报列表
+
+    (r'^(\d{1,10})/repulation/p(\d{1,10})/$','repulation.list'), # 用户板报列表
+    (r'^(\d{1,10})/repulation/$','repulation.list'), # 用户板报列表
 
     (r'^edit/$','profile.edit'), # 编辑用户档案
     (r'^delete/$','profile.delete'), # 删除账号

@@ -1,0 +1,44 @@
+{% extends "home_base.html" %}
+{% block keyworld %}{{ user.get_profile.screen_name }},{{ user.get_profile.screen_name }}分享的文章,python文章{% endblock %}
+{% block title %}{{ user.get_profile.screen_name }}分享的文章{% endblock %}
+{% block description %}{{ user.get_profile.screen_name }}在Pythoner.net上分享的文章{% endblock %}
+{% block h1 %}{{ user.get_profile.screen_name }}分享的文章{% endblock %}
+{% block main %}
+<style>
+#wiki-list li{background:none;padding:0;}
+#wiki-list li span.public{font-weight:800;}
+</style>
+    {% load comments %}
+    {% load home_tags %}
+    <ul class="list" id="wiki-list">
+	{% for item in items.object_list %}
+        <li>
+            {% if item.public %}<span class="public">[荐]</span>{% endif %}
+            <a href="{{ item.get_absolute_url }}" title="{{ item.title }}" class="title">
+                {{ item.title|title }} {{ item.action }} {{ item.content_type }} {{ item.count }}</a>
+            <span class="time">发表于{{ item.sub_time|how_long }}
+            </span>
+            <span class="count">{{ comment_account }}评 {{ item.click_time }}阅</span>
+        </li>
+    {% empty %}
+        <p style="text-align:center;">没有找到记录</p>
+    {% endfor %}
+        <div class="more">{% include 'paginator.inc.html' %}</div>
+        <div class="clear"></div>
+    </ul>
+{% endblock %}
+{% block sidebar %}
+    <div class="blank"></div>
+    <h2>赞助商链接</h2>
+    <script type="text/javascript"><!--
+    google_ad_client = "ca-pub-8602112008660595";
+    /* pythoner250&#42;250文字广告 */
+    google_ad_slot = "8037771748";
+    google_ad_width = 250;
+    google_ad_height = 250;
+    //-->
+    </script>
+    <script type="text/javascript"
+    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
+{% endblock %}
