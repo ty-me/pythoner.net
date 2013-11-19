@@ -68,7 +68,7 @@ class Link(models.Model):
         return self.link
 
 def _update_user_repulation(sender,**kwargs):
-    """   处理信号
+    """   处理用户声望更新的信号
 
     """
     try:
@@ -108,6 +108,5 @@ def _update_user_repulation(sender,**kwargs):
     except Exception,e:
         log.error(e)
         return False
-
 
 update_user_repulation.connect(_update_user_repulation)
