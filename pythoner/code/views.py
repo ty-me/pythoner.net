@@ -73,7 +73,7 @@ def list_by_user(request,user_id,page=1):
         entrys = paginator.page(page)
     except (EmptyPage,InvalidPage):
         entrys = paginator.page(paginator.num_pages)
-    # return render('code_list.html',locals(),context_instance=RequestContext(request))
+    return render('code_list.html',locals(),context_instance=RequestContext(request))
 
 def detail(request,code_base_id):
     current_page = 'code'
