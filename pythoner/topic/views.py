@@ -28,6 +28,7 @@ from forms import *
 from django.core.paginator import Paginator,InvalidPage,EmptyPage
 from django.shortcuts import render_to_response as render
 from signals import new_topic_was_posted
+from accounts.signals import update_user_repulation
 import datetime
 import time
 
