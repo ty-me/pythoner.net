@@ -42,7 +42,7 @@ def list(request,page=1):
         page_title   = u'招聘'
         page_description = u'招聘python开发工程师'
 
-    paginator    = Paginator(job_all,20)
+    paginator    = Paginator(job_all, 30)
     current_page = 'jobs'
     pre_url = 'jobs'
     try:

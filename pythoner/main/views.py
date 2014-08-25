@@ -33,7 +33,7 @@ from code.models import Base
 #@cache_page(60*60)
 def index(request):
     current_page = 'index'
-    page_title   = u'首页'
+    page_title = u'python基础教程|python核心编程|python爬虫'
     topics       = Topic.objects.filter(deleted=False).order_by('-id')[0:16]
     codes        = Base.objects.filter(display=True).order_by('-id')[0:20]
     jobs         = Job.objects.order_by('-sub_time').filter(display=True).order_by('-id')[0:15]

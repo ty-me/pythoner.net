@@ -17,9 +17,11 @@
     </div>
 {% endif %}
 
+    <div class="box">{% include "ga_700_90.inc.html" %}</div>
+
     <div class="box">
         <ul class="list" id="job-list">
-            {% for entry in entrys.object_list %}
+            {% for entry in entrys.object_list|slice:":15" %}
                 <li>
                     <span>[<a href="/jobs/?city={{ entry.city }}" title="查看所有{{ entry.city }}的招聘信息">{{ entry.city }}</a>]</span>
                     <a href="{{ entry.get_absolute_url }}" class="title">
@@ -30,6 +32,25 @@
                     <div class="clear"></div>
                 </li>
             {% endfor %}
+        </ul>
+    </div>
+
+    <div class="box">{% include "ga_700_90.inc.html" %}</div>
+
+    <div class="box">
+        <ul class="list" id="job-list">
+            {% for entry in entrys.object_list|slice:"15:" %}
+                <li>
+                    <span>[<a href="/jobs/?city={{ entry.city }}" title="查看所有{{ entry.city }}的招聘信息">{{ entry.city }}</a>]</span>
+                    <a href="{{ entry.get_absolute_url }}" class="title">
+                        {{ entry.company }} {{ entry.title }}
+                    </a>
+                    <span>{{ entry.click_times }}阅</span>
+                    <span class="right">{{ entry.sub_time|how_long }}</span>
+                    <div class="clear"></div>
+                </li>
+            {% endfor %}
+
             <div class="more">{% include 'paginator.inc.html' %}</div>
             <div class="clear"></div>
         </ul>
@@ -38,5 +59,5 @@
 {% block sidebar %}
     <a href="/jobs/add/" id="add">发布招聘信息</a>
     {% get_job_by_click_time %}
-    {% include "ads-250-60.html" %}
-    {% endblock %}
+    <div id="float-ads-sidebar">{% include "ga_250_250.inc.html" %}</div>
+{% endblock %}

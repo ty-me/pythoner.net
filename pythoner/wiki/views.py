@@ -84,7 +84,7 @@ def list(request,page=1):
 
 
     #按分页获取文章条目        
-    paginator = Paginator(entry_all,20)
+    paginator = Paginator(entry_all,30)
 
     try :
         entrys = paginator.page(page)
