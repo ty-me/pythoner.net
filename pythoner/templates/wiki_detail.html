@@ -40,9 +40,8 @@
         <span class="add"><a href="/wiki/post/" title="向我们投递稿件"></a></span>
     </div>
     <div class="content">
-        <div id="adsense">
-            {% include "ga_300_250.inc.html" %}
-        </div>
+        <div id="adsense"> {% include "ga_300_250.inc.html" %} </div>
+
         {% autoescape off %}{{ entry.content }}{% endautoescape %}</div>
     <div class="wumi">
 		<script type="text/javascript" id="wumiiRelatedItems"></script>	
