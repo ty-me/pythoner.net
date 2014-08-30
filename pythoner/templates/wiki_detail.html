@@ -13,7 +13,7 @@
 #post .meta{color:#aaa;text-align:center;font-size:12px;}
 #post .action{text-align:right;}
 #post ul,#post ol{padding:0 0 0 20px;list-style:none;}
-#adsense {text-align:center;margin:0 auto;}
+#adsense {text-align:center;margin:0 auto;float:right;}
 </style>
 {% endblock %}
 {% block sub_nav %}{% endblock %}
@@ -40,19 +40,8 @@
         <span class="add"><a href="/wiki/post/" title="向我们投递稿件"></a></span>
     </div>
     <div class="content">
-        <div id="adsense">
-        <script type="text/javascript">
-             document.write('<a style="display:none!important" id="tanx-a-mm_28628925_4250601_14430433"></a>');
-             tanx_s = document.createElement("script");
-             tanx_s.type = "text/javascript";
-             tanx_s.charset = "gbk";
-             tanx_s.id = "tanx-s-mm_28628925_4250601_14430433";
-             tanx_s.async = true;
-             tanx_s.src = "http://p.tanx.com/ex?i=mm_28628925_4250601_14430433";
-             tanx_h = document.getElementsByTagName("head")[0];
-             if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
-        </script>
-        </div>
+        <div id="adsense" style="float:right;"> {% include "ga_300_250.inc.html" %} </div>
+
         {% autoescape off %}{{ entry.content }}{% endautoescape %}</div>
     <div class="wumi">
 		<script type="text/javascript" id="wumiiRelatedItems"></script>	

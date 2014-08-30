@@ -2,6 +2,7 @@
 {% block title %}{{ title }}{% endblock %}
 {% block description %}Python教程{% endblock %}
 {% block canonical %}<link rel="canonical" href="http://pythoner.org/wiki/" />{% endblock %}
+{% load home_tags %}
 {% load wiki_tags %}
 {% block main %}
 {% if allow_category %}
@@ -15,15 +16,51 @@
         <h2>{{ tag.name }}</h2>{{ tag.remark }}
     </div>
 {% endif %}
+
+<div class="box">{% include "ga_700_90.inc.html" %}</div>
+
 <div class="box">
-    {% include 'wiki_list.inc.html' %}
+    <ul class="list" id="wiki-list">
+	{% for entry in entrys.object_list|slice:":15" %}	
+        <li>
+            <span class="category">[{{ entry.category }}]</span>
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="title">{{ entry.title|title|slice:"35" }}</a>
+            <span class="time">
+                由 {{ entry.author.get_profile.screen_name }} 分享于{{ entry.sub_time|how_long }}
+            </span>
+            <span class="count">{{ entry.click_time }}阅</span>
+        </li>
+    {% endfor %}
+        <div class="clear"></div>
+    </ul>
 </div>
+
+<div class="box">{% include "ga_700_90.inc.html" %}</div>
+
+<div class="box">
+    <ul class="list" id="wiki-list">
+	{% for entry in entrys.object_list|slice:"15:" %}	
+        <li>
+            <span class="category">[{{ entry.category }}]</span>
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="title">{{ entry.title|title|slice:"35" }}</a>
+            <span class="time">
+                由 {{ entry.author.get_profile.screen_name }} 分享于{{ entry.sub_time|how_long }}
+            </span>
+            <span class="count">{{ entry.click_time }}阅</span>
+        </li>
+    {% endfor %}
+        <div class="more">{% include 'paginator.inc.html' %}</div>
+        <div class="clear"></div>
+    </ul>
+
+</div>
+
 {% endblock %}
 {% block sidebar %}
     <a href="/wiki/add/" id="add">分享文章</a>
     {% get_wiki_tag %}
     {% get_wiki_by_clicktime %}
-    {% include "ads-250-60.html" %}
+    {% include "ga_250_250.inc.html" %}
     {% include 'rss.inc.html' %}
     {% endblock %}
 

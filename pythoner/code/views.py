@@ -53,7 +53,7 @@ def list(request,page=1):
         page_title   = u'代码分享'
         code_base_all = Base.objects.filter(display=True)
     
-    paginator = Paginator(code_base_all,20)
+    paginator = Paginator(code_base_all, 30)
     try:
         entrys = paginator.page(page)
     except (EmptyPage,InvalidPage):
@@ -67,13 +67,13 @@ def list_by_user(request,user_id,page=1):
     except User.DoesNotExist:
         raise Http404()
     code_base_all = Base.objects.filter(author=user,display=True)
-    paginator = Paginator(code_base_all,20)
+    paginator = Paginator(code_base_all, 30)
     pre_url = 'code'
     try:
         entrys = paginator.page(page)
     except (EmptyPage,InvalidPage):
         entrys = paginator.page(paginator.num_pages)
-    # return render('code_list.html',locals(),context_instance=RequestContext(request))
+    return render('code_list.html',locals(),context_instance=RequestContext(request))
 
 def detail(request,code_base_id):
     current_page = 'code'

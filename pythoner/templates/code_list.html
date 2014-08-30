@@ -4,13 +4,53 @@
 {% block keyworld %},python代码{% endblock %}
 {% block title %}代码分享{% endblock %}
 {% block main %}
+{% load home_tags %}
 {% load code_tags %}
     <div id="category-list">{% get_code_category %}</div>
     <div class="clear"></div>
-    <div class="box">{% include 'code_list.inc.html' %}</div>
+
+    <div class="box">{% include "ga_700_90.inc.html" %}</div>
+
+    <div class="box">
+        <ul id="code-list" class="list">
+            {% for entry in entrys.object_list|slice:":15" %}
+                <li>
+                    <span>[{{ entry.category }}]</span>
+                    <a href="{{ entry.get_absolute_url }}" title="{{ entry.description|slice:"50" }}" class="title"> {{ entry.title }} </a>
+                    <span class="time">{{ entry.sub_time|how_long }}</span>
+                    <span class="author">By {{ entry.author.get_profile.screen_name }}</span>
+                    <span class="count">{{ entry.click_times }}阅</span>
+                    <div class="clear"></div>
+                </li>
+            {% endfor %}
+            <div class="clear"></div>
+        </ul>
+    </div>
+
+    <div class="box">{% include "ga_700_90.inc.html" %}</div>
+
+    <div class="box">
+        <ul id="code-list" class="list">
+            {% for entry in entrys.object_list|slice:"15:" %}
+                <li>
+                    <span>[{{ entry.category }}]</span>
+                    <a href="{{ entry.get_absolute_url }}" title="{{ entry.description|slice:"50" }}" class="title"> {{ entry.title }} </a>
+                    <span class="time">{{ entry.sub_time|how_long }}</span>
+                    <span class="author">By {{ entry.author.get_profile.screen_name }}</span>
+                    <span class="count">{{ entry.click_times }}阅</span>
+                    <div class="clear"></div>
+                </li>
+            {% empty %}
+                <li class="none-entry">没有找到可显示的记录</li>
+            {% endfor %}
+            <div class="more">{% include 'paginator.inc.html' %}</div>
+            <div class="clear"></div>
+        </ul>
+    </div>
+
 {% endblock %}
 {% block sidebar %}
     <a href="/code/add/" id="add">分享代码</a>
     {% get_code_by_clicktime %}
-    {% include "ads-250-60.html" %}
+    <div id="float-ads-sidebar">{% include "ga_250_250.inc.html" %}</div>
 {% endblock %}

@@ -55,6 +55,8 @@ div.right{margin:0 0 0 20px;}
         </ul>
         <div class="clear"></div>
 
+        <div>{% include "ga_700_90.inc.html" %}</div>
+
         <!-- 板报 -->
         <div class="box">
             <h2>
@@ -73,6 +75,8 @@ div.right{margin:0 0 0 20px;}
             </ul>
             <div class="clear"></div>
         </div>
+
+        <div>{% include "ga_700_90.inc.html" %}</div>
 
         <!-- 正在讨论 -->
         <div class="box">
@@ -97,6 +101,8 @@ div.right{margin:0 0 0 20px;}
             </ul>
         </div><!-- end box -->
     
+        <div>{% include "ga_700_90.inc.html" %}</div>
+
         <!-- 招聘 -->
         <div class="box">
             <h2>
@@ -119,9 +125,6 @@ div.right{margin:0 0 0 20px;}
         </div>
 {% endblock %}
 {% block sidebar %}
-        <!-- 广告位：首页边侧 -->
-        <h2 id="you-know"></h2>
-        {% render_sidebar_ads %}
         {% get_alive_user %}
         <div class="clear"></div>
         {% get_latest_comment 25 %}
@@ -133,6 +136,7 @@ div.right{margin:0 0 0 20px;}
             <li><img src="/static/images/ubuntu.png" title="ubuntu"></li>
             <li><img src="/static/images/mysql.png" title="mysql"></li>
         </ul>
+        <div id="float-ads-sidebar">{% include "ga_250_250.inc.html" %}</div>
         <div class="clear"></div>
 {% endblock %}
 {% include 'foot.html' %}
