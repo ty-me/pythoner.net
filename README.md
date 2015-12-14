@@ -1,22 +1,11 @@
 ![logo](http://pythoner.net/static/images/logo.png)
 
-感谢名单
--------
-特别感谢以下开发者贡献代码：
-
-+ [cbsheng](https://github.com/cbsheng)
-
-
 简介
 ---
 
 分支名matt来自于电影《火星救援》主人公Matta Damon
 新的分支用于重构，移除部分功能。开发完成后，老站点的数据将会迁移到新站点上。
 
-
-Version
--------
-+ 1.4.0
 
 
 开发环境配置
