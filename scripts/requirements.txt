@@ -1,8 +1,7 @@
-Django>=1.9.1
+Django>=1.9
 lxml
 BeautifulSoup==3.2.1
 MySQL-python==1.2.3
-PIL==1.1.7
 Pillow
 cuisine
 redis

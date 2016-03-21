@@ -1,11 +1,12 @@
 ![logo](http://pythoner.net/static/images/logo.png)
 
+## 是的，我正在重构
+
 简介
 ---
 
 分支名matt来自于电影《火星救援》主人公Matta Damon
 新的分支用于重构，移除部分功能。开发完成后，老站点的数据将会迁移到新站点上。
-
 
 
 开发环境配置
